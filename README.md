@@ -19,7 +19,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/Delisa-sama/collections/forwardlist"
+	"github.com/Delisa-sama/collections/sequence/forwardlist"
 )
 
 func main() {
@@ -45,7 +45,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/Delisa-sama/collections/list"
+	"github.com/Delisa-sama/collections/sequence/list"
 )
 
 func main() {
@@ -71,7 +71,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/Delisa-sama/collections/vector"
+	"github.com/Delisa-sama/collections/sequence/vector"
 )
 
 func main() {
@@ -89,6 +89,33 @@ func main() {
 }
 ```
 
+### Множество
+
+```go
+
+package main
+
+import (
+	"fmt"
+
+	"github.com/Delisa-sama/collections/associative/set"
+)
+
+func main() {
+	s := set.NewSet(1, 2, 3, 4, 5)
+	fmt.Println("Size:", s.Size())
+
+	for it := s.Begin(); !s.IsEmpty(); it.Next() {
+		fmt.Println("Value:", it.Value())
+
+		// Проверяем что итератор не дошел до конца
+		if it.Equals(s.End()) {
+			break
+		}
+	}
+}
+```
+
 ### Пример использования EqualsByIterators
 ```go
 package main
@@ -97,8 +124,8 @@ import (
 	"fmt"
 
 	"github.com/Delisa-sama/collections"
-	"github.com/Delisa-sama/collections/list"
-	"github.com/Delisa-sama/collections/vector"
+	"github.com/Delisa-sama/collections/sequence/list"
+	"github.com/Delisa-sama/collections/sequence/vector"
 )
 
 func main() {

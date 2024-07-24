@@ -3,6 +3,7 @@ package containers
 import (
 	"testing"
 
+	"github.com/Delisa-sama/collections/associative/set"
 	"github.com/Delisa-sama/collections/sequence/forwardlist"
 	"github.com/Delisa-sama/collections/sequence/list"
 	"github.com/Delisa-sama/collections/sequence/vector"
@@ -23,6 +24,11 @@ func Test_EqualsByIterators(t *testing.T) {
 		l3 := vector.NewVector(1, 2, 3)
 		if !EqualsByIterators(l.Begin(), l3.Begin(), DefaultComparator[int]()) {
 			t.Fatalf("list and vector not equals")
+		}
+
+		s := set.NewSet(1, 2, 3, 3)
+		if !EqualsByIterators(l.Begin(), s.Begin(), DefaultComparator[int]()) {
+			t.Fatalf("list and set not equals")
 		}
 
 		vec := vector.NewVector(1, 2, 3)
