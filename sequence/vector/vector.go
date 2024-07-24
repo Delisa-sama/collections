@@ -34,7 +34,12 @@ func (l *Vector[T]) Begin() interfaces.RandomAccessIterator[T] {
 
 // End возвращает итератор на последний элемент вектора.
 func (l *Vector[T]) End() interfaces.RandomAccessIterator[T] {
-	return newIterator(&l.s, len(l.s)-1)
+	return newIterator(&l.s, uint(len(l.s)-1))
+}
+
+// At возвращает итератор на элемент вектора по переданному индексу.
+func (l *Vector[T]) At(index uint) interfaces.RandomAccessIterator[T] {
+	return newIterator(&l.s, index)
 }
 
 // Append добавляет новый элемент в конец вектора.

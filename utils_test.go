@@ -24,5 +24,12 @@ func Test_EqualsByIterators(t *testing.T) {
 		if !EqualsByIterators(l.Begin(), l3.Begin(), DefaultComparator[int]()) {
 			t.Fatalf("list and vector not equals")
 		}
+
+		vec := vector.NewVector(1, 2, 3)
+		vecBegin := vec.Begin()
+		vec.Append(4)
+		if EqualsByIterators(vecBegin, l3.Begin(), DefaultComparator[int]()) {
+			t.Fatalf("iterator not invalidated after vector was modified")
+		}
 	})
 }
