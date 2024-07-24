@@ -3,9 +3,9 @@ package containers
 import (
 	"testing"
 
-	"github.com/Delisa-sama/collections/forwardlist"
-	"github.com/Delisa-sama/collections/list"
-	"github.com/Delisa-sama/collections/vector"
+	"github.com/Delisa-sama/collections/sequence/forwardlist"
+	"github.com/Delisa-sama/collections/sequence/list"
+	"github.com/Delisa-sama/collections/sequence/vector"
 )
 
 func Test_EqualsByIterators(t *testing.T) {
