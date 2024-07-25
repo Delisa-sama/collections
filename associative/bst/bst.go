@@ -13,6 +13,46 @@ type node[T any] struct {
 	Right  *node[T]
 }
 
+func (n *node[T]) next() *node[T] {
+	if n.Right != nil {
+		return n.Right.min()
+	}
+	parent := n.Parent
+	current := n
+	for parent != nil && current == parent.Right {
+		current = parent
+		parent = parent.Parent
+	}
+	return parent
+}
+
+func (n *node[T]) prev() *node[T] {
+	if n.Left != nil {
+		return n.Left.max()
+	}
+	parent := n.Parent
+	current := n
+	for parent != nil && current == parent.Left {
+		current = parent
+		parent = parent.Parent
+	}
+	return parent
+}
+
+func (n *node[T]) min() *node[T] {
+	if n.Left == nil {
+		return n
+	}
+	return n.Left.min()
+}
+
+func (n *node[T]) max() *node[T] {
+	if n.Right == nil {
+		return n
+	}
+	return n.Right.max()
+}
+
 // BST представляет бинарное поисковое дерево.
 type BST[T any] struct {
 	root *node[T]
@@ -143,7 +183,7 @@ func (t *BST[T]) delete(v *node[T]) {
 			v.Left.Parent = p
 		}
 	} else {
-		successor := t.next(v)
+		successor := v.next()
 		v.Value = successor.Value
 		if successor.Parent.Left == successor {
 			successor.Parent.Left = successor.Right
@@ -159,33 +199,14 @@ func (t *BST[T]) delete(v *node[T]) {
 	}
 }
 
-func (t *BST[T]) next(x *node[T]) *node[T] {
-	if x.Right != nil {
-		return t.min(x.Right)
-	}
-	y := x.Parent
-	for y != nil && x == y.Right {
-		x = y
-		y = y.Parent
-	}
-	return y
-}
-
 // Min возвращает минимальный элемент в дереве.
 // Возможна паника при поиске в пустом дереве.
 func (t *BST[T]) Min() T {
 	if t.root == nil || t.IsEmpty() {
 		panic("searching min in empty tree")
 	}
-	n := t.min(t.root)
+	n := t.root.min()
 	return n.Value
-}
-
-func (t *BST[T]) min(x *node[T]) *node[T] {
-	if x.Left != nil {
-		return x
-	}
-	return t.min(x.Left)
 }
 
 // Max возвращает максимальный элемент в дереве.
@@ -194,18 +215,11 @@ func (t *BST[T]) Max() T {
 	if t.root == nil || t.IsEmpty() {
 		panic("searching max in empty tree")
 	}
-	n := t.max(t.root)
+	n := t.root.max()
 	return n.Value
 }
 
-func (t *BST[T]) max(x *node[T]) *node[T] {
-	if x.Right != nil {
-		return x
-	}
-	return t.min(x.Right)
-}
-
-// InOrderIterator возвращает итератор для in-order обхода.
-func (t *BST[T]) InOrderIterator() interfaces.ForwardIterator[T] {
+// InOrderIteratorBegin возвращает итератор для in-order обхода с начала.
+func (t *BST[T]) InOrderIteratorBegin() interfaces.ForwardIterator[T] {
 	return newInOrderIterator(t.root)
 }
