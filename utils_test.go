@@ -5,6 +5,7 @@ import (
 	"testing"
 
 	"github.com/Delisa-sama/collections/adapters/stack"
+	"github.com/Delisa-sama/collections/algorithms"
 	"github.com/Delisa-sama/collections/associative/bst"
 	"github.com/Delisa-sama/collections/associative/set"
 	"github.com/Delisa-sama/collections/comparator"
@@ -20,35 +21,35 @@ func Test_EqualsByIterators(t *testing.T) {
 		if l.Size() != 3 {
 			t.Fatalf("bad list size, got (%d), expected (%d)", l.Size(), 3)
 		}
-		ForEach(l.Begin(), l.End(), func(i int) {
+		algorithms.ForEach(l.Begin(), l.End(), func(i int) {
 			fmt.Println(i)
 		})
 		fmt.Println()
 
 		l2 := list.NewList[int](1, 2, 3)
-		if !Equals(l.Begin(), l2.Begin(), comparator.DefaultComparator[int]()) {
+		if !algorithms.Equals(l.Begin(), l2.Begin(), comparator.DefaultComparator[int]()) {
 			t.Fatalf("lists not equals")
 		}
-		ForEach(l2.Begin(), l2.End(), func(i int) {
+		algorithms.ForEach(l2.Begin(), l2.End(), func(i int) {
 			fmt.Println(i)
 		})
 		fmt.Println()
 
 		l3 := vector.NewVector(1, 2, 3)
-		if !Equals(l.Begin(), l3.Begin(), comparator.DefaultComparator[int]()) {
+		if !algorithms.Equals(l.Begin(), l3.Begin(), comparator.DefaultComparator[int]()) {
 			t.Fatalf("list and vector not equals")
 		}
-		ForEach(l3.Begin(), l3.End(), func(i int) {
+		algorithms.ForEach(l3.Begin(), l3.End(), func(i int) {
 			fmt.Println(i)
 		})
 		fmt.Println()
 
 		s := set.NewSet(1, 2, 3, 3)
-		if !Equals(l.Begin(), s.Begin(), comparator.DefaultComparator[int]()) {
+		if !algorithms.Equals(l.Begin(), s.Begin(), comparator.DefaultComparator[int]()) {
 			t.Fatalf("list and set not equals")
 		}
 
-		ForEach(s.Begin(), s.End(), func(i int) {
+		algorithms.ForEach(s.Begin(), s.End(), func(i int) {
 			fmt.Println(i)
 		})
 		fmt.Println()
@@ -56,7 +57,7 @@ func Test_EqualsByIterators(t *testing.T) {
 		vec := vector.NewVector(1, 2, 3)
 		vecBegin := vec.Begin()
 		vec.PushBack(4)
-		if Equals(vecBegin, l3.Begin(), comparator.DefaultComparator[int]()) {
+		if algorithms.Equals(vecBegin, l3.Begin(), comparator.DefaultComparator[int]()) {
 			t.Fatalf("iterator not invalidated after vector was modified")
 		}
 
@@ -80,10 +81,10 @@ func Test_EqualsByIterators(t *testing.T) {
 
 		binaryTree := bst.NewBST(comparator.DefaultComparator[int](), 4, 3, 5, 1, 0, 2, 6, 8, 7)
 		// In-order обход
-		if Equals(binaryTree.InOrderBegin(), l3.Begin(), comparator.DefaultComparator[int]()) {
+		if algorithms.Equals(binaryTree.InOrderBegin(), l3.Begin(), comparator.DefaultComparator[int]()) {
 			t.Fatalf("wtf")
 		}
-		ForEach(binaryTree.InOrderBegin(), binaryTree.InOrderEnd(), func(i int) {
+		algorithms.ForEach(binaryTree.InOrderBegin(), binaryTree.InOrderEnd(), func(i int) {
 			fmt.Println(i)
 		})
 		fmt.Println()
@@ -103,7 +104,7 @@ func Test_EqualsByIterators(t *testing.T) {
 			pair.NewPair(8, "8"),
 			pair.NewPair(7, "7"),
 		)
-		ForEach(kvBST.InOrderBegin(), kvBST.InOrderEnd(), func(p pair.Pair[int, string]) {
+		algorithms.ForEach(kvBST.InOrderBegin(), kvBST.InOrderEnd(), func(p pair.Pair[int, string]) {
 			fmt.Println(p)
 		})
 		fmt.Println()
