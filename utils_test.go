@@ -1,8 +1,10 @@
 package containers
 
 import (
+	"fmt"
 	"testing"
 
+	"github.com/Delisa-sama/collections/adapters/stack"
 	"github.com/Delisa-sama/collections/associative/set"
 	"github.com/Delisa-sama/collections/sequence/forwardlist"
 	"github.com/Delisa-sama/collections/sequence/list"
@@ -33,9 +35,24 @@ func Test_EqualsByIterators(t *testing.T) {
 
 		vec := vector.NewVector(1, 2, 3)
 		vecBegin := vec.Begin()
-		vec.Append(4)
+		vec.PushBack(4)
 		if EqualsByIterators(vecBegin, l3.Begin(), DefaultComparator[int]()) {
 			t.Fatalf("iterator not invalidated after vector was modified")
+		}
+
+		vecStack := stack.NewStack(vector.NewVector[int], 1, 2, 3)
+		for ; !vecStack.IsEmpty(); vecStack.Pop() {
+			fmt.Println(vecStack.Top())
+		}
+
+		listStack := stack.NewStack(list.NewList[int], 1, 2, 3)
+		for ; !listStack.IsEmpty(); listStack.Pop() {
+			fmt.Println(listStack.Top())
+		}
+
+		fwlistStack := stack.NewStack(forwardlist.NewForwardList[int], 1, 2, 3)
+		for ; !fwlistStack.IsEmpty(); fwlistStack.Pop() {
+			fmt.Println(fwlistStack.Top())
 		}
 	})
 }

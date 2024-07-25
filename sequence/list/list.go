@@ -15,7 +15,7 @@ type List[T any] struct {
 func NewList[T any](items ...T) *List[T] {
 	l := &List[T]{}
 	for i := range items {
-		l.Append(items[i])
+		l.PushBack(items[i])
 	}
 	return l
 }
@@ -47,8 +47,8 @@ func (l *List[T]) End() interfaces.BidirectionalIterator[T] {
 	return newIterator(l.end)
 }
 
-// Append добавляет новый элемент в конец списка.
-func (l *List[T]) Append(value T) {
+// PushBack добавляет новый элемент в конец списка.
+func (l *List[T]) PushBack(value T) {
 	newNode := &node[T]{
 		Value: &value,
 		Next:  nil,
@@ -63,4 +63,18 @@ func (l *List[T]) Append(value T) {
 	}
 	l.end = newNode
 	l.size++
+}
+
+// Back возвращает последний элемент списка.
+func (l *List[T]) Back() T {
+	return *l.end.Value
+}
+
+// PopBack удаляет последний элемент из списка.
+func (l *List[T]) PopBack() {
+	if l.IsEmpty() {
+		return
+	}
+	l.end = l.end.Prev
+	l.size--
 }

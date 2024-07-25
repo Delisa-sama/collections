@@ -15,7 +15,7 @@ type ForwardList[T any] struct {
 func NewForwardList[T any](items ...T) *ForwardList[T] {
 	l := &ForwardList[T]{}
 	for i := range items {
-		l.Append(items[i])
+		l.PushBack(items[i])
 	}
 	return l
 }
@@ -46,8 +46,8 @@ func (l *ForwardList[T]) End() interfaces.ForwardIterator[T] {
 	return newIterator(l.end)
 }
 
-// Append добавляет новый элемент в конец списка.
-func (l *ForwardList[T]) Append(value T) {
+// PushBack добавляет новый элемент в конец списка.
+func (l *ForwardList[T]) PushBack(value T) {
 	newNode := &node[T]{
 		Value: &value,
 		Next:  nil,
@@ -60,4 +60,30 @@ func (l *ForwardList[T]) Append(value T) {
 	}
 	l.end = newNode
 	l.size++
+}
+
+// Back возвращает последний элемент списка.
+func (l *ForwardList[T]) Back() T {
+	return *l.end.Value
+}
+
+// PopBack удаляет последний элемент из списка.
+func (l *ForwardList[T]) PopBack() {
+	if l.IsEmpty() {
+		return
+	}
+	if l.Size() == 1 {
+		l.top = nil
+		l.end = nil
+		l.size = 0
+		return
+	}
+
+	current := l.top
+	for current.Next != l.end {
+		current = current.Next
+	}
+	current.Next = nil
+	l.end = current
+	l.size--
 }
