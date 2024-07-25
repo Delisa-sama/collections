@@ -106,6 +106,8 @@ func (t *BST[T]) find(x *node[T], k T) *node[T] {
 	}
 }
 
+// Delete выполняет рекурсивный поиск элемента, и удаляет его если найден.
+// Возвращает true в случае успешного удаления.
 func (t *BST[T]) Delete(k T) bool {
 	v := t.find(t.root, k)
 	if v == nil {
@@ -169,10 +171,11 @@ func (t *BST[T]) next(x *node[T]) *node[T] {
 	return y
 }
 
+// Min возвращает минимальный элемент в дереве.
+// Возможна паника при поиске в пустом дереве.
 func (t *BST[T]) Min() T {
-	if t.root == nil {
-		var zero T
-		return zero
+	if t.root == nil || t.IsEmpty() {
+		panic("searching min in empty tree")
 	}
 	n := t.min(t.root)
 	return n.Value
@@ -185,10 +188,11 @@ func (t *BST[T]) min(x *node[T]) *node[T] {
 	return t.min(x.Left)
 }
 
+// Max возвращает максимальный элемент в дереве.
+// Возможна паника при поиске в пустом дереве.
 func (t *BST[T]) Max() T {
-	if t.root == nil {
-		var zero T
-		return zero
+	if t.root == nil || t.IsEmpty() {
+		panic("searching max in empty tree")
 	}
 	n := t.max(t.root)
 	return n.Value
