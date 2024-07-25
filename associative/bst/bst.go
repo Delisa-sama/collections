@@ -76,6 +76,27 @@ func (t *BST[T]) insert(x *node[T], z *node[T]) {
 	}
 }
 
+// Find возвращает указатель на элемент дерева, если элемент не найден, возвращает nil.
+func (t *BST[T]) Find(k T) *T {
+	return t.find(t.root, k)
+}
+
+func (t *BST[T]) find(x *node[T], k T) *T {
+	if x == nil {
+		return nil
+	}
+
+	c := t.comp(k, x.Value)
+	switch {
+	case c == 0:
+		return &x.Value
+	case c < 0:
+		return t.find(x.Left, k)
+	default:
+		return t.find(x.Right, k)
+	}
+}
+
 // InOrderIterator возвращает итератор для in-order обхода.
 func (t *BST[T]) InOrderIterator() interfaces.ForwardIterator[T] {
 	return newInOrderIterator(t.root)
