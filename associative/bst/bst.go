@@ -164,6 +164,15 @@ func (t *BST[T]) next(x *node[T]) *node[T] {
 	return y
 }
 
+func (t *BST[T]) Min() T {
+	if t.root == nil {
+		var zero T
+		return zero
+	}
+	n := t.min(t.root)
+	return n.Value
+}
+
 func (t *BST[T]) min(x *node[T]) *node[T] {
 	if x.Left != nil {
 		return x
