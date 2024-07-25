@@ -23,7 +23,9 @@ func (it *iterator[T]) HasNext() bool {
 
 // Next переходит к следующему элементу.
 func (it *iterator[T]) Next() {
-	it.current = it.current.Next
+	if it.HasNext() {
+		it.current = it.current.Next
+	}
 }
 
 // HasPrev проверяет, есть ли предыдущий элемент.
@@ -33,7 +35,9 @@ func (it *iterator[T]) HasPrev() bool {
 
 // Prev переходит к предыдущему элементу.
 func (it *iterator[T]) Prev() {
-	it.current = it.current.Prev
+	if it.HasPrev() {
+		it.current = it.current.Prev
+	}
 }
 
 // Value возвращает текущее значение итератора.
