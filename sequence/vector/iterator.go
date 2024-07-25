@@ -2,6 +2,7 @@ package vector
 
 import (
 	"github.com/Delisa-sama/collections/interfaces"
+	"github.com/Delisa-sama/collections/iterators"
 )
 
 // iterator представляет собой итератор для вектора.
@@ -25,9 +26,7 @@ func (it *iterator[T]) HasNext() bool {
 
 // Next переходит к следующему элементу.
 func (it *iterator[T]) Next() {
-	if it.HasNext() {
-		it.current++
-	}
+	it.current++
 }
 
 // HasPrev проверяет, есть ли предыдущий элемент.
@@ -37,9 +36,7 @@ func (it *iterator[T]) HasPrev() bool {
 
 // Prev переходит к предыдущему элементу.
 func (it *iterator[T]) Prev() {
-	if it.HasPrev() {
-		it.current--
-	}
+	it.current--
 }
 
 // Value возвращает текущее значение итератора.
@@ -61,13 +58,30 @@ func (it *iterator[T]) At(index uint) (*T, bool) {
 	return &(*it.s)[index], true
 }
 
+// Shift смещает итератор на заданное количество элементов.
+// Если смещение положительное - смещает вперед, если отрицательное - назад.
+func (it *iterator[T]) Shift(offset int) {
+	newIndex := it.current
+	if offset < 0 {
+		newIndex -= uint(0 - offset)
+	} else {
+		newIndex += uint(offset)
+	}
+	if it.indexInBounds(newIndex) {
+		it.current = newIndex
+	}
+}
+
 // Equals проверяет, равен ли данный итератор другому итератору.
 // Итераторы равны если указывают на один и тот же адрес.
 func (it *iterator[T]) Equals(another interfaces.Iterator) bool {
-	if a, ok := another.(*iterator[T]); ok {
+	switch a := another.(type) {
+	case *iterator[T]:
 		return &(*a.s)[a.current] == &(*it.s)[it.current]
+	case *iterators.EndIterator:
+		return !it.indexInBounds(it.current)
 	}
-	return false
+	panic("unknown iterator type")
 }
 
 func (it *iterator[T]) indexInBounds(index uint) bool {

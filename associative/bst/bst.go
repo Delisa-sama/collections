@@ -3,6 +3,7 @@ package bst
 import (
 	"github.com/Delisa-sama/collections/comparator"
 	"github.com/Delisa-sama/collections/interfaces"
+	"github.com/Delisa-sama/collections/iterators"
 )
 
 // node представляет узел в бинарном поисковом дереве (BST).
@@ -219,12 +220,12 @@ func (t *BST[T]) Max() T {
 	return n.Value
 }
 
-// InOrderIteratorBegin возвращает итератор для in-order обхода с начала.
-func (t *BST[T]) InOrderIteratorBegin() interfaces.ForwardIterator[T] {
+// InOrderBegin возвращает итератор для in-order обхода с начала.
+func (t *BST[T]) InOrderBegin() interfaces.ForwardIterator[T] {
 	return newInOrderIterator(t.root)
 }
 
-// InOrderIteratorEnd возвращает итератор для in-order обхода.
-func (t *BST[T]) InOrderIteratorEnd() interfaces.Iterator {
-	return newInOrderEndIterator()
+// InOrderEnd возвращает итератор для in-order обхода.
+func (t *BST[T]) InOrderEnd() interfaces.Iterator {
+	return iterators.NewEndIterator()
 }
