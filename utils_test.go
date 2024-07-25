@@ -85,5 +85,7 @@ func Test_EqualsByIterators(t *testing.T) {
 			pair.NewPair(7, "7"),
 		)
 		Print(kvBST.InOrderIterator())
+		fmt.Println()
+		fmt.Println(kvBST.Find(pair.NewPair(8, "8")))
 	})
 }
