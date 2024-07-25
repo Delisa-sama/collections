@@ -52,8 +52,13 @@ func (it *InOrderIterator[T]) Ptr() *T {
 
 // Equals сравнивает два итератора на равенство.
 func (it *InOrderIterator[T]) Equals(another interfaces.Iterator) bool {
-	a, ok := another.(*InOrderIterator[T])
-	return ok && it.current == a.current
+	switch a := another.(type) {
+	case *InOrderIterator[T]:
+		return it.current == a.current
+	case *inorderEndIterator:
+		return !it.HasNext()
+	}
+	panic("unknown iterator type")
 }
 
 // pushLeft добавляет в стек все левые узлы, начиная с заданного узла.
@@ -62,4 +67,30 @@ func (it *InOrderIterator[T]) pushLeft(n *node[T]) {
 		it.s.Push(n)
 		n = n.Left
 	}
+}
+
+type inorderEndIterator struct{}
+
+func newInOrderEndIterator() interfaces.Iterator {
+	return &inorderEndIterator{}
+}
+
+// Equals проверяет, равны ли два итератора.
+func (it *inorderEndIterator) Equals(another interfaces.Iterator) bool {
+	switch another.(type) {
+	case *inorderEndIterator:
+		return true
+	default:
+		return another.Equals(it)
+	}
+}
+
+// HasNext проверяет, есть ли еще элементы для перебора.
+func (it *inorderEndIterator) HasNext() bool {
+	return false
+}
+
+// Next переходит к следующему элементу.
+func (it *inorderEndIterator) Next() {
+	return
 }
