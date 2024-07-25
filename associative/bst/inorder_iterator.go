@@ -6,15 +6,15 @@ import (
 	"github.com/Delisa-sama/collections/sequence/vector"
 )
 
-// InOrderIterator представляет итератор для in-order обхода BST.
-type InOrderIterator[T any] struct {
+// inOrderIterator представляет итератор для in-order обхода BST.
+type inOrderIterator[T any] struct {
 	current *node[T]
 	s       *stack.Stack[*node[T], *vector.Vector[*node[T]]]
 }
 
-// newInOrderIterator создаёт новый InOrderIterator, устанавливая начальное состояние.
-func newInOrderIterator[T any](root *node[T]) *InOrderIterator[T] {
-	it := &InOrderIterator[T]{
+// newInOrderIterator создаёт новый inOrderIterator, устанавливая начальное состояние.
+func newInOrderIterator[T any](root *node[T]) *inOrderIterator[T] {
+	it := &inOrderIterator[T]{
 		current: root,
 		s:       stack.NewStack(vector.NewVector[*node[T]]),
 	}
@@ -25,12 +25,12 @@ func newInOrderIterator[T any](root *node[T]) *InOrderIterator[T] {
 }
 
 // HasNext проверяет, есть ли ещё элементы для обхода.
-func (it *InOrderIterator[T]) HasNext() bool {
+func (it *inOrderIterator[T]) HasNext() bool {
 	return !it.s.IsEmpty() || it.current != nil
 }
 
 // Next перемещает итератор к следующему элементу.
-func (it *InOrderIterator[T]) Next() {
+func (it *inOrderIterator[T]) Next() {
 	if !it.s.IsEmpty() {
 		it.current = it.s.Top()
 		it.s.Pop()
@@ -41,19 +41,19 @@ func (it *InOrderIterator[T]) Next() {
 }
 
 // Value возвращает текущее значение узла.
-func (it *InOrderIterator[T]) Value() T {
+func (it *inOrderIterator[T]) Value() T {
 	return it.current.Value
 }
 
 // Ptr возвращает указатель на текущее значение узла.
-func (it *InOrderIterator[T]) Ptr() *T {
+func (it *inOrderIterator[T]) Ptr() *T {
 	return &it.current.Value
 }
 
 // Equals сравнивает два итератора на равенство.
-func (it *InOrderIterator[T]) Equals(another interfaces.Iterator) bool {
+func (it *inOrderIterator[T]) Equals(another interfaces.Iterator) bool {
 	switch a := another.(type) {
-	case *InOrderIterator[T]:
+	case *inOrderIterator[T]:
 		return it.current == a.current
 	case *inorderEndIterator:
 		return !it.HasNext()
@@ -62,7 +62,7 @@ func (it *InOrderIterator[T]) Equals(another interfaces.Iterator) bool {
 }
 
 // pushLeft добавляет в стек все левые узлы, начиная с заданного узла.
-func (it *InOrderIterator[T]) pushLeft(n *node[T]) {
+func (it *inOrderIterator[T]) pushLeft(n *node[T]) {
 	for n != nil {
 		it.s.Push(n)
 		n = n.Left
