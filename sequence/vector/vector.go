@@ -2,6 +2,7 @@ package vector
 
 import (
 	"github.com/Delisa-sama/collections/interfaces"
+	"github.com/Delisa-sama/collections/iterators"
 )
 
 // Vector представляет собой динамический массив (вектор).
@@ -33,8 +34,18 @@ func (l *Vector[T]) Begin() interfaces.RandomAccessIterator[T] {
 }
 
 // End возвращает итератор на последний элемент вектора.
-func (l *Vector[T]) End() interfaces.RandomAccessIterator[T] {
-	return newIterator(&l.s, uint(len(l.s)-1))
+func (l *Vector[T]) End() interfaces.Iterator {
+	return iterators.NewEndIterator()
+}
+
+// RBegin возвращает итератор на последний элемент вектора.
+func (l *Vector[T]) RBegin() interfaces.Iterator {
+	return iterators.NewReverseIterator[T](newIterator(&l.s, uint(len(l.s)-1)))
+}
+
+// REnd возвращает итератор на последний элемент вектора.
+func (l *Vector[T]) REnd() interfaces.Iterator {
+	return iterators.NewEndIterator()
 }
 
 // At возвращает итератор на элемент вектора по переданному индексу.

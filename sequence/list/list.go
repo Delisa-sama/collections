@@ -2,6 +2,7 @@ package list
 
 import (
 	"github.com/Delisa-sama/collections/interfaces"
+	"github.com/Delisa-sama/collections/iterators"
 )
 
 // List представляет собой двусвязный список.
@@ -43,8 +44,18 @@ func (l *List[T]) Begin() interfaces.BidirectionalIterator[T] {
 }
 
 // End возвращает итератор на последний элемент списка.
-func (l *List[T]) End() interfaces.BidirectionalIterator[T] {
-	return newIterator(l.end)
+func (l *List[T]) End() interfaces.Iterator {
+	return iterators.NewEndIterator()
+}
+
+// RBegin возвращает итератор на последний элемент списка.
+func (l *List[T]) RBegin() interfaces.BidirectionalIterator[T] {
+	return iterators.NewReverseIterator[T](newIterator(l.end))
+}
+
+// REnd возвращает итератор на конец списка.
+func (l *List[T]) REnd() interfaces.Iterator {
+	return iterators.NewEndIterator()
 }
 
 // PushBack добавляет новый элемент в конец списка.

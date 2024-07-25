@@ -4,6 +4,7 @@ import (
 	"github.com/elliotchance/orderedmap/v2"
 
 	"github.com/Delisa-sama/collections/interfaces"
+	"github.com/Delisa-sama/collections/iterators"
 )
 
 // iterator представляет собой итератор для односвязного списка.
@@ -25,9 +26,7 @@ func (it *iterator[K]) HasNext() bool {
 
 // Next переходит к следующему элементу.
 func (it *iterator[K]) Next() {
-	if it.HasNext() {
-		it.current = it.current.Next()
-	}
+	it.current = it.current.Next()
 }
 
 // HasPrev проверяет, есть ли предыдущий элемент.
@@ -37,9 +36,7 @@ func (it *iterator[K]) HasPrev() bool {
 
 // Prev переходит к предыдущему элементу.
 func (it *iterator[K]) Prev() {
-	if it.HasPrev() {
-		it.current = it.current.Prev()
-	}
+	it.current = it.current.Prev()
 }
 
 // Value возвращает текущее значение итератора.
@@ -54,8 +51,11 @@ func (it *iterator[K]) Ptr() *K {
 
 // Equals проверяет, равен ли данный итератор другому итератору.
 func (it *iterator[K]) Equals(another interfaces.Iterator) bool {
-	if a, ok := another.(*iterator[K]); ok {
+	switch a := another.(type) {
+	case *iterator[K]:
 		return a.current == it.current
+	case *iterators.EndIterator:
+		return it.current == nil
 	}
-	return false
+	panic("unknown iterator type")
 }

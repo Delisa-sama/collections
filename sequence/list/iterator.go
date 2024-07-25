@@ -2,6 +2,7 @@ package list
 
 import (
 	"github.com/Delisa-sama/collections/interfaces"
+	"github.com/Delisa-sama/collections/iterators"
 )
 
 // iterator представляет собой итератор для двусвязного списка.
@@ -23,9 +24,7 @@ func (it *iterator[T]) HasNext() bool {
 
 // Next переходит к следующему элементу.
 func (it *iterator[T]) Next() {
-	if it.HasNext() {
-		it.current = it.current.Next
-	}
+	it.current = it.current.Next
 }
 
 // HasPrev проверяет, есть ли предыдущий элемент.
@@ -35,9 +34,7 @@ func (it *iterator[T]) HasPrev() bool {
 
 // Prev переходит к предыдущему элементу.
 func (it *iterator[T]) Prev() {
-	if it.HasPrev() {
-		it.current = it.current.Prev
-	}
+	it.current = it.current.Prev
 }
 
 // Value возвращает текущее значение итератора.
@@ -52,8 +49,11 @@ func (it *iterator[T]) Ptr() *T {
 
 // Equals проверяет, равен ли данный итератор другому итератору.
 func (it *iterator[T]) Equals(another interfaces.Iterator) bool {
-	if a, ok := another.(*iterator[T]); ok {
+	switch a := another.(type) {
+	case *iterator[T]:
 		return a.current == it.current
+	case *iterators.EndIterator:
+		return it.current == nil
 	}
-	return false
+	panic("unknown iterator type")
 }

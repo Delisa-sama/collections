@@ -2,6 +2,7 @@ package forwardlist
 
 import (
 	"github.com/Delisa-sama/collections/interfaces"
+	"github.com/Delisa-sama/collections/iterators"
 )
 
 // ForwardList представляет собой односвязный список.
@@ -42,8 +43,8 @@ func (l *ForwardList[T]) Begin() interfaces.ForwardIterator[T] {
 }
 
 // End возвращает итератор на последний элемент списка.
-func (l *ForwardList[T]) End() interfaces.ForwardIterator[T] {
-	return newIterator(l.end)
+func (l *ForwardList[T]) End() interfaces.Iterator {
+	return iterators.NewEndIterator()
 }
 
 // PushBack добавляет новый элемент в конец списка.

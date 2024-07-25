@@ -3,6 +3,7 @@ package bst
 import (
 	"github.com/Delisa-sama/collections/adapters/stack"
 	"github.com/Delisa-sama/collections/interfaces"
+	"github.com/Delisa-sama/collections/iterators"
 	"github.com/Delisa-sama/collections/sequence/vector"
 )
 
@@ -55,7 +56,7 @@ func (it *inOrderIterator[T]) Equals(another interfaces.Iterator) bool {
 	switch a := another.(type) {
 	case *inOrderIterator[T]:
 		return it.current == a.current
-	case *inorderEndIterator:
+	case *iterators.EndIterator:
 		return !it.HasNext()
 	}
 	panic("unknown iterator type")
@@ -67,30 +68,4 @@ func (it *inOrderIterator[T]) pushLeft(n *node[T]) {
 		it.s.Push(n)
 		n = n.Left
 	}
-}
-
-type inorderEndIterator struct{}
-
-func newInOrderEndIterator() interfaces.Iterator {
-	return &inorderEndIterator{}
-}
-
-// Equals проверяет, равны ли два итератора.
-func (it *inorderEndIterator) Equals(another interfaces.Iterator) bool {
-	switch another.(type) {
-	case *inorderEndIterator:
-		return true
-	default:
-		return another.Equals(it)
-	}
-}
-
-// HasNext проверяет, есть ли еще элементы для перебора.
-func (it *inorderEndIterator) HasNext() bool {
-	return false
-}
-
-// Next переходит к следующему элементу.
-func (it *inorderEndIterator) Next() {
-	return
 }

@@ -4,6 +4,7 @@ import (
 	"github.com/elliotchance/orderedmap/v2"
 
 	"github.com/Delisa-sama/collections/interfaces"
+	"github.com/Delisa-sama/collections/iterators"
 )
 
 // Set представляет собой множество уникальных значений.
@@ -39,9 +40,19 @@ func (s *Set[K]) Begin() interfaces.BidirectionalIterator[K] {
 	return newIterator[K](front)
 }
 
-// End возвращает итератор на последний элемент множества.
-func (s *Set[K]) End() interfaces.BidirectionalIterator[K] {
-	return newIterator(s.m.Back())
+// End возвращает итератор на конец множества.
+func (s *Set[K]) End() interfaces.Iterator {
+	return iterators.NewEndIterator()
+}
+
+// RBegin возвращает итератор на последний элемент множества.
+func (s *Set[K]) RBegin() interfaces.BidirectionalIterator[K] {
+	return iterators.NewReverseIterator[K](newIterator(s.m.Back()))
+}
+
+// REnd возвращает итератор на конец множества.
+func (s *Set[K]) REnd() interfaces.Iterator {
+	return iterators.NewEndIterator()
 }
 
 // Set добавляет новый элемент в множество.
