@@ -23,7 +23,9 @@ func (it *iterator[T]) HasNext() bool {
 
 // Next переходит к следующему элементу.
 func (it *iterator[T]) Next() {
-	it.current = it.current.Next
+	if it.HasNext() {
+		it.current = it.current.Next
+	}
 }
 
 // Value возвращает текущее значение итератора.

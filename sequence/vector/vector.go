@@ -42,7 +42,20 @@ func (l *Vector[T]) At(index uint) interfaces.RandomAccessIterator[T] {
 	return newIterator(&l.s, index)
 }
 
-// Append добавляет новый элемент в конец вектора.
-func (l *Vector[T]) Append(value T) {
+// PushBack добавляет новый элемент в конец вектора.
+func (l *Vector[T]) PushBack(value T) {
 	l.s = append(l.s, value)
+}
+
+// Back возвращает последний элемент в векторе.
+func (l *Vector[T]) Back() T {
+	return l.s[len(l.s)-1]
+}
+
+// PopBack удаляет последний элемент из вектора.
+func (l *Vector[T]) PopBack() {
+	if l.IsEmpty() {
+		return
+	}
+	l.s = l.s[:len(l.s)-1]
 }
