@@ -78,10 +78,14 @@ func (t *BST[T]) insert(x *node[T], z *node[T]) {
 
 // Find возвращает указатель на элемент дерева, если элемент не найден, возвращает nil.
 func (t *BST[T]) Find(k T) *T {
-	return t.find(t.root, k)
+	n := t.find(t.root, k)
+	if n == nil {
+		return nil
+	}
+	return &n.Value
 }
 
-func (t *BST[T]) find(x *node[T], k T) *T {
+func (t *BST[T]) find(x *node[T], k T) *node[T] {
 	if x == nil {
 		return nil
 	}
@@ -89,12 +93,82 @@ func (t *BST[T]) find(x *node[T], k T) *T {
 	c := t.comp(k, x.Value)
 	switch {
 	case c == 0:
-		return &x.Value
+		return x
 	case c < 0:
 		return t.find(x.Left, k)
 	default:
 		return t.find(x.Right, k)
 	}
+}
+
+func (t *BST[T]) Delete(k T) bool {
+	v := t.find(t.root, k)
+	if v == nil {
+		return false
+	}
+	t.delete(v)
+	return true
+}
+
+func (t *BST[T]) delete(v *node[T]) {
+	p := v.Parent
+	if v.Left == nil && v.Right == nil {
+		if p.Left == v {
+			p.Left = nil
+		}
+		if p.Right == v {
+			p.Right = nil
+		}
+	} else if v.Left == nil || v.Right == nil {
+		if v.Left == nil {
+			if p.Left == v {
+				p.Left = v.Right
+			} else {
+				p.Right = v.Right
+			}
+			v.Right.Parent = p
+		} else {
+			if p.Left == v {
+				p.Left = v.Left
+			} else {
+				p.Right = v.Left
+			}
+			v.Left.Parent = p
+		}
+	} else {
+		successor := t.next(v)
+		v.Value = successor.Value
+		if successor.Parent.Left == successor {
+			successor.Parent.Left = successor.Right
+			if successor.Right != nil {
+				successor.Right.Parent = successor.Parent
+			}
+		} else {
+			successor.Parent.Right = successor.Right
+			if successor.Right != nil {
+				successor.Right.Parent = successor.Parent
+			}
+		}
+	}
+}
+
+func (t *BST[T]) next(x *node[T]) *node[T] {
+	if x.Right != nil {
+		return t.min(x.Right)
+	}
+	y := x.Parent
+	for y != nil && x == y.Right {
+		x = y
+		y = y.Parent
+	}
+	return y
+}
+
+func (t *BST[T]) min(x *node[T]) *node[T] {
+	if x.Left != nil {
+		return x
+	}
+	return t.min(x.Left)
 }
 
 // InOrderIterator возвращает итератор для in-order обхода.
