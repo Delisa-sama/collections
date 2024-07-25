@@ -166,6 +166,30 @@ func main() {
 }
 ```
 
+### Бинарное поисковое дерево (BST)
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/Delisa-sama/collections/bst"
+	"github.com/Delisa-sama/collections/comparator"
+	"github.com/Delisa-sama/collections/interfaces"
+)
+
+func main() {
+	// Создаем бинарное поисковое дерево с компаратором для целых чисел
+	binaryTree := bst.NewBST(comparator.DefaultComparator[int](), 4, 3, 5, 1, 0, 2, 6, 8, 7)
+
+	// Печатаем элементы дерева в порядке in-order обхода
+	for ; it.HasNext(); it.Next() {
+		fmt.Println(it.Value())
+	}
+}
+```
+
 ## Лицензия
 
 Этот проект лицензируется на условиях лицензии MIT. Подробности смотрите в файле LICENSE.
