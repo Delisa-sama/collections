@@ -180,6 +180,22 @@ func (t *BST[T]) min(x *node[T]) *node[T] {
 	return t.min(x.Left)
 }
 
+func (t *BST[T]) Max() T {
+	if t.root == nil {
+		var zero T
+		return zero
+	}
+	n := t.max(t.root)
+	return n.Value
+}
+
+func (t *BST[T]) max(x *node[T]) *node[T] {
+	if x.Right != nil {
+		return x
+	}
+	return t.min(x.Right)
+}
+
 // InOrderIterator возвращает итератор для in-order обхода.
 func (t *BST[T]) InOrderIterator() interfaces.ForwardIterator[T] {
 	return newInOrderIterator(t.root)
