@@ -8,6 +8,7 @@ import (
 	"github.com/Delisa-sama/collections/associative/bst"
 	"github.com/Delisa-sama/collections/associative/set"
 	"github.com/Delisa-sama/collections/comparator"
+	"github.com/Delisa-sama/collections/pair"
 	"github.com/Delisa-sama/collections/sequence/forwardlist"
 	"github.com/Delisa-sama/collections/sequence/list"
 	"github.com/Delisa-sama/collections/sequence/vector"
@@ -67,5 +68,22 @@ func Test_EqualsByIterators(t *testing.T) {
 		}
 		Print(binaryTree.InOrderIterator())
 		fmt.Println()
+
+		comparePairByFirstInt := func(a, b pair.Pair[int, string]) int {
+			return comparator.DefaultComparator[int]()(a.First, b.First)
+		}
+		kvBST := bst.NewBST[pair.Pair[int, string]](
+			comparePairByFirstInt,
+			pair.NewPair(4, "some"),
+			pair.NewPair(3, "aaaa"),
+			pair.NewPair(5, "bbb"),
+			pair.NewPair(1, "ccccc"),
+			pair.NewPair(0, "ddd"),
+			pair.NewPair(2, "ff"),
+			pair.NewPair(6, "6"),
+			pair.NewPair(8, "8"),
+			pair.NewPair(7, "7"),
+		)
+		Print(kvBST.InOrderIterator())
 	})
 }
