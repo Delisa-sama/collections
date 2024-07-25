@@ -34,6 +34,11 @@ func (t *BST[T]) Size() uint {
 	return t.size
 }
 
+// IsEmpty проверяет что дерево пустое.
+func (t *BST[T]) IsEmpty() bool {
+	return t.size == 0
+}
+
 // Insert вставляет значение в BST.
 func (t *BST[T]) Insert(value T) {
 	if t.root == nil {
