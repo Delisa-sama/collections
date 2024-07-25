@@ -223,3 +223,8 @@ func (t *BST[T]) Max() T {
 func (t *BST[T]) InOrderIteratorBegin() interfaces.ForwardIterator[T] {
 	return newInOrderIterator(t.root)
 }
+
+// InOrderIteratorEnd возвращает итератор для in-order обхода.
+func (t *BST[T]) InOrderIteratorEnd() interfaces.Iterator {
+	return newInOrderEndIterator()
+}

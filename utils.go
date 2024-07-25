@@ -1,8 +1,6 @@
 package containers
 
 import (
-	"fmt"
-
 	"github.com/Delisa-sama/collections/comparator"
 	"github.com/Delisa-sama/collections/interfaces"
 )
@@ -20,8 +18,10 @@ func EqualsByIterators[T any](a interfaces.ForwardIterator[T], b interfaces.Forw
 	return !((a.HasNext() || b.HasNext()) && !(a.HasNext() && b.HasNext())) // XOR(a.HasNext(), b.HasNext())
 }
 
-func Print[T any](a interfaces.ForwardIterator[T]) {
-	for ; a.HasNext(); a.Next() {
-		fmt.Println(a.Value())
+type ForEachFunc[T any] func(T)
+
+func ForEach[T any](begin interfaces.ForwardIterator[T], end interfaces.Iterator, f ForEachFunc[T]) {
+	for it := begin; !it.Equals(end); it.Next() {
+		f(it.Value())
 	}
 }

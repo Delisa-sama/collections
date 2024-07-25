@@ -63,10 +63,12 @@ func Test_EqualsByIterators(t *testing.T) {
 
 		binaryTree := bst.NewBST(comparator.DefaultComparator[int](), 4, 3, 5, 1, 0, 2, 6, 8, 7)
 		// In-order обход
-		if EqualsByIterators(binaryTree.InOrderIterator(), l3.Begin(), comparator.DefaultComparator[int]()) {
+		if EqualsByIterators(binaryTree.InOrderIteratorBegin(), l3.Begin(), comparator.DefaultComparator[int]()) {
 			t.Fatalf("wtf")
 		}
-		Print(binaryTree.InOrderIterator())
+		ForEach(binaryTree.InOrderIteratorBegin(), binaryTree.InOrderIteratorEnd(), func(i int) {
+			fmt.Println(i)
+		})
 		fmt.Println()
 
 		comparePairByFirstInt := func(a, b pair.Pair[int, string]) int {
@@ -84,7 +86,9 @@ func Test_EqualsByIterators(t *testing.T) {
 			pair.NewPair(8, "8"),
 			pair.NewPair(7, "7"),
 		)
-		Print(kvBST.InOrderIterator())
+		ForEach(kvBST.InOrderIteratorBegin(), kvBST.InOrderIteratorEnd(), func(p pair.Pair[int, string]) {
+			fmt.Println(p)
+		})
 		fmt.Println()
 		fmt.Println(kvBST.Find(pair.NewPair(8, "8")))
 		kvBST.Delete(pair.NewPair(8, "8"))
