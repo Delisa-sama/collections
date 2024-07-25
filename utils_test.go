@@ -27,7 +27,7 @@ func Test_EqualsByIterators(t *testing.T) {
 		fmt.Println()
 
 		l2 := list.NewList[int](1, 2, 3)
-		if !algorithms.Equals(l.Begin(), l2.Begin(), comparator.DefaultComparator[int]()) {
+		if !algorithms.Equals(l.Begin(), l2.Begin()) {
 			t.Fatalf("lists not equals")
 		}
 		algorithms.ForEach(l2.Begin(), l2.End(), func(i int) {
@@ -36,7 +36,7 @@ func Test_EqualsByIterators(t *testing.T) {
 		fmt.Println()
 
 		l3 := vector.NewVector(1, 2, 3)
-		if !algorithms.Equals(l.Begin(), l3.Begin(), comparator.DefaultComparator[int]()) {
+		if !algorithms.Equals(l.Begin(), l3.Begin()) {
 			t.Fatalf("list and vector not equals")
 		}
 		algorithms.ForEach(l3.Begin(), l3.End(), func(i int) {
@@ -45,7 +45,7 @@ func Test_EqualsByIterators(t *testing.T) {
 		fmt.Println()
 
 		s := set.NewSet(1, 2, 3, 3)
-		if !algorithms.Equals(l.Begin(), s.Begin(), comparator.DefaultComparator[int]()) {
+		if !algorithms.Equals(l.Begin(), s.Begin()) {
 			t.Fatalf("list and set not equals")
 		}
 
@@ -57,7 +57,7 @@ func Test_EqualsByIterators(t *testing.T) {
 		vec := vector.NewVector(1, 2, 3)
 		vecBegin := vec.Begin()
 		vec.PushBack(4)
-		if algorithms.Equals(vecBegin, l3.Begin(), comparator.DefaultComparator[int]()) {
+		if algorithms.Equals[int](vecBegin, l3.Begin()) {
 			t.Fatalf("iterator not invalidated after vector was modified")
 		}
 
@@ -81,7 +81,7 @@ func Test_EqualsByIterators(t *testing.T) {
 
 		binaryTree := bst.NewBST(comparator.DefaultComparator[int](), 4, 3, 5, 1, 0, 2, 6, 8, 7)
 		// In-order обход
-		if algorithms.Equals(binaryTree.InOrderBegin(), l3.Begin(), comparator.DefaultComparator[int]()) {
+		if algorithms.Equals(binaryTree.InOrderBegin(), l3.Begin()) {
 			t.Fatalf("wtf")
 		}
 		algorithms.ForEach(binaryTree.InOrderBegin(), binaryTree.InOrderEnd(), func(i int) {
