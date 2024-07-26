@@ -15,8 +15,8 @@ import (
 	"github.com/Delisa-sama/collections/sequence/vector"
 )
 
-func Test_EqualsByIterators(t *testing.T) {
-	t.Run("list, forward list and vector compatibility", func(t *testing.T) {
+func Test_Examples(t *testing.T) {
+	t.Run("examples", func(t *testing.T) {
 		l := forwardlist.NewForwardList[int](1, 2, 3)
 		if l.Size() != 3 {
 			t.Fatalf("bad list size, got (%d), expected (%d)", l.Size(), 3)
