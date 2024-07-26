@@ -118,5 +118,10 @@ func Test_EqualsByIterators(t *testing.T) {
 			fmt.Println(p)
 		})
 		fmt.Println()
+
+		algorithms.ForEach(kvBST.PostOrderBegin(), kvBST.PostOrderEnd(), func(p pair.Pair[int, string]) {
+			fmt.Println(p)
+		})
+		fmt.Println()
 	})
 }
