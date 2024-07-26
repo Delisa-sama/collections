@@ -18,6 +18,14 @@ func NewVector[T any](items ...T) *Vector[T] {
 	return l
 }
 
+// NewVectorFromSlice создает новый Vector на основе переданного слайса, без копирования элементов.
+func NewVectorFromSlice[T any](items []T) *Vector[T] {
+	l := &Vector[T]{
+		s: items,
+	}
+	return l
+}
+
 // Size возвращает количество элементов в векторе.
 func (l *Vector[T]) Size() uint {
 	return uint(len(l.s))

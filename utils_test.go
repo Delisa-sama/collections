@@ -123,5 +123,37 @@ func Test_EqualsByIterators(t *testing.T) {
 			fmt.Println(p)
 		})
 		fmt.Println()
+
+		sl1 := []int{3, 2, 1, 4, 6}
+		sl2 := []int{1, 2, 3, 5, 4}
+
+		// O(n + m)
+		bst1 := bst.NewBST(comparator.DefaultComparator[int](), sl1...)
+		bst2 := bst.NewBST(comparator.DefaultComparator[int](), sl2...)
+		if algorithms.EqualsRanges[int](
+			bst1.InOrderBegin(), bst1.InOrderEnd(),
+			bst2.InOrderBegin(), bst2.InOrderEnd(),
+		) {
+			fmt.Println("equal")
+		} else {
+			fmt.Println("not equal")
+		}
+		fmt.Println()
+
+		count := algorithms.CountIf(bst1.InOrderBegin(), bst1.InOrderEnd(), func(value int) bool {
+			return bst2.Find(value) != nil
+		})
+		fmt.Println(count)
+
+		vec2 := vector.NewVectorFromSlice([]int{1, 2, 3, 4, 6})
+		if algorithms.EqualsRanges[int](
+			bst1.InOrderBegin(), bst1.InOrderEnd(),
+			vec2.Begin(), vec2.End(),
+		) {
+			fmt.Println("equal")
+		} else {
+			fmt.Println("not equal")
+		}
+		fmt.Println()
 	})
 }
