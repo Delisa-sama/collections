@@ -6,6 +6,7 @@ import (
 
 	"github.com/Delisa-sama/collections/adapters/stack"
 	"github.com/Delisa-sama/collections/algorithms"
+	"github.com/Delisa-sama/collections/associative/avltree"
 	"github.com/Delisa-sama/collections/associative/bst"
 	"github.com/Delisa-sama/collections/associative/set"
 	"github.com/Delisa-sama/collections/comparator"
@@ -155,5 +156,27 @@ func Test_Examples(t *testing.T) {
 			fmt.Println("not equal")
 		}
 		fmt.Println()
+
+		avl1 := avltree.NewAVLTree[string, int](comparator.DefaultComparator[string]())
+		avl1.Insert("1", 1)
+		avl1.Insert("2", 1)
+		avl1.Insert("3", 3)
+		avl1.Insert("4", 4)
+		avl1.Insert("5", 4)
+		avl1.Insert("6", 4)
+		avl1.Insert("7", 4)
+		avl1.Insert("8", 4)
+		avl1.Insert("9", 4)
+		if val, found := avl1.Find("4"); found {
+			fmt.Println("found ", val)
+		}
+		if _, found := avl1.Find("5"); !found {
+			fmt.Println("not found ")
+		}
+		fmt.Println()
+
+		algorithms.ForEach(avl1.InOrderBegin(), avl1.InOrderEnd(), func(p pair.Pair[string, int]) {
+			fmt.Println(p)
+		})
 	})
 }
