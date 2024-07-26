@@ -170,6 +170,7 @@ func main() {
 	}
 }
 ```
+Больше примеров можно посмотреть в файле [examples_test.go](examples_test.go).
 
 ## Лицензия
 
