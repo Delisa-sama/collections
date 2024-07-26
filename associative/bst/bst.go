@@ -102,7 +102,7 @@ func (t *BST[T]) Insert(value T) {
 
 func (t *BST[T]) insert(x *node[T], z *node[T]) {
 	for x != nil {
-		if t.comp(z.Value, x.Value) >= 0 {
+		if t.comp(z.Value, x.Value) > 0 {
 			if x.Right != nil {
 				x = x.Right
 			} else {
