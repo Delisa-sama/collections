@@ -108,8 +108,15 @@ func Test_EqualsByIterators(t *testing.T) {
 			fmt.Println(p)
 		})
 		fmt.Println()
+
 		fmt.Println(kvBST.Find(pair.NewPair(8, "8")))
 		kvBST.Delete(pair.NewPair(8, "8"))
 		fmt.Println(kvBST.Find(pair.NewPair(8, "8")))
+		fmt.Println()
+
+		algorithms.ForEach(kvBST.PreOrderBegin(), kvBST.PreOrderEnd(), func(p pair.Pair[int, string]) {
+			fmt.Println(p)
+		})
+		fmt.Println()
 	})
 }

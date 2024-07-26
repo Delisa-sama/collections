@@ -225,7 +225,17 @@ func (t *BST[T]) InOrderBegin() interfaces.ForwardIterator[T] {
 	return newInOrderIterator(t.root)
 }
 
-// InOrderEnd возвращает итератор для in-order обхода.
+// InOrderEnd возвращает конечный итератор для in-order обхода.
 func (t *BST[T]) InOrderEnd() interfaces.Iterator {
+	return iterators.NewEndIterator()
+}
+
+// PreOrderBegin возвращает итератор для pre-order обхода с начала.
+func (t *BST[T]) PreOrderBegin() interfaces.ForwardIterator[T] {
+	return newPreOrderIterator(t.root)
+}
+
+// PreOrderEnd возвращает конечный итератор для pre-order обхода.
+func (t *BST[T]) PreOrderEnd() interfaces.Iterator {
 	return iterators.NewEndIterator()
 }
