@@ -1,7 +1,7 @@
 # Containers Library
 ## Описание
 
-Библиотека containers предоставляет набор [контейнеров](#контейнеры), [адаптеров](#адаптеры), [итераторов](#итераторы) и алгоритмов для работы с коллекциями в языке Go.
+Библиотека containers предоставляет набор [контейнеров](#контейнеры), [адаптеров](#адаптеры), [итераторов](#итераторы) и [алгоритмов](#алгоритмы) для работы с коллекциями в языке Go.
 
 ## Установка
 Для установки библиотеки используйте команду:
@@ -712,6 +712,202 @@ Time complexity: Time complexity метода `IsEmpty` базового кон�
 
 - `At(index uint) (*T, bool)` - проверяет, доступен ли элемент по заданному индексу.
 - `Shift(offset int)` - смещает итератор на указанное количество позиций, возможны положительные и отрицательные значения смещения.
+
+## Алгоритмы
+### [AllOf](algorithms/all_of.go)
+```go
+func AllOf[T any](begin interfaces.ForwardIterator[T], end interfaces.Iterator, predicate unaryPredicate[T]) bool
+```
+Проверяет, удовлетворяют ли все элементы в диапазоне [begin, end) предикату.
+
+### [AnyOf](algorithms/any_of.go)
+```go
+func AnyOf[T any](begin interfaces.ValueIterator[T], end interfaces.Iterator, predicate unaryPredicate[T]) bool
+```
+Проверяет, удовлетворяет ли хотя бы один элемент в диапазоне [begin, end) предикату.
+
+### [NoneOf](algorithms/none_of.go)
+```go
+func NoneOf[T any](begin interfaces.ValueIterator[T], end interfaces.Iterator, predicate unaryPredicate[T]) bool
+```
+Проверяет, удовлетворяет ли ни один элемент в диапазоне [begin, end) предикату.
+
+### [Copy](algorithms/copy.go)
+```go
+func Copy[T any](
+    begin interfaces.ValueIterator[T], end interfaces.Iterator,
+    destBegin interfaces.PointerIterator[T],
+) interfaces.PointerIterator[T]
+```
+Копирует элементы из диапазона [begin, end) в диапазон, начинающийся с destBegin.
+
+### [CopyIf](algorithms/copy.go)
+```go
+func CopyIf[T any](
+    begin interfaces.ValueIterator[T], end interfaces.Iterator,
+    destBegin interfaces.PointerIterator[T],
+    predicate unaryPredicate[T],
+) interfaces.PointerIterator[T]
+```
+Копирует элементы из диапазона [begin, end), которые удовлетворяют предикату, в диапазон, начинающийся с destBegin.
+
+### [CountC](algorithms/count.go)
+```go
+func CountC[T any](
+    begin interfaces.ValueIterator[T],
+    end interfaces.Iterator,
+    value T,
+    cmp comparator.Comparator[T],
+) uint 
+```
+Подсчитывает количество элементов в диапазоне [begin, end), равных заданному значению, используя пользовательский компаратор.
+
+### [Count](algorithms/count.go)
+```go
+func Count[T comparable](
+    begin interfaces.ValueIterator[T],
+    end interfaces.Iterator,
+    value T,
+) uint
+```
+Подсчитывает количество элементов в диапазоне [begin, end), равных заданному значению, используя оператор сравнения ==.
+
+### [CountIf](algorithms/count.go)
+```go
+func CountIf[T any](
+    begin interfaces.ValueIterator[T],
+    end interfaces.Iterator,
+    predicate unaryPredicate[T],
+) uint
+```
+Подсчитывает количество элементов в диапазоне [begin, end), удовлетворяющих предикату.
+
+### [EqualsC](algorithms/equals.go)
+```go
+func EqualsC[T any](a interfaces.ForwardIterator[T], b interfaces.ForwardIterator[T], cmp comparator.Comparator[T]) bool
+```
+Проверяет, равны ли все элементы двух диапазонов [a, b), используя пользовательский компаратор.
+
+### [Equals](algorithms/equals.go)
+```go
+func Equals[T comparable](a interfaces.ForwardIterator[T], b interfaces.ForwardIterator[T]) bool
+```
+Проверяет, равны ли все элементы двух диапазонов [a, b), используя оператор сравнения ==.
+
+### [EqualsRangesC](algorithms/equals.go)
+```go
+func EqualsRangesC[T any](
+	aBegin interfaces.ValueIterator[T], aEnd interfaces.Iterator,
+	bBegin interfaces.ValueIterator[T], bEnd interfaces.Iterator,
+	cmp comparator.Comparator[T],
+) bool
+```
+Проверяет, равны ли все элементы двух диапазонов [aBegin, aEnd) и [bBegin, bEnd), используя пользовательский компаратор.
+
+### [EqualsRanges](algorithms/equals.go)
+```go
+func EqualsRanges[T comparable](
+	aBegin interfaces.ValueIterator[T], aEnd interfaces.Iterator,
+	bBegin interfaces.ValueIterator[T], bEnd interfaces.Iterator,
+) bool
+```
+Проверяет, равны ли все элементы двух диапазонов [aBegin, aEnd) и [bBegin, bEnd), используя оператор сравнения ==.
+
+### [FindC](algorithms/find.go)
+```go
+func FindC[T any](
+	begin interfaces.ValueIterator[T],
+	end interfaces.Iterator,
+	value T,
+	cmp comparator.Comparator[T],
+) (interfaces.ValueIterator[T], bool)
+```
+Выполняет поиск элемента в диапазоне [begin, end) с использованием пользовательского компаратора. 
+
+Функция возвращает итератор на найденный элемент и булево значение, указывающее на успех поиска.
+
+### [Find](algorithms/find.go)
+```go
+func Find[T comparable](
+	begin interfaces.ValueIterator[T],
+	end interfaces.Iterator,
+	value T,
+) (interfaces.ValueIterator[T], bool)
+```
+Выполняет поиск элемента в диапазоне [begin, end) с использованием оператора сравнения ==. 
+
+Функция возвращает итератор на найденный элемент и булево значение, указывающее на успех поиска.
+
+### [FindIf](algorithms/find.go)
+```go
+func FindIf[T any](
+	begin interfaces.ValueIterator[T],
+	end interfaces.Iterator,
+	predicate unaryPredicate[T],
+) (interfaces.ValueIterator[T], bool)
+```
+Выполняет поиск элемента в диапазоне [begin, end), для которого предикат возвращает true. 
+
+Функция возвращает итератор на найденный элемент и булево значение, указывающее на успех поиска.
+
+### [FindIfNot](algorithms/find.go)
+```go
+func FindIfNot[T any](
+	begin interfaces.ValueIterator[T],
+	end interfaces.Iterator,
+	predicate unaryPredicate[T],
+) (interfaces.ValueIterator[T], bool)
+```
+Выполняет поиск элемента в диапазоне [begin, end), для которого предикат возвращает false. 
+
+Функция возвращает итератор на найденный элемент и булево значение, указывающее на успех поиска.
+
+### [FindFirstOfC](algorithms/find_first_of.go)
+```go
+func FindFirstOfC[T any](
+	begin interfaces.ValueIterator[T], end interfaces.Iterator,
+	sBegin interfaces.ValueIterator[T], sEnd interfaces.Iterator,
+	cmp comparator.Comparator[T],
+) (interfaces.ValueIterator[T], bool)
+```
+Ищет первый элемент из диапазона [begin, end), который также содержится в диапазоне [sBegin, sEnd), используя пользовательский компаратор.
+
+Функция возвращает итератор на найденный элемент и булево значение, указывающее на успех поиска.
+
+### [FindFirstOf](algorithms/find_first_of.go)
+```go
+func FindFirstOf[T comparable](
+	begin interfaces.ValueIterator[T], end interfaces.Iterator,
+	sBegin interfaces.ValueIterator[T], sEnd interfaces.Iterator,
+) (interfaces.ValueIterator[T], bool)
+```
+Ищет первый элемент из диапазона [begin, end), который также содержится в диапазоне [sBegin, sEnd), используя оператор сравнения ==.
+
+Функция возвращает итератор на найденный элемент и булево значение, указывающее на успех поиска.
+
+### [FindFirstOfIf](algorithms/find_first_of.go)
+```go
+func FindFirstOfIf[T any](
+	begin interfaces.ValueIterator[T], end interfaces.Iterator,
+	sBegin interfaces.ValueIterator[T], sEnd interfaces.Iterator,
+	predicate binaryPredicate[T],
+) (interfaces.ValueIterator[T], bool)
+```
+Ищет первый элемент из диапазона [begin, end), который также содержится в диапазоне [sBegin, sEnd), для которого предикат возвращает true.
+
+Функция возвращает итератор на найденный элемент и булево значение, указывающее на успех поиска.
+
+### [ForEach](algorithms/for_each.go)
+```go
+func ForEach[T any](begin interfaces.ValueIterator[T], end interfaces.Iterator, f forEachFunc[T])
+```
+Применяет функцию к каждому элементу в диапазоне [begin, end).
+
+### [ForEachPtr](algorithms/for_each.go)
+```go
+func ForEachPtr[T any](begin interfaces.PointerIterator[T], end interfaces.Iterator, f forEachPtrFunc[T])
+```
+Применяет функцию к указателю на каждый элемент в диапазоне [begin, end).
 
 ## Лицензия
 
