@@ -1,0 +1,40 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+title "Иерархия итераторов"
+
+interface Iterator<T any> {
+    +Equals(Iterator) bool
+    +HasNext() bool
+    +Next()
+}
+
+interface ValueIterator<T any> {
+    +Value() T
+}
+
+interface PointerIterator<T any> {
+    +Ptr() *T
+}
+
+interface ForwardIterator<T any> {}
+
+interface BidirectionalIterator<T any> {
+    +HasPrev() bool
+    +Prev()
+}
+
+interface RandomAccessIterator<T any> {
+    +At(uint) (*T, bool)
+    +Shift(int)
+}
+
+Iterator <|-- ValueIterator
+Iterator <|-- PointerIterator
+ValueIterator <|-- ForwardIterator
+PointerIterator <|-- ForwardIterator
+ForwardIterator <|-- BidirectionalIterator
+BidirectionalIterator <|-- RandomAccessIterator
+
+
+@enduml

@@ -46,14 +46,14 @@ func (l *Vector[T]) End() interfaces.Iterator {
 	return iterators.NewEndIterator()
 }
 
-// RBegin возвращает итератор на последний элемент вектора.
-func (l *Vector[T]) RBegin() interfaces.Iterator {
+// RBegin возвращает перевернутый итератор на последний элемент вектора.
+func (l *Vector[T]) RBegin() interfaces.BidirectionalIterator[T] {
 	return iterators.NewReverseIterator[T](newIterator(&l.s, uint(len(l.s)-1)))
 }
 
-// REnd возвращает итератор на последний элемент вектора.
+// REnd возвращает перевернутый итератор на первый элемент вектора.
 func (l *Vector[T]) REnd() interfaces.Iterator {
-	return iterators.NewEndIterator()
+	return iterators.NewReverseIterator[T](l.Begin())
 }
 
 // At возвращает итератор на элемент вектора по переданному индексу.
