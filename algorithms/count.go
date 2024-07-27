@@ -20,7 +20,6 @@ func Count[T comparable](
 	begin interfaces.ValueIterator[T],
 	end interfaces.Iterator,
 	value T,
-	cmp comparator.Comparator[T],
 ) uint {
 	return CountIf(begin, end, func(v T) bool {
 		return v == value
