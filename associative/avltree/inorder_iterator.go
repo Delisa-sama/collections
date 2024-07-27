@@ -65,3 +65,11 @@ func (it *inOrderIterator[K, V]) pushLeft(n *node[K, V]) {
 		n = n.Left
 	}
 }
+
+// Copy копирует итератор.
+func (it *inOrderIterator[K, V]) Copy() interfaces.Iterator {
+	return &inOrderIterator[K, V]{
+		current: it.current,
+		s:       it.s.Copy(),
+	}
+}

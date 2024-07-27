@@ -15,38 +15,47 @@ type Container[T any] interface {
 	PopBack()
 }
 
+type containerConstructor[T any, C Container[T]] func(...T) C
+
 // Stack представляет собой стек, работающий на основе контейнера C.
 type Stack[T any, C Container[T]] struct {
 	c C
 }
 
-func NewStack[T any, C Container[T]](cc func(...T) C, items ...T) *Stack[T, C] {
+func NewStack[T any, C Container[T]](cc containerConstructor[T, C], items ...T) *Stack[T, C] {
 	return &Stack[T, C]{
 		c: cc(items...),
 	}
 }
 
 // Push добавляет элемент в стек.
-func (s *Stack[T, Container]) Push(v T) {
+func (s *Stack[T, C]) Push(v T) {
 	s.c.PushBack(v)
 }
 
 // Pop удаляет последний элемент из стека.
-func (s *Stack[T, Container]) Pop() {
+func (s *Stack[T, C]) Pop() {
 	s.c.PopBack()
 }
 
 // Top возвращает последний элемент стека.
-func (s *Stack[T, Container]) Top() T {
+func (s *Stack[T, C]) Top() T {
 	return s.c.Back()
 }
 
 // Size возвращает количество элементов в стеке.
-func (s *Stack[T, Container]) Size() uint {
+func (s *Stack[T, C]) Size() uint {
 	return s.c.Size()
 }
 
 // IsEmpty проверяет, пуст ли стек.
-func (s *Stack[T, Container]) IsEmpty() bool {
+func (s *Stack[T, C]) IsEmpty() bool {
 	return s.c.IsEmpty()
+}
+
+// Copy возвращает копию стека.
+func (s *Stack[T, C]) Copy() *Stack[T, C] {
+	return &Stack[T, C]{
+		c: s.c.Copy().(C),
+	}
 }

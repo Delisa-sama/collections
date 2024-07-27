@@ -59,3 +59,10 @@ func (it *iterator[K]) Equals(another interfaces.Iterator) bool {
 	}
 	panic("unknown iterator type")
 }
+
+// Copy копирует итератор.
+func (it *iterator[T]) Copy() interfaces.Iterator {
+	return &iterator[T]{
+		current: it.current,
+	}
+}

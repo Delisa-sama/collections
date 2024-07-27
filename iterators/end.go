@@ -27,3 +27,8 @@ func (it *EndIterator) HasNext() bool {
 
 // Next переходит к следующему элементу.
 func (it *EndIterator) Next() {}
+
+// Copy возвращает новый экземпляр EndIterator, поскольку не имеет состояния.
+func (it *EndIterator) Copy() interfaces.Iterator {
+	return NewEndIterator()
+}

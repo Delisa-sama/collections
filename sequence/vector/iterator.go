@@ -87,3 +87,8 @@ func (it *iterator[T]) Equals(another interfaces.Iterator) bool {
 func (it *iterator[T]) indexInBounds(index uint) bool {
 	return len(*it.s) > 0 && index <= uint(len(*it.s)-1)
 }
+
+// Copy копирует итератор.
+func (it *iterator[T]) Copy() interfaces.Iterator {
+	return newIterator(it.s, it.current)
+}

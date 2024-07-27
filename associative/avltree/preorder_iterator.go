@@ -61,3 +61,11 @@ func (it *preOrderIterator[K, V]) Equals(another interfaces.Iterator) bool {
 	}
 	panic("unknown iterator type")
 }
+
+// Copy копирует итератор.
+func (it *preOrderIterator[K, V]) Copy() interfaces.Iterator {
+	return &preOrderIterator[K, V]{
+		current: it.current,
+		s:       it.s.Copy(),
+	}
+}

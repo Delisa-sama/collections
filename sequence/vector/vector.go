@@ -78,3 +78,10 @@ func (l *Vector[T]) PopBack() {
 	}
 	l.s = l.s[:len(l.s)-1]
 }
+
+// Copy копирует вектор.
+func (l *Vector[T]) Copy() interfaces.Container[T] {
+	sliceCopy := make([]T, len(l.s))
+	copy(sliceCopy, l.s)
+	return NewVectorFromSlice(sliceCopy)
+}

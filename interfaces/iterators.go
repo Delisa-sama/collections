@@ -8,6 +8,15 @@ type Iterator interface {
 	HasNext() bool
 	// Next переходит к следующему элементу.
 	Next()
+	// Copy копирует итератор.
+	// Реализация обязана вернуть тот же тип которым она является,
+	// чтобы можно было "безопасно" расширить интерфейс в месте вызова копирования, пример:
+	// foo[T any](begin ForwardIterator[T]) {
+	//      // Copy вернет интерфейс Iterator, но мы знаем что на самом деле это ForwardIterator[T].
+	//      beginCopy := begin.Copy().(ForwardIterator[T])
+	//      fmt.Println(beginCopy.Value())
+	// }
+	Copy() Iterator
 }
 
 // ValueIterator - это интерфейс для итератора, который возвращает значение.

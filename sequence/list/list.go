@@ -1,6 +1,7 @@
 package list
 
 import (
+	"github.com/Delisa-sama/collections/algorithms"
 	"github.com/Delisa-sama/collections/interfaces"
 	"github.com/Delisa-sama/collections/iterators"
 )
@@ -88,4 +89,13 @@ func (l *List[T]) PopBack() {
 	}
 	l.end = l.end.Prev
 	l.size--
+}
+
+// Copy копирует список.
+func (l *List[T]) Copy() interfaces.Container[T] {
+	copyList := NewList[T]()
+	algorithms.ForEach(l.Begin(), l.End(), func(value T) {
+		copyList.PushBack(value)
+	})
+	return copyList
 }

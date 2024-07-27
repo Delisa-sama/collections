@@ -77,3 +77,14 @@ func (it *postOrderIterator[T]) Equals(another interfaces.Iterator) bool {
 	}
 	panic("unknown iterator type")
 }
+
+// Copy копирует итератор.
+func (it *postOrderIterator[T]) Copy() interfaces.Iterator {
+	return &postOrderIterator[T]{
+		lastNodeVisited: it.lastNodeVisited,
+		current:         it.current,
+		root:            it.root,
+		isEnded:         it.isEnded,
+		s:               it.s.Copy(),
+	}
+}

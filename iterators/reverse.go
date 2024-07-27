@@ -48,3 +48,8 @@ func (it *ReverseIterator[T]) Ptr() *T {
 func (it *ReverseIterator[T]) Equals(another interfaces.Iterator) bool {
 	return it.it.Equals(another)
 }
+
+// Copy копирует итератор.
+func (it *ReverseIterator[T]) Copy() interfaces.Iterator {
+	return NewReverseIterator(it.it.Copy().(interfaces.BidirectionalIterator[T]))
+}
