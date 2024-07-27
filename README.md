@@ -977,6 +977,25 @@ func SwapRanges[T any](
 ```
 Производит обмен значениями между двумя диапазонами элементов.
 
+### [Rotate](algorithms/rotate.go)
+```go
+func Rotate[T any](begin, middle interfaces.ForwardIterator[T], end interfaces.Iterator) interfaces.Iterator
+```
+Выполняет циклический сдвиг элементов в диапазоне [begin, end) так, чтобы элемент middle стал первым элементом диапазона.
+Элементы, находящиеся между begin и middle, будут перемещены в конец диапазона.
+
+### [RotateCopy](algorithms/rotate.go)
+```go
+func RotateCopy[T any](
+    begin, nBegin interfaces.ForwardIterator[T],
+    end interfaces.Iterator,
+    destBegin interfaces.PointerIterator[T],
+) interfaces.PointerIterator[T]
+```
+Выполняет циклический сдвиг элементов в диапазоне [begin, end) так, чтобы элемент nBegin стал первым элементом диапазона,
+и копирует результат в другой диапазон, начинающийся с destBegin.
+
+
 ## Лицензия
 
 Этот проект лицензируется на условиях лицензии MIT. Подробности смотрите в файле LICENSE.
