@@ -43,7 +43,7 @@ func (l *Vector[T]) Begin() interfaces.RandomAccessIterator[T] {
 }
 
 // End возвращает итератор на последний элемент вектора.
-func (l *Vector[T]) End() interfaces.Iterator {
+func (l *Vector[T]) End() interfaces.RandomAccessIterator[T] {
 	return newIterator(&l.s, uint(len(l.s)))
 }
 
@@ -53,7 +53,7 @@ func (l *Vector[T]) RBegin() interfaces.BidirectionalIterator[T] {
 }
 
 // REnd возвращает перевернутый итератор на первый элемент вектора.
-func (l *Vector[T]) REnd() interfaces.Iterator {
+func (l *Vector[T]) REnd() interfaces.BidirectionalIterator[T] {
 	return iterators.NewReverseIterator[T](l.Begin())
 }
 
