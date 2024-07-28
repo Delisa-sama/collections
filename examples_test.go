@@ -160,5 +160,13 @@ func Test_Examples(t *testing.T) {
 
 		_, _ = algorithms.PrintF[pair.Pair[string, int]](avl1.InOrderBegin(), avl1.InOrderEnd(), "%v ")
 		fmt.Println()
+
+		l4 := forwardlist.NewForwardList("1", "3", "4")
+		l5 := vector.NewVector("5", "6", "7")
+		algorithms.SwapRanges[string](l4.Begin(), l4.End(), l5.Begin())
+		fmt.Println()
+		_, _ = algorithms.PrintF[string](l4.Begin(), l4.End(), "%s ")
+		fmt.Println()
+		_, _ = algorithms.PrintF[string](l5.Begin(), l5.End(), "%s ")
 	})
 }

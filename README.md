@@ -955,6 +955,28 @@ func PrintFFunc[T any](
 ```
 Выводит значения, начиная с итератора begin до итератора end, используя заданную функцию форматированного вывода.
 
+### [Swap](algorithms/swap.go)
+```go
+func Swap[T any](a, b *T)
+```
+Производит обмен значениями двух указателей.
+
+### [SwapIter](algorithms/swap.go)
+```go
+func SwapIter[T any](a, b interfaces.PointerIterator[T])
+```
+Производит обмен значениями, на которые указывают два итератора.
+
+### [SwapRanges](algorithms/swap.go)
+```go
+func SwapRanges[T any](
+	aBegin interfaces.PointerIterator[T],
+	aEnd interfaces.Iterator,
+	bBegin interfaces.PointerIterator[T],
+)
+```
+Производит обмен значениями между двумя диапазонами элементов.
+
 ## Лицензия
 
 Этот проект лицензируется на условиях лицензии MIT. Подробности смотрите в файле LICENSE.
