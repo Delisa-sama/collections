@@ -19,8 +19,7 @@ func Copy[T any](
 	destBegin interfaces.PointerIterator[T],
 ) interfaces.PointerIterator[T] {
 	for !begin.Equals(end) {
-		value := begin.Value()
-		*destBegin.Ptr() = value
+		*destBegin.Ptr() = begin.Value()
 
 		begin.Next()
 		destBegin.Next()
