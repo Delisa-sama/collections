@@ -1,7 +1,9 @@
 package bst
 
 import (
+	"github.com/Delisa-sama/collections/algorithms"
 	"github.com/Delisa-sama/collections/comparator"
+	"github.com/Delisa-sama/collections/copiable"
 	"github.com/Delisa-sama/collections/interfaces"
 	"github.com/Delisa-sama/collections/iterators"
 )
@@ -248,4 +250,13 @@ func (t *BST[T]) PostOrderBegin() interfaces.ForwardIterator[T] {
 // PostOrderEnd возвращает конечный итератор для post-order обхода.
 func (t *BST[T]) PostOrderEnd() interfaces.Iterator {
 	return iterators.NewEndIterator()
+}
+
+// Copy копирует дерево.
+func (t *BST[T]) Copy() copiable.Copiable {
+	bstCopy := NewBST[T](t.comp)
+	algorithms.ForEach(t.PreOrderBegin(), t.PreOrderEnd(), func(value T) {
+		bstCopy.Insert(value)
+	})
+	return bstCopy
 }
