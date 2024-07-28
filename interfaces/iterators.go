@@ -1,22 +1,18 @@
 package interfaces
 
+import (
+	"github.com/Delisa-sama/collections/copiable"
+)
+
 // Iterator - это интерфейс для перебора коллекции.
 type Iterator interface {
+	copiable.Copiable
 	// Equals проверяет, равны ли два итератора.
 	Equals(iterator Iterator) bool
 	// HasNext проверяет, есть ли еще элементы для перебора.
 	HasNext() bool
 	// Next переходит к следующему элементу.
 	Next()
-	// Copy копирует итератор.
-	// Реализация обязана вернуть тот же тип которым она является,
-	// чтобы можно было "безопасно" расширить интерфейс в месте вызова копирования, пример:
-	// foo[T any](begin ForwardIterator[T]) {
-	//      // Copy вернет интерфейс Iterator, но мы знаем что на самом деле это ForwardIterator[T].
-	//      beginCopy := begin.Copy().(ForwardIterator[T])
-	//      fmt.Println(beginCopy.Value())
-	// }
-	Copy() Iterator
 }
 
 // ValueIterator - это интерфейс для итератора, который возвращает значение.

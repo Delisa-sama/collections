@@ -1,6 +1,7 @@
 package vector
 
 import (
+	"github.com/Delisa-sama/collections/copiable"
 	"github.com/Delisa-sama/collections/interfaces"
 	"github.com/Delisa-sama/collections/iterators"
 )
@@ -106,6 +107,6 @@ func (it *iterator[T]) isEnd() bool {
 }
 
 // Copy копирует итератор.
-func (it *iterator[T]) Copy() interfaces.Iterator {
+func (it *iterator[T]) Copy() copiable.Copiable {
 	return newIterator(it.s, it.current)
 }

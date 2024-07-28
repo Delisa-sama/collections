@@ -2,6 +2,7 @@ package avltree
 
 import (
 	"github.com/Delisa-sama/collections/adapters/stack"
+	"github.com/Delisa-sama/collections/copiable"
 	"github.com/Delisa-sama/collections/interfaces"
 	"github.com/Delisa-sama/collections/iterators"
 	"github.com/Delisa-sama/collections/pair"
@@ -67,7 +68,7 @@ func (it *inOrderIterator[K, V]) pushLeft(n *node[K, V]) {
 }
 
 // Copy копирует итератор.
-func (it *inOrderIterator[K, V]) Copy() interfaces.Iterator {
+func (it *inOrderIterator[K, V]) Copy() copiable.Copiable {
 	return &inOrderIterator[K, V]{
 		current: it.current,
 		s:       it.s.Copy(),

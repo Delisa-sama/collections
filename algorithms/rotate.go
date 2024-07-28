@@ -1,6 +1,7 @@
 package algorithms
 
 import (
+	"github.com/Delisa-sama/collections/copiable"
 	"github.com/Delisa-sama/collections/interfaces"
 )
 
@@ -20,12 +21,12 @@ func Rotate[T any](begin, middle interfaces.ForwardIterator[T], end interfaces.I
 		return begin
 	}
 
-	write := begin.Copy().(interfaces.ForwardIterator[T])
-	nextRead := begin.Copy().(interfaces.ForwardIterator[T])
+	write := copiable.Copy[interfaces.ForwardIterator[T]](begin)
+	nextRead := copiable.Copy[interfaces.ForwardIterator[T]](begin)
 
-	for read := middle.Copy().(interfaces.ForwardIterator[T]); !read.Equals(end); {
+	for read := copiable.Copy[interfaces.ForwardIterator[T]](middle); !read.Equals(end); {
 		if write.Equals(nextRead) {
-			nextRead = read.Copy().(interfaces.ForwardIterator[T])
+			nextRead = copiable.Copy[interfaces.ForwardIterator[T]](read)
 		}
 		SwapIter[T](write, read)
 
@@ -50,10 +51,11 @@ func RotateCopy[T any](
 	end interfaces.Iterator,
 	destBegin interfaces.PointerIterator[T],
 ) interfaces.PointerIterator[T] {
+	copiable.Copy[interfaces.ForwardIterator[T]](nBegin)
 	destBegin = Copy(
-		nBegin.Copy().(interfaces.ForwardIterator[T]),
-		end.Copy(),
-		destBegin.Copy().(interfaces.PointerIterator[T]),
+		copiable.Copy[interfaces.ForwardIterator[T]](nBegin),
+		copiable.Copy[interfaces.Iterator](end),
+		copiable.Copy[interfaces.PointerIterator[T]](destBegin),
 	)
 	return Copy(begin, nBegin, destBegin)
 }

@@ -1,6 +1,7 @@
 package iterators
 
 import (
+	"github.com/Delisa-sama/collections/copiable"
 	"github.com/Delisa-sama/collections/interfaces"
 )
 
@@ -29,6 +30,6 @@ func (it *EndIterator) HasNext() bool {
 func (it *EndIterator) Next() {}
 
 // Copy возвращает новый экземпляр EndIterator, поскольку не имеет состояния.
-func (it *EndIterator) Copy() interfaces.Iterator {
+func (it *EndIterator) Copy() copiable.Copiable {
 	return NewEndIterator()
 }

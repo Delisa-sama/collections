@@ -1,6 +1,7 @@
 package vector
 
 import (
+	"github.com/Delisa-sama/collections/copiable"
 	"github.com/Delisa-sama/collections/interfaces"
 	"github.com/Delisa-sama/collections/iterators"
 )
@@ -80,7 +81,7 @@ func (l *Vector[T]) PopBack() {
 }
 
 // Copy копирует вектор.
-func (l *Vector[T]) Copy() interfaces.Container[T] {
+func (l *Vector[T]) Copy() copiable.Copiable {
 	sliceCopy := make([]T, len(l.s))
 	copy(sliceCopy, l.s)
 	return NewVectorFromSlice(sliceCopy)

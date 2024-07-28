@@ -2,6 +2,7 @@ package bst
 
 import (
 	"github.com/Delisa-sama/collections/adapters/stack"
+	"github.com/Delisa-sama/collections/copiable"
 	"github.com/Delisa-sama/collections/interfaces"
 	"github.com/Delisa-sama/collections/iterators"
 	"github.com/Delisa-sama/collections/sequence/vector"
@@ -79,7 +80,7 @@ func (it *postOrderIterator[T]) Equals(another interfaces.Iterator) bool {
 }
 
 // Copy копирует итератор.
-func (it *postOrderIterator[T]) Copy() interfaces.Iterator {
+func (it *postOrderIterator[T]) Copy() copiable.Copiable {
 	return &postOrderIterator[T]{
 		lastNodeVisited: it.lastNodeVisited,
 		current:         it.current,

@@ -1,6 +1,7 @@
 package iterators
 
 import (
+	"github.com/Delisa-sama/collections/copiable"
 	"github.com/Delisa-sama/collections/interfaces"
 )
 
@@ -50,6 +51,6 @@ func (it *ReverseIterator[T]) Equals(another interfaces.Iterator) bool {
 }
 
 // Copy копирует итератор.
-func (it *ReverseIterator[T]) Copy() interfaces.Iterator {
-	return NewReverseIterator(it.it.Copy().(interfaces.BidirectionalIterator[T]))
+func (it *ReverseIterator[T]) Copy() copiable.Copiable {
+	return NewReverseIterator(copiable.Copy[interfaces.BidirectionalIterator[T]](it.it))
 }

@@ -2,6 +2,7 @@ package bst
 
 import (
 	"github.com/Delisa-sama/collections/adapters/stack"
+	"github.com/Delisa-sama/collections/copiable"
 	"github.com/Delisa-sama/collections/interfaces"
 	"github.com/Delisa-sama/collections/iterators"
 	"github.com/Delisa-sama/collections/sequence/vector"
@@ -71,7 +72,7 @@ func (it *inOrderIterator[T]) pushLeft(n *node[T]) {
 }
 
 // Copy копирует итератор.
-func (it *inOrderIterator[T]) Copy() interfaces.Iterator {
+func (it *inOrderIterator[T]) Copy() copiable.Copiable {
 	return &inOrderIterator[T]{
 		current: it.current,
 		s:       it.s.Copy(),

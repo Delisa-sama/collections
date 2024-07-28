@@ -2,6 +2,7 @@ package avltree
 
 import (
 	"github.com/Delisa-sama/collections/adapters/stack"
+	"github.com/Delisa-sama/collections/copiable"
 	"github.com/Delisa-sama/collections/interfaces"
 	"github.com/Delisa-sama/collections/iterators"
 	"github.com/Delisa-sama/collections/pair"
@@ -63,7 +64,7 @@ func (it *preOrderIterator[K, V]) Equals(another interfaces.Iterator) bool {
 }
 
 // Copy копирует итератор.
-func (it *preOrderIterator[K, V]) Copy() interfaces.Iterator {
+func (it *preOrderIterator[K, V]) Copy() copiable.Copiable {
 	return &preOrderIterator[K, V]{
 		current: it.current,
 		s:       it.s.Copy(),

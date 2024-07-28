@@ -1,6 +1,7 @@
 package stack
 
 import (
+	"github.com/Delisa-sama/collections/copiable"
 	"github.com/Delisa-sama/collections/interfaces"
 )
 
@@ -56,6 +57,6 @@ func (s *Stack[T, C]) IsEmpty() bool {
 // Copy возвращает копию стека.
 func (s *Stack[T, C]) Copy() *Stack[T, C] {
 	return &Stack[T, C]{
-		c: s.c.Copy().(C),
+		c: copiable.Copy[C](s.c),
 	}
 }
