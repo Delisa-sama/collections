@@ -5,8 +5,8 @@ import (
 	"github.com/Delisa-sama/collections/interfaces"
 )
 
-// Container - это интерфейс, который описывает контейнер, поддерживающий операции с задней частью.
-type Container[T any] interface {
+// container - это интерфейс, который описывает контейнер, поддерживающий операции с задней частью.
+type container[T any] interface {
 	interfaces.Container[T]
 	// Back возвращает последний элемент в контейнере.
 	Back() T
@@ -16,14 +16,14 @@ type Container[T any] interface {
 	PopBack()
 }
 
-type containerConstructor[T any, C Container[T]] func(...T) C
+type containerConstructor[T any, C container[T]] func(...T) C
 
 // Stack представляет собой стек, работающий на основе контейнера C.
-type Stack[T any, C Container[T]] struct {
+type Stack[T any, C container[T]] struct {
 	c C
 }
 
-func NewStack[T any, C Container[T]](cc containerConstructor[T, C], items ...T) *Stack[T, C] {
+func NewStack[T any, C container[T]](cc containerConstructor[T, C], items ...T) *Stack[T, C] {
 	return &Stack[T, C]{
 		c: cc(items...),
 	}
