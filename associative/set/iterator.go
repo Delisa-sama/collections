@@ -3,6 +3,7 @@ package set
 import (
 	"github.com/elliotchance/orderedmap/v2"
 
+	"github.com/Delisa-sama/collections/copiable"
 	"github.com/Delisa-sama/collections/interfaces"
 	"github.com/Delisa-sama/collections/iterators"
 )
@@ -58,4 +59,11 @@ func (it *iterator[K]) Equals(another interfaces.Iterator) bool {
 		return it.current == nil
 	}
 	panic("unknown iterator type")
+}
+
+// Copy копирует итератор.
+func (it *iterator[T]) Copy() copiable.Copiable {
+	return &iterator[T]{
+		current: it.current,
+	}
 }

@@ -1,6 +1,8 @@
 package forwardlist
 
 import (
+	"github.com/Delisa-sama/collections/algorithms"
+	"github.com/Delisa-sama/collections/copiable"
 	"github.com/Delisa-sama/collections/interfaces"
 	"github.com/Delisa-sama/collections/iterators"
 )
@@ -87,4 +89,13 @@ func (l *ForwardList[T]) PopBack() {
 	current.Next = nil
 	l.end = current
 	l.size--
+}
+
+// Copy копирует список.
+func (l *ForwardList[T]) Copy() copiable.Copiable {
+	copyList := NewForwardList[T]()
+	algorithms.ForEach(l.Begin(), l.End(), func(value T) {
+		copyList.PushBack(value)
+	})
+	return copyList
 }

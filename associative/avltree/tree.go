@@ -1,7 +1,9 @@
 package avltree
 
 import (
+	"github.com/Delisa-sama/collections/algorithms"
 	"github.com/Delisa-sama/collections/comparator"
+	"github.com/Delisa-sama/collections/copiable"
 	"github.com/Delisa-sama/collections/interfaces"
 	"github.com/Delisa-sama/collections/iterators"
 	"github.com/Delisa-sama/collections/pair"
@@ -168,4 +170,13 @@ func (tree *AVLTree[K, V]) PostOrderBegin() interfaces.ValueIterator[pair.Pair[K
 // PostOrderEnd возвращает конечный итератор для post-order обхода.
 func (tree *AVLTree[K, V]) PostOrderEnd() interfaces.Iterator {
 	return iterators.NewEndIterator()
+}
+
+// Copy копирует дерево.
+func (tree *AVLTree[K, V]) Copy() copiable.Copiable {
+	treeCopy := NewAVLTree[K, V](tree.comparator)
+	algorithms.ForEach(tree.PreOrderBegin(), tree.PreOrderEnd(), func(p pair.Pair[K, V]) {
+		treeCopy.Insert(p.First, p.Second)
+	})
+	return treeCopy
 }

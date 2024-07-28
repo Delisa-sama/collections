@@ -3,7 +3,11 @@
 
 title "Иерархия итераторов"
 
-interface Iterator<T any> {
+interface Copiable {
+    +Copy() Copiable
+}
+
+interface Iterator {
     +Equals(Iterator) bool
     +HasNext() bool
     +Next()
@@ -29,6 +33,7 @@ interface RandomAccessIterator<T any> {
     +Shift(int)
 }
 
+Copiable <|-- Iterator
 Iterator <|-- ValueIterator
 Iterator <|-- PointerIterator
 ValueIterator <|-- ForwardIterator

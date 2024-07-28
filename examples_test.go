@@ -10,6 +10,7 @@ import (
 	"github.com/Delisa-sama/collections/associative/bst"
 	"github.com/Delisa-sama/collections/associative/set"
 	"github.com/Delisa-sama/collections/comparator"
+	"github.com/Delisa-sama/collections/copiable"
 	"github.com/Delisa-sama/collections/pair"
 	"github.com/Delisa-sama/collections/sequence/forwardlist"
 	"github.com/Delisa-sama/collections/sequence/list"
@@ -106,6 +107,10 @@ func Test_Examples(t *testing.T) {
 		fmt.Println()
 
 		_, _ = algorithms.PrintF[pair.Pair[int, string]](kvBST.PostOrderBegin(), kvBST.PostOrderEnd(), "%v ")
+		fmt.Println()
+
+		kvBSTCopy := copiable.Copy[*bst.BST[pair.Pair[int, string]]](kvBST.Copy())
+		_, _ = algorithms.PrintF[pair.Pair[int, string]](kvBSTCopy.PostOrderBegin(), kvBSTCopy.PostOrderEnd(), "%v ")
 		fmt.Println()
 
 		sl1 := []int{3, 2, 1, 4, 6}

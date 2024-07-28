@@ -1,6 +1,7 @@
 package forwardlist
 
 import (
+	"github.com/Delisa-sama/collections/copiable"
 	"github.com/Delisa-sama/collections/interfaces"
 	"github.com/Delisa-sama/collections/iterators"
 )
@@ -46,4 +47,9 @@ func (it *iterator[T]) Equals(another interfaces.Iterator) bool {
 		return it.current == nil
 	}
 	panic("unknown iterator type")
+}
+
+// Copy копирует итератор.
+func (it *iterator[T]) Copy() copiable.Copiable {
+	return newIterator(it.current)
 }

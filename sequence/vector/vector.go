@@ -1,6 +1,7 @@
 package vector
 
 import (
+	"github.com/Delisa-sama/collections/copiable"
 	"github.com/Delisa-sama/collections/interfaces"
 	"github.com/Delisa-sama/collections/iterators"
 )
@@ -42,8 +43,8 @@ func (l *Vector[T]) Begin() interfaces.RandomAccessIterator[T] {
 }
 
 // End возвращает итератор на последний элемент вектора.
-func (l *Vector[T]) End() interfaces.Iterator {
-	return iterators.NewEndIterator()
+func (l *Vector[T]) End() interfaces.RandomAccessIterator[T] {
+	return newIterator(&l.s, uint(len(l.s)))
 }
 
 // RBegin возвращает перевернутый итератор на последний элемент вектора.
@@ -52,7 +53,7 @@ func (l *Vector[T]) RBegin() interfaces.BidirectionalIterator[T] {
 }
 
 // REnd возвращает перевернутый итератор на первый элемент вектора.
-func (l *Vector[T]) REnd() interfaces.Iterator {
+func (l *Vector[T]) REnd() interfaces.BidirectionalIterator[T] {
 	return iterators.NewReverseIterator[T](l.Begin())
 }
 
@@ -77,4 +78,11 @@ func (l *Vector[T]) PopBack() {
 		return
 	}
 	l.s = l.s[:len(l.s)-1]
+}
+
+// Copy копирует вектор.
+func (l *Vector[T]) Copy() copiable.Copiable {
+	sliceCopy := make([]T, len(l.s))
+	copy(sliceCopy, l.s)
+	return NewVectorFromSlice(sliceCopy)
 }

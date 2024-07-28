@@ -3,6 +3,7 @@ package set
 import (
 	"github.com/elliotchance/orderedmap/v2"
 
+	"github.com/Delisa-sama/collections/copiable"
 	"github.com/Delisa-sama/collections/interfaces"
 	"github.com/Delisa-sama/collections/iterators"
 )
@@ -58,4 +59,17 @@ func (s *Set[K]) REnd() interfaces.Iterator {
 // Set добавляет новый элемент в множество.
 func (s *Set[K]) Set(k K) {
 	s.m.Set(k, struct{}{})
+}
+
+// Contains проверяет есть ли элемент в множестве.
+func (s *Set[K]) Contains(k K) bool {
+	_, found := s.m.Get(k)
+	return found
+}
+
+// Copy возвращает копию множества.
+func (s *Set[K]) Copy() copiable.Copiable {
+	return &Set[K]{
+		m: s.m.Copy(),
+	}
 }

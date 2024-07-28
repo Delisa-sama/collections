@@ -1,7 +1,12 @@
 package interfaces
 
+import (
+	"github.com/Delisa-sama/collections/copiable"
+)
+
 // Iterator - это интерфейс для перебора коллекции.
 type Iterator interface {
+	copiable.Copiable
 	// Equals проверяет, равны ли два итератора.
 	Equals(iterator Iterator) bool
 	// HasNext проверяет, есть ли еще элементы для перебора.
