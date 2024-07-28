@@ -13,6 +13,11 @@ go get github.com/Delisa-sama/collections
 ## Примеры
 Примеры можно посмотреть в файле [examples_test.go](examples_test.go).
 
+## [Copiable](copiable/copiable.go)
+Определяет интерфейс для объектов, которые могут быть скопированы.
+
+Для корректной работы алгоритмов, все контейнеры и итераторы обязаны реализовывать интерфейс Copiable.
+
 ## Контейнеры
 Контейнеры — это объекты, которые служат для хранения других объектов.
 
@@ -31,22 +36,24 @@ go get github.com/Delisa-sama/collections
 `Vector` представляет собой динамический массив (вектор), предоставляющий функции для работы с коллекцией элементов.
 
 ### Пример использования
+
 ```go
 package main
 
 import (
-    "fmt"
-    "github.com/Delisa-sama/collections"
+	"fmt"
+
+	"github.com/Delisa-sama/collections/sequence/vector"
 )
 
 func main() {
-    vec := collections.NewVector(1, 2, 3)
-    fmt.Println("Размер вектора:", vec.Size())
-    fmt.Println("Последний элемент:", vec.Back())
-    vec.PushBack(4)
-    fmt.Println("Новый размер вектора:", vec.Size())
-    vec.PopBack()
-    fmt.Println("Размер после удаления:", vec.Size())
+	vec := vector.NewVector(1, 2, 3)
+	fmt.Println("Размер вектора:", vec.Size())
+	fmt.Println("Последний элемент:", vec.Back())
+	vec.PushBack(4)
+	fmt.Println("Новый размер вектора:", vec.Size())
+	vec.PopBack()
+	fmt.Println("Размер после удаления:", vec.Size())
 }
 ```
 
@@ -108,13 +115,20 @@ func (l *Vector[T]) PopBack()
 
 Time complexity: `O(1)`
 
+#### Copy
+```go
+func (l *Vector[T]) Copy() copiable.Copiable
+```
+Возвращает копию вектора.
+
+Time complexity: `O(n)`, где n — количество элементов в векторе.
+
+### Итераторы
 #### At
 ```go
 func (l *Vector[T]) At(index uint) interfaces.RandomAccessIterator[T]
 ```
 Возвращает итератор на элемент вектора по переданному индексу.
-
-Time complexity: `O(1)`
 
 #### Begin
 ```go
@@ -122,15 +136,11 @@ func (l *Vector[T]) Begin() interfaces.RandomAccessIterator[T]
 ```
 Возвращает итератор на первый элемент вектора.
 
-Time complexity: `O(1)`
-
 #### End
 ```go
-func (l *Vector[T]) End() interfaces.Iterator
+func (l *Vector[T]) End() interfaces.RandomAccessIterator[T]
 ```
 Возвращает итератор на последний элемент вектора.
-
-Time complexity: `O(1)`
 
 #### RBegin
 ```go
@@ -138,15 +148,11 @@ func (l *Vector[T]) RBegin() interfaces.BidirectionalIterator[T]
 ```
 Возвращает перевернутый итератор на последний элемент вектора.
 
-Time complexity: `O(1)`
-
 #### REnd
 ```go
 func (l *Vector[T]) REnd() interfaces.Iterator
 ```
 Возвращает перевернутый итератор на первый элемент вектора.
-
-Time complexity: `O(1)`
 
 ## ForwardList
 ForwardList представляет собой односвязный список, предоставляющий функции для работы с коллекцией элементов.
@@ -158,11 +164,11 @@ package main
 import (
 	"fmt"
 
-	"github.com/Delisa-sama/collections"
+	"github.com/Delisa-sama/collections/sequence/forwardlist"
 )
 
 func main() {
-	fl := collections.NewForwardList(1, 2, 3)
+	fl := forwardlist.NewForwardList(1, 2, 3)
 	fmt.Println("Размер списка:", fl.Size())
 	fmt.Println("Первый элемент:", fl.Front())
 	fl.PushFront(0)
@@ -228,6 +234,27 @@ func (l *ForwardList[T]) PopFront()
 
 Time complexity: `O(1)`
 
+#### Copy
+```go
+func (l *ForwardList[T]) Copy() copiable.Copiable
+```
+Возвращает копию списка.
+
+Time complexity: `O(n)`, где n — количество элементов в списке.
+
+### Итераторы
+#### Begin
+```go
+func (l *ForwardList[T]) Begin() interfaces.ForwardIterator[T]
+```
+Возвращает итератор на первый элемент списка.
+
+#### End
+```go
+func (l *ForwardList[T]) End() interfaces.Iterator
+```
+Возвращает итератор на конец списка.
+
 ## List
 List представляет собой двусвязный список, предоставляющий функции для работы с коллекцией элементов.
 
@@ -238,18 +265,18 @@ package main
 import (
 	"fmt"
 
-	"github.com/Delisa-sama/collections"
+	"github.com/Delisa-sama/collections/sequence/list"
 )
 
 func main() {
-	list := collections.NewList(1, 2, 3)
-	fmt.Println("Размер списка:", list.Size())
-	fmt.Println("Первый элемент:", list.Front())
-	fmt.Println("Последний элемент:", list.Back())
-	list.PushFront(0)
-	fmt.Println("Новый размер списка:", list.Size())
-	list.PopFront()
-	fmt.Println("Размер после удаления:", list.Size())
+	l := list.NewList(1, 2, 3)
+	fmt.Println("Размер списка:", l.Size())
+	fmt.Println("Первый элемент:", l.Front())
+	fmt.Println("Последний элемент:", l.Back())
+	l.PushFront(0)
+	fmt.Println("Новый размер списка:", l.Size())
+	l.PopFront()
+	fmt.Println("Размер после удаления:", l.Size())
 }
 ```
 
@@ -336,6 +363,40 @@ func (l *List[T]) PopBack()
 
 Time complexity: `O(1)`
 
+#### Copy
+```go
+func (l *List[T]) Copy() copiable.Copiable
+```
+Возвращает копию списка.
+
+Time complexity: `O(n)`, где n — количество элементов в списке.
+
+### Итераторы
+#### Begin
+```go
+func (l *List[T]) Begin() interfaces.BidirectionalIterator[T]
+```
+Возвращает итератор на первый элемент списка.
+
+#### End
+```go
+func (l *List[T]) End() interfaces.Iterator
+```
+Возвращает итератор на конец списка.
+
+#### RBegin
+```go
+func (l *List[T]) RBegin() interfaces.BidirectionalIterator[T]
+```
+Возвращает перевернутый итератор на последний элемент списка.
+
+#### REnd
+```go
+func (l *List[T]) REnd() interfaces.Iterator
+```
+Возвращает итератор на конец списка.
+
+
 ## Set
 Set представляет собой коллекцию уникальных элементов, предоставляющую функции для работы с коллекцией.
 ### Пример использования
@@ -347,11 +408,11 @@ package main
 import (
 	"fmt"
 
-	"github.com/Delisa-sama/collections"
+	"github.com/Delisa-sama/collections/associative/set"
 )
 
 func main() {
-	set := collections.NewSet(1, 2, 3)
+	set := set.NewSet(1, 2, 3)
 	fmt.Println("Размер набора:", set.Size())
 	set.Insert(4)
 	fmt.Println("Новый размер набора:", set.Size())
@@ -392,30 +453,54 @@ Time complexity: `O(1)`
 
 #### Insert
 ```go
-func (s *Set[T]) Insert(value T)
+func (s *Set[K]) Set(k K)
 ```
 
 Вставляет новый элемент в набор.
 
 Time complexity: `O(1)`
 
-#### Remove
-```go
-func (s *Set[T]) Remove(value T)
-```
-
-Удаляет элемент из набора.
-
-Time complexity: `O(1)`
-
 #### Contains
 ```go
-func (s *Set[T]) Contains(value T) bool
+func (s *Set[K]) Contains(k K) bool
 ```
 
 Проверяет, содержится ли элемент в наборе.
 
 Time complexity: `O(1)`
+
+#### Copy
+```go
+func (s *Set[K]) Copy() copiable.Copiable
+```
+Возвращает копию множества.
+
+Time complexity: `O(n)`, где n — количество элементов в множестве.
+
+### Итераторы
+#### Begin
+```go
+func (s *Set[K]) Begin() interfaces.BidirectionalIterator[K]
+```
+Возвращает итератор на первый элемент множества.
+
+#### End
+```go
+func (s *Set[K]) End() interfaces.Iterator
+```
+Возвращает итератор на конец множества.
+
+#### RBegin
+```go
+func (s *Set[K]) RBegin() interfaces.BidirectionalIterator[K]
+```
+Возвращает перевернутый итератор на последний элемент множества.
+
+#### REnd
+```go
+func (s *Set[K]) REnd() interfaces.Iterator
+```
+Возвращает итератор на конец множества.
 
 ## BST
 BST (Binary Search Tree) представляет собой структуру данных в виде двоичного дерева поиска.
@@ -428,11 +513,11 @@ package main
 import (
 	"fmt"
 
-	"github.com/Delisa-sama/collections"
+	"github.com/Delisa-sama/collections/associative/bst"
 )
 
 func main() {
-	bst := collections.NewBST(10, 5, 15)
+	bst := bst.NewBST(10, 5, 15)
 	bst.Insert(7)
 	fmt.Println("Размер дерева:", bst.Size())
 	fmt.Println("Дерево содержит элемент 7:", bst.Contains(7))
@@ -497,6 +582,36 @@ func (t *BST[T]) Contains(value T) bool
 
 Time complexity: `O(log n)`
 
+#### Copy
+```go
+func (t *BST[T]) Copy() copiable.Copiable
+```
+Возвращает копию дерева.
+
+Time complexity: `O(n)`, где n — количество элементов в дереве.
+
+### Итераторы
+#### InOrder
+```go
+func (t *BST[T]) InOrderBegin() interfaces.ForwardIterator[T]
+func (t *BST[T]) InOrderEnd() interfaces.Iterator
+```
+Итераторы для обхода дерева в in-order порядке.
+
+#### PreOrder
+```go
+func (t *BST[T]) PreOrderBegin() interfaces.ForwardIterator[T]
+func (t *BST[T]) PreOrderEnd() interfaces.Iterator
+```
+Итераторы для обхода дерева в pre-order порядке.
+
+#### PostOrder
+```go
+func (t *BST[T]) PostOrderBegin() interfaces.ForwardIterator[T]
+func (t *BST[T]) PostOrderEnd() interfaces.Iterator
+```
+Итераторы для обхода дерева в post-order порядке.
+
 ## AVLTree
 AVLTree представляет собой самобалансирующееся двоичное дерево поиска.
 ### Пример использования
@@ -508,11 +623,11 @@ package main
 import (
 	"fmt"
 
-	"github.com/Delisa-sama/collections"
+	"github.com/Delisa-sama/collections/associative/avltree"
 )
 
 func main() {
-	avl := collections.NewAVLTree(10, 5, 15)
+	avl := avltree.NewAVLTree(10, 5, 15)
 	avl.Insert(7)
 	fmt.Println("Размер дерева:", avl.Size())
 	fmt.Println("Дерево содержит элемент 7:", avl.Contains(7))
@@ -575,6 +690,36 @@ func (t *AVLTree[T]) Contains(value T) bool
 Проверяет, содержится ли элемент в дереве.
 
 Time complexity: `O(log n)`
+
+#### Copy
+```go
+func (tree *AVLTree[K, V]) Copy() copiable.Copiable
+```
+Возвращает копию дерева.
+
+Time complexity: `O(n)`, где n — количество элементов в дереве.
+
+### Итераторы
+#### InOrder
+```go
+func (tree *AVLTree[K, V]) InOrderBegin() interfaces.ValueIterator[pair.Pair[K, V]]
+func (tree *AVLTree[K, V]) InOrderEnd() interfaces.Iterator
+```
+Итераторы для обхода дерева в in-order порядке.
+
+#### PreOrder
+```go
+func (tree *AVLTree[K, V]) PreOrderBegin() interfaces.ValueIterator[pair.Pair[K, V]]
+func (tree *AVLTree[K, V]) PreOrderEnd() interfaces.Iterator
+```
+Итераторы для обхода дерева в pre-order порядке.
+
+#### PostOrder
+```go
+func (tree *AVLTree[K, V]) PostOrderBegin() interfaces.ValueIterator[pair.Pair[K, V]]
+func (tree *AVLTree[K, V]) PostOrderEnd() interfaces.Iterator
+```
+Итераторы для обхода дерева в post-order порядке.
 
 # Адаптеры
 Адаптеры контейнеров — это интерфейсы, созданные путем ограничения функциональности уже существующего контейнера и предоставления другого набора функций.
@@ -664,9 +809,13 @@ Time complexity: Time complexity метода `IsEmpty` базового кон�
 
 ## Итераторы
 Итераторы обеспечивают доступ к элементам контейнера. 
+
 С помощью итераторов можно перебирать элементы контейнера. 
+
 Итераторы реализуют общий интерфейс для различных типов контейнеров, 
 что позволяет использовать единой подход для обращения к элементам разных типов контейнеров.
+
+Так же как ие контейнеры, итераторы реализуют интерфейс [Copiable](#copiable), то есть являются копируемыми.
 
 ### Иерархия итераторов
 [<img src="diagrams/iterator-hierarchy.png">](diagrams/iterator-hierarchy.puml)
