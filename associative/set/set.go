@@ -61,6 +61,12 @@ func (s *Set[K]) Set(k K) {
 	s.m.Set(k, struct{}{})
 }
 
+// Contains проверяет есть ли элемент в множестве.
+func (s *Set[K]) Contains(k K) bool {
+	_, found := s.m.Get(k)
+	return found
+}
+
 // Copy возвращает копию множества.
 func (s *Set[K]) Copy() copiable.Copiable {
 	return &Set[K]{
