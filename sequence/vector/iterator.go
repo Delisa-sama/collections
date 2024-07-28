@@ -73,19 +73,36 @@ func (it *iterator[T]) Shift(offset int) {
 }
 
 // Equals проверяет, равен ли данный итератор другому итератору.
-// Итераторы равны если указывают на один и тот же адрес.
+// Итераторы равны если:
+// 1) они оба указывают на пустой слайс;
+// 2) оба итератора указывают на элемент после слайса;
+// 3) указывают на один и тот же адрес.
 func (it *iterator[T]) Equals(another interfaces.Iterator) bool {
 	switch a := another.(type) {
 	case *iterator[T]:
+		if len(*it.s) == 0 && len(*a.s) == 0 {
+			return true
+		}
+		if a.isEnd() {
+			return it.isEnd()
+		}
+		if it.isEnd() {
+			return false
+		}
+
 		return &(*a.s)[a.current] == &(*it.s)[it.current]
 	case *iterators.EndIterator:
-		return !it.indexInBounds(it.current)
+		return len(*it.s) == 0 || it.current == uint(len(*it.s))
 	}
 	panic("unknown iterator type")
 }
 
 func (it *iterator[T]) indexInBounds(index uint) bool {
-	return len(*it.s) > 0 && index <= uint(len(*it.s)-1)
+	return len(*it.s) > 0 && uint(len(*it.s)) > index
+}
+
+func (it *iterator[T]) isEnd() bool {
+	return len(*it.s) == 0 || uint(len(*it.s)) == it.current
 }
 
 // Copy копирует итератор.

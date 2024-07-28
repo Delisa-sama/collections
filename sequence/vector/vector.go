@@ -43,7 +43,7 @@ func (l *Vector[T]) Begin() interfaces.RandomAccessIterator[T] {
 
 // End возвращает итератор на последний элемент вектора.
 func (l *Vector[T]) End() interfaces.Iterator {
-	return iterators.NewEndIterator()
+	return newIterator(&l.s, uint(len(l.s)))
 }
 
 // RBegin возвращает перевернутый итератор на последний элемент вектора.
