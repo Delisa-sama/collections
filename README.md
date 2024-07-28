@@ -909,6 +909,52 @@ func ForEachPtr[T any](begin interfaces.PointerIterator[T], end interfaces.Itera
 ```
 Применяет функцию к указателю на каждый элемент в диапазоне [begin, end).
 
+### [Print](algorithms/print.go)
+```go
+func Print[T any](
+    begin interfaces.ValueIterator[T], end interfaces.Iterator,
+) (n int, err error)
+```
+Выводит значения, начиная с итератора begin до итератора end, используя fmt.Print.
+
+### [Println](algorithms/print.go)
+```go
+func Println[T any](
+	begin interfaces.ValueIterator[T], end interfaces.Iterator,
+) (n int, err error)
+```
+Выводит значения, начиная с итератора begin до итератора end, используя fmt.Println.
+
+### [PrintFunc](algorithms/print.go)
+```go
+func PrintFunc[T any](
+	begin interfaces.ValueIterator[T],
+	end interfaces.Iterator,
+	f printFunc,
+) (totalN int, err error)
+```
+Выводит значения, начиная с итератора begin до итератора end, используя заданную функцию вывода.
+
+### [PrintF](algorithms/print.go)
+```go
+func PrintF[T any](
+	begin interfaces.ValueIterator[T], end interfaces.Iterator,
+	format string,
+) (n int, err error)
+```
+Выводит значения, начиная с итератора begin до итератора end, используя fmt.Printf и заданный формат.
+
+### [PrintFFunc](algorithms/print.go)
+```go
+func PrintFFunc[T any](
+	begin interfaces.ValueIterator[T],
+	end interfaces.Iterator,
+	format string,
+	f printfFunc,
+) (totalN int, err error)
+```
+Выводит значения, начиная с итератора begin до итератора end, используя заданную функцию форматированного вывода.
+
 ## Лицензия
 
 Этот проект лицензируется на условиях лицензии MIT. Подробности смотрите в файле LICENSE.

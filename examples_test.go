@@ -22,37 +22,28 @@ func Test_Examples(t *testing.T) {
 		if l.Size() != 3 {
 			t.Fatalf("bad list size, got (%d), expected (%d)", l.Size(), 3)
 		}
-		algorithms.ForEach(l.Begin(), l.End(), func(i int) {
-			fmt.Println(i)
-		})
+		_, _ = algorithms.PrintF[int](l.Begin(), l.End(), "%d ")
 		fmt.Println()
 
 		l2 := list.NewList[int](1, 2, 3)
 		if !algorithms.Equals(l.Begin(), l2.Begin()) {
 			t.Fatalf("lists not equals")
 		}
-		algorithms.ForEach(l2.Begin(), l2.End(), func(i int) {
-			fmt.Println(i)
-		})
+		_, _ = algorithms.PrintF[int](l2.Begin(), l2.End(), "%d ")
 		fmt.Println()
 
 		l3 := vector.NewVector(1, 2, 3)
 		if !algorithms.Equals(l.Begin(), l3.Begin()) {
 			t.Fatalf("list and vector not equals")
 		}
-		algorithms.ForEach(l3.Begin(), l3.End(), func(i int) {
-			fmt.Println(i)
-		})
+		_, _ = algorithms.PrintF[int](l3.Begin(), l3.End(), "%d ")
 		fmt.Println()
 
 		s := set.NewSet(1, 2, 3, 3)
 		if !algorithms.Equals(l.Begin(), s.Begin()) {
 			t.Fatalf("list and set not equals")
 		}
-
-		algorithms.ForEach(s.Begin(), s.End(), func(i int) {
-			fmt.Println(i)
-		})
+		_, _ = algorithms.PrintF[int](s.Begin(), s.End(), "%d ")
 		fmt.Println()
 
 		vec := vector.NewVector(1, 2, 3)
@@ -85,9 +76,7 @@ func Test_Examples(t *testing.T) {
 		if algorithms.Equals(binaryTree.InOrderBegin(), l3.Begin()) {
 			t.Fatalf("wtf")
 		}
-		algorithms.ForEach(binaryTree.InOrderBegin(), binaryTree.InOrderEnd(), func(i int) {
-			fmt.Println(i)
-		})
+		_, _ = algorithms.PrintF[int](binaryTree.InOrderBegin(), binaryTree.InOrderEnd(), "%d ")
 		fmt.Println()
 
 		comparePairByFirstInt := func(a, b pair.Pair[int, string]) int {
@@ -105,9 +94,7 @@ func Test_Examples(t *testing.T) {
 			pair.NewPair(8, "8"),
 			pair.NewPair(7, "7"),
 		)
-		algorithms.ForEach(kvBST.InOrderBegin(), kvBST.InOrderEnd(), func(p pair.Pair[int, string]) {
-			fmt.Println(p)
-		})
+		_, _ = algorithms.PrintF[pair.Pair[int, string]](kvBST.InOrderBegin(), kvBST.InOrderEnd(), "%v ")
 		fmt.Println()
 
 		fmt.Println(kvBST.Find(pair.NewPair(8, "8")))
@@ -115,14 +102,10 @@ func Test_Examples(t *testing.T) {
 		fmt.Println(kvBST.Find(pair.NewPair(8, "8")))
 		fmt.Println()
 
-		algorithms.ForEach(kvBST.PreOrderBegin(), kvBST.PreOrderEnd(), func(p pair.Pair[int, string]) {
-			fmt.Println(p)
-		})
+		_, _ = algorithms.PrintF[pair.Pair[int, string]](kvBST.PreOrderBegin(), kvBST.PreOrderEnd(), "%v ")
 		fmt.Println()
 
-		algorithms.ForEach(kvBST.PostOrderBegin(), kvBST.PostOrderEnd(), func(p pair.Pair[int, string]) {
-			fmt.Println(p)
-		})
+		_, _ = algorithms.PrintF[pair.Pair[int, string]](kvBST.PostOrderBegin(), kvBST.PostOrderEnd(), "%v ")
 		fmt.Println()
 
 		sl1 := []int{3, 2, 1, 4, 6}
@@ -175,8 +158,7 @@ func Test_Examples(t *testing.T) {
 		}
 		fmt.Println()
 
-		algorithms.ForEach(avl1.InOrderBegin(), avl1.InOrderEnd(), func(p pair.Pair[string, int]) {
-			fmt.Println(p)
-		})
+		_, _ = algorithms.PrintF[pair.Pair[string, int]](avl1.InOrderBegin(), avl1.InOrderEnd(), "%v ")
+		fmt.Println()
 	})
 }
