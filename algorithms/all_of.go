@@ -13,7 +13,8 @@ import (
 // - predicate: унарный предикат, который применяется к каждому элементу.
 //
 // Возвращает:
-// - булево значение true, если все элементы удовлетворяют предикату, или false, если хотя бы один элемент не удовлетворяет.
+// - булево значение true, если все элементы удовлетворяют предикату,
+// или false, если хотя бы один элемент не удовлетворяет.
 func AllOf[T any](begin interfaces.ForwardIterator[T], end interfaces.Iterator, predicate unaryPredicate[T]) bool {
 	_, found := FindIfNot(begin, end, predicate)
 	return !found

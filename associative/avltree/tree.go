@@ -78,16 +78,18 @@ func (tree *AVLTree[K, V]) Insert(key K, value V) {
 	tree.root = tree.insert(tree.root, key, value)
 }
 
+// nolint:cyclop // допускается что внутренняя реализация контейнера может быть сложной ради оптимизации
 func (tree *AVLTree[K, V]) insert(n *node[K, V], key K, value V) *node[K, V] {
 	if n == nil {
 		return &node[K, V]{Key: key, Value: value, Height: 1}
 	}
 
-	if tree.comparator(key, n.Key) < 0 {
+	switch {
+	case tree.comparator(key, n.Key) < 0:
 		n.Left = tree.insert(n.Left, key, value)
-	} else if tree.comparator(key, n.Key) > 0 {
+	case tree.comparator(key, n.Key) > 0:
 		n.Right = tree.insert(n.Right, key, value)
-	} else {
+	default:
 		n.Value = value
 		return n
 	}
