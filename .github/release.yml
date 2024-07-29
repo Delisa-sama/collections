@@ -6,15 +6,13 @@ changelog:
     - title: Несовместимые изменения 🛠
       labels:
         - Semver-Major
-    - title: Улучшили 🎉
-      labels:
-        - Semver-Minor
-        - enhancement
     - title: Алгоритмы
       labels:
+        - Semver-Minor
         - algorithm
     - title: Контейнеры
       labels:
+        - Semver-Minor
         - container
     - title: Остальные изменения
       labels:
