@@ -23,6 +23,11 @@ type Stack[T any, C container[T]] struct {
 	c C
 }
 
+// NewStack возвращает указатель на новый стек.
+//
+// Параметры:
+// cc - функция, конструктор контейнера из произвольного количества элементов.
+// items - элементы стека.
 func NewStack[T any, C container[T]](cc containerConstructor[T, C], items ...T) *Stack[T, C] {
 	return &Stack[T, C]{
 		c: cc(items...),

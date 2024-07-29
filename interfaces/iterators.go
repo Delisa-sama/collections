@@ -35,7 +35,8 @@ type ForwardIterator[T any] interface {
 	PointerIterator[T]
 }
 
-// BidirectionalIterator - это интерфейс для двунаправленного итератора, который объединяет ForwardIterator и добавляет методы для обратного перебора.
+// BidirectionalIterator - это интерфейс для двунаправленного итератора,
+// который объединяет ForwardIterator и добавляет методы для обратного перебора.
 type BidirectionalIterator[T any] interface {
 	ForwardIterator[T]
 	// HasPrev проверяет, есть ли предыдущие элементы для перебора.
@@ -44,7 +45,8 @@ type BidirectionalIterator[T any] interface {
 	Prev()
 }
 
-// RandomAccessIterator - это интерфейс для итератора с произвольным доступом, который объединяет BidirectionalIterator и добавляет метод для доступа по индексу.
+// RandomAccessIterator - это интерфейс для итератора с произвольным доступом,
+// который объединяет BidirectionalIterator и добавляет метод для доступа по индексу.
 type RandomAccessIterator[T any] interface {
 	BidirectionalIterator[T]
 	// At проверяет, доступен ли элемент по заданному индексу.

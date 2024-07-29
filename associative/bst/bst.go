@@ -29,19 +29,6 @@ func (n *node[T]) next() *node[T] {
 	return parent
 }
 
-func (n *node[T]) prev() *node[T] {
-	if n.Left != nil {
-		return n.Left.max()
-	}
-	parent := n.Parent
-	current := n
-	for parent != nil && current == parent.Left {
-		current = parent
-		parent = parent.Parent
-	}
-	return parent
-}
-
 func (n *node[T]) min() *node[T] {
 	if n.Left == nil {
 		return n
@@ -160,16 +147,18 @@ func (t *BST[T]) Delete(k T) bool {
 	return true
 }
 
+// nolint:cyclop // допускается что внутренняя реализация контейнера может быть сложной ради оптимизации
 func (t *BST[T]) delete(v *node[T]) {
 	p := v.Parent
-	if v.Left == nil && v.Right == nil {
+	switch {
+	case v.Left == nil && v.Right == nil:
 		if p.Left == v {
 			p.Left = nil
 		}
 		if p.Right == v {
 			p.Right = nil
 		}
-	} else if v.Left == nil || v.Right == nil {
+	case v.Left == nil || v.Right == nil:
 		if v.Left == nil {
 			if p.Left == v {
 				p.Left = v.Right
@@ -185,7 +174,7 @@ func (t *BST[T]) delete(v *node[T]) {
 			}
 			v.Left.Parent = p
 		}
-	} else {
+	default:
 		successor := v.next()
 		v.Value = successor.Value
 		if successor.Parent.Left == successor {

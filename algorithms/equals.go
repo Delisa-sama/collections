@@ -15,7 +15,7 @@ import (
 //
 // Возвращает:
 // - булево значение true, если все элементы равны, или false, если хотя бы один элемент не равен.
-func EqualsC[T any](a interfaces.ForwardIterator[T], b interfaces.ForwardIterator[T], cmp comparator.Comparator[T]) bool {
+func EqualsC[T any](a, b interfaces.ForwardIterator[T], cmp comparator.Comparator[T]) bool {
 	for a.HasNext() && b.HasNext() {
 		if cmp(a.Value(), b.Value()) != 0 {
 			return false
@@ -48,7 +48,8 @@ func Equals[T comparable](a interfaces.ForwardIterator[T], b interfaces.ForwardI
 	return !xor(a.HasNext(), b.HasNext())
 }
 
-// EqualsRangesC проверяет, равны ли все элементы двух диапазонов [aBegin, aEnd) и [bBegin, bEnd), используя пользовательский компаратор.
+// EqualsRangesC проверяет, равны ли все элементы двух диапазонов [aBegin, aEnd) и [bBegin, bEnd),
+// используя пользовательский компаратор.
 // Функция возвращает true, если все элементы равны, иначе false.
 //
 // Параметры:
@@ -78,7 +79,8 @@ func EqualsRangesC[T any](
 	return !xor(a.HasNext(), b.HasNext())
 }
 
-// EqualsRanges проверяет, равны ли все элементы двух диапазонов [aBegin, aEnd) и [bBegin, bEnd), используя оператор сравнения ==.
+// EqualsRanges проверяет, равны ли все элементы двух диапазонов [aBegin, aEnd) и [bBegin, bEnd),
+// используя оператор сравнения ==.
 // Функция возвращает true, если все элементы равны, иначе false.
 //
 // Параметры:

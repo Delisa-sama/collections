@@ -5,8 +5,14 @@ import (
 	"github.com/Delisa-sama/collections/interfaces"
 )
 
+// EndIterator представляет собой пустой конечный итератор.
+// Его можно использовать в случаях когда
+// итератор на элемент после конца невозможен из-за устройства контейнера.
+// В таком случае итератор обязан реализовать в методу Equals сравнение с типом EndIterator,
+// которое вернет true если итератор достиг конца.
 type EndIterator struct{}
 
+// NewEndIterator возвращает новый конечный итератор.
 func NewEndIterator() interfaces.Iterator {
 	return &EndIterator{}
 }

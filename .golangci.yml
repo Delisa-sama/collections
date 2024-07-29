@@ -1,0 +1,83 @@
+run:
+  timeout: 10m
+  tests: false
+linters:
+  enable:
+    - asciicheck
+    - bodyclose
+    - containedctx
+    - contextcheck
+    - cyclop
+    - dupl
+    - durationcheck
+    - errorlint
+    - exhaustive
+    - goconst
+    - gocritic
+    - gofmt
+    - goimports
+    - gosec
+    - gosmopolitan
+    - grouper
+    - importas
+    - lll
+    - makezero
+    - mirror
+    - mnd
+    - musttag
+    - noctx
+    - perfsprint
+    - prealloc
+    - revive
+    - rowserrcheck
+    - spancheck
+    - unconvert
+    - unparam
+    - unused
+    - usestdlibvars
+    - wrapcheck
+linters-settings:
+  cyclop:
+    # The maximal code complexity to report.
+    # Default: 10
+    max-complexity: 10
+    # The maximal average package complexity.
+    # If it's higher than 0.0 (float) the check is enabled
+    # Default: 0.0
+    package-average: 0.0
+    # Should ignore tests.
+    # Default: false
+    skip-tests: true
+  gocritic:
+    enable-all: true
+    disabled-checks:
+      - nilValReturn
+      - paramTypeCombine
+      - hugeParam
+      - importShadow
+  lll:
+    # Max line length, lines longer will be reported.
+    # '\t' is counted as 1 character by default, and can be changed with the tab-width option.
+    # Default: 120.
+    line-length: 120
+    # Tab width in spaces.
+    # Default: 1
+    tab-width: 4
+  unused:
+    # Mark all exported fields as used.
+    # default: true
+    exported-fields-are-used: false
+    # Mark all local variables as used.
+    # default: true
+    local-variables-are-used: false
+  wrapcheck:
+    # An array of strings that specify substrings of signatures to ignore.
+    # If this set, it will override the default set of ignored signatures.
+    # See https://github.com/tomarrell/wrapcheck#configuration for more information.
+    # Default: [".Errorf(", "errors.New(", "errors.Unwrap(", "errors.Join(", ".Wrap(", ".Wrapf(", ".WithMessage(", ".WithMessagef(", ".WithStack("]
+    ignorePackageGlobs:
+      - github.com/stretchr/testify/*
+issues:
+  include:
+    - EXC0012  # EXC0012 revive: Annoying issue about not having a comment. The rare codebase has such comments
+    - EXC0014  # EXC0014 revive: Annoying issue about not having a comment. The rare codebase has such comments
