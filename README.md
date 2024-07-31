@@ -1145,11 +1145,77 @@ func RotateCopy[T any](
 и копирует результат в другой диапазон, начинающийся с destBegin.
 
 ### [Fill](algorithms/fill.go)
-
 ```go
 func Fill[T any](begin interfaces.PointerIterator[T], end interfaces.Iterator, value T)
 ```
 Заполняет диапазон [begin, end) значением value. 
+
+### [Remove](algorithms/remove.go)
+```go
+func Remove[T comparable](
+    begin interfaces.ForwardIterator[T],
+    end interfaces.Iterator,
+    value T,
+) interfaces.ForwardIterator[T]
+```
+Удаляет все элементы, равные заданному значению `value`, из диапазона [begin, end).
+Элементы, которые не равны `value`, сохраняются в начале диапазона, а оставшиеся элементы не изменяются.
+
+### [RemoveC](algorithms/remove.go)
+```go
+func RemoveC[T any](
+    begin interfaces.ForwardIterator[T],
+    end interfaces.Iterator,
+    value T,
+    cmp comparator.Comparator[T],
+) interfaces.ForwardIterator[T]
+```
+Удаляет все элементы, равные заданному значению `value`, из диапазона [begin, end),
+используя пользовательский компаратор для сравнения элементов.
+Элементы, которые не равны `value`, сохраняются в начале диапазона, а оставшиеся элементы не изменяются.
+
+### [RemoveIf](algorithms/remove.go)
+```go
+func RemoveIf[T any](
+    begin interfaces.ForwardIterator[T],
+    end interfaces.Iterator,
+    predicate unaryPredicate[T],
+) interfaces.ForwardIterator[T]
+```
+Удаляет все элементы из диапазона [begin, end), которые удовлетворяют заданному предикату `predicate`.
+Элементы, которые не удовлетворяют предикату, сохраняются в начале диапазона, а оставшиеся элементы не изменяются.
+
+### [Unique](algorithms/unique.go)
+```go
+func Unique[T comparable](
+    begin interfaces.ForwardIterator[T],
+    end interfaces.Iterator,
+) interfaces.ForwardIterator[T]
+```
+Удаляет дублирующиеся последовательные элементы в диапазоне [begin, end), оставляя только первые
+вхождения каждого элемента. Элементы считаются дубликатами, если они равны друг другу (==).
+
+### [UniqueC](algorithms/unique.go)
+```go
+func UniqueC[T any](
+    begin interfaces.ForwardIterator[T],
+    end interfaces.Iterator,
+    cmp comparator.Comparator[T],
+) interfaces.ForwardIterator[T]
+```
+Удаляет дублирующиеся последовательные элементы в диапазоне [begin, end), оставляя только первые
+вхождения каждого элемента. Элементы считаются дубликатами, если они равны согласно пользовательскому компаратору.
+
+### [UniqueIf](algorithms/unique.go)
+```go
+func UniqueIf[T any](
+    begin interfaces.ForwardIterator[T],
+    end interfaces.Iterator,
+    predicate binaryPredicate[T],
+) interfaces.ForwardIterator[T]
+```
+Удаляет дублирующиеся последовательные элементы в диапазоне [begin, end), оставляя только первые
+вхождения каждого элемента. Элементы считаются дубликатами, если они удовлетворяют условию заданному предикатом.
 
 ## Лицензия
 
