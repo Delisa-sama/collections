@@ -31,6 +31,7 @@ interface BidirectionalIterator<T any> {
 interface RandomAccessIterator<T any> {
     +At(uint) (*T, bool)
     +Shift(int)
+    +Index() uint
 }
 
 Copiable <|-- Iterator

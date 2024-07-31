@@ -51,5 +51,8 @@ type RandomAccessIterator[T any] interface {
 	BidirectionalIterator[T]
 	// At проверяет, доступен ли элемент по заданному индексу.
 	At(index uint) (*T, bool)
+	// Shift сдвигает итератор, если offset > 0, то вперед, если < 0, то назад.
 	Shift(offset int)
+	// Index возвращает текущий индекс итератора.
+	Index() uint
 }
