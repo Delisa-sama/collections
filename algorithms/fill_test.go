@@ -29,9 +29,9 @@ func TestFill(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			Fill(tt.vec.Begin(), tt.vec.End(), tt.value)
-			ForEach(tt.vec.Begin(), tt.vec.End(), func(value int) {
-				assert.Equal(t, tt.value, value)
-			})
+			assert.True(t, AllOf(tt.vec.Begin(), tt.vec.End(), func(value int) bool {
+				return tt.value == value
+			}))
 		})
 	}
 }
