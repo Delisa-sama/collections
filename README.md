@@ -1144,6 +1144,12 @@ func RotateCopy[T any](
 Выполняет циклический сдвиг элементов в диапазоне [begin, end) так, чтобы элемент nBegin стал первым элементом диапазона,
 и копирует результат в другой диапазон, начинающийся с destBegin.
 
+### [Fill](algorithms/fill.go)
+
+```go
+func Fill[T any](begin interfaces.PointerIterator[T], end interfaces.Iterator, value T)
+```
+Заполняет диапазон [begin, end) значением value. 
 
 ## Лицензия
 
