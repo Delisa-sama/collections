@@ -110,3 +110,8 @@ func (it *iterator[T]) isEnd() bool {
 func (it *iterator[T]) Copy() copiable.Copiable {
 	return newIterator(it.s, it.current)
 }
+
+// Index возвращает текущий индекс итератора.
+func (it *iterator[T]) Index() uint {
+	return it.current
+}
