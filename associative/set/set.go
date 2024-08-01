@@ -73,3 +73,16 @@ func (s *Set[K]) Copy() copiable.Copiable {
 		m: s.m.Copy(),
 	}
 }
+
+// Erase удаляет элементы в диапазоне [begin, end) из множества.
+func (s *Set[K]) Erase(begin, end interfaces.Iterator) {
+	b, bOk := begin.(*iterator[K])
+	e, eOk := end.(*iterator[K])
+	if !bOk || !eOk {
+		panic("unknown iterator type")
+	}
+
+	for it := b.current; it != e.current; it = it.Next() {
+		s.m.Delete(it.Key)
+	}
+}

@@ -9,8 +9,8 @@ import (
 
 // List представляет собой двусвязный список.
 type List[T any] struct {
-	top  *node[T]
-	end  *node[T]
+	head *node[T]
+	tail *node[T]
 	size uint
 }
 
@@ -42,7 +42,7 @@ func (l *List[T]) IsEmpty() bool {
 
 // Begin возвращает итератор на первый элемент списка.
 func (l *List[T]) Begin() interfaces.BidirectionalIterator[T] {
-	return newIterator(l.top)
+	return newIterator(l.head)
 }
 
 // End возвращает итератор на последний элемент списка.
@@ -52,7 +52,7 @@ func (l *List[T]) End() interfaces.Iterator {
 
 // RBegin возвращает итератор на последний элемент списка.
 func (l *List[T]) RBegin() interfaces.BidirectionalIterator[T] {
-	return iterators.NewReverseIterator[T](newIterator(l.end))
+	return iterators.NewReverseIterator[T](newIterator(l.tail))
 }
 
 // REnd возвращает итератор на конец списка.
@@ -67,20 +67,20 @@ func (l *List[T]) PushBack(value T) {
 		Next:  nil,
 		Prev:  nil,
 	}
-	if l.top == nil {
-		l.top = newNode
+	if l.head == nil {
+		l.head = newNode
 	}
-	if l.end != nil {
-		newNode.Prev = l.end
-		l.end.Next = newNode
+	if l.tail != nil {
+		newNode.Prev = l.tail
+		l.tail.Next = newNode
 	}
-	l.end = newNode
+	l.tail = newNode
 	l.size++
 }
 
 // Back возвращает последний элемент списка.
 func (l *List[T]) Back() T {
-	return *l.end.Value
+	return *l.tail.Value
 }
 
 // PopBack удаляет последний элемент из списка.
@@ -88,7 +88,7 @@ func (l *List[T]) PopBack() {
 	if l.IsEmpty() {
 		return
 	}
-	l.end = l.end.Prev
+	l.tail = l.tail.Prev
 	l.size--
 }
 
@@ -99,4 +99,42 @@ func (l *List[T]) Copy() copiable.Copiable {
 		copyList.PushBack(value)
 	})
 	return copyList
+}
+
+// Erase удаляет элементы в диапазоне [begin, end) из списка.
+func (l *List[T]) Erase(begin, end interfaces.Iterator) {
+	if begin.Equals(end) {
+		return
+	}
+
+	b, bOk := begin.(*iterator[T])
+	e, eOk := end.(*iterator[T])
+	if !bOk || !eOk {
+		panic("unknown iterator type")
+	}
+
+	if b.current == l.head {
+		// Удаление с начала списка.
+		l.head = e.current
+		if l.head != nil {
+			l.head.Prev = nil
+		}
+	} else {
+		b.current.Prev.Next = e.current
+	}
+
+	if e.current == nil {
+		// Удаление до конца списка.
+		l.tail = b.current.Prev
+	} else {
+		e.current.Prev = b.current.Prev
+	}
+
+	// Корректировка размера списка.
+	removedSize := uint(0)
+	for !b.Equals(end) {
+		removedSize++
+		b.Next()
+	}
+	l.size -= removedSize
 }

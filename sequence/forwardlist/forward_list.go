@@ -9,8 +9,8 @@ import (
 
 // ForwardList представляет собой односвязный список.
 type ForwardList[T any] struct {
-	top  *node[T]
-	end  *node[T]
+	head *node[T]
+	tail *node[T]
 	size uint
 }
 
@@ -41,7 +41,7 @@ func (l *ForwardList[T]) IsEmpty() bool {
 
 // Begin возвращает итератор на первый элемент списка.
 func (l *ForwardList[T]) Begin() interfaces.ForwardIterator[T] {
-	return newIterator(l.top)
+	return newIterator(l.head)
 }
 
 // End возвращает итератор на последний элемент списка.
@@ -55,19 +55,19 @@ func (l *ForwardList[T]) PushBack(value T) {
 		Value: &value,
 		Next:  nil,
 	}
-	if l.top == nil {
-		l.top = newNode
+	if l.head == nil {
+		l.head = newNode
 	}
-	if l.end != nil {
-		l.end.Next = newNode
+	if l.tail != nil {
+		l.tail.Next = newNode
 	}
-	l.end = newNode
+	l.tail = newNode
 	l.size++
 }
 
 // Back возвращает последний элемент списка.
 func (l *ForwardList[T]) Back() T {
-	return *l.end.Value
+	return *l.tail.Value
 }
 
 // PopBack удаляет последний элемент из списка.
@@ -76,18 +76,18 @@ func (l *ForwardList[T]) PopBack() {
 		return
 	}
 	if l.Size() == 1 {
-		l.top = nil
-		l.end = nil
+		l.head = nil
+		l.tail = nil
 		l.size = 0
 		return
 	}
 
-	current := l.top
-	for current.Next != l.end {
+	current := l.head
+	for current.Next != l.tail {
 		current = current.Next
 	}
 	current.Next = nil
-	l.end = current
+	l.tail = current
 	l.size--
 }
 
@@ -98,4 +98,39 @@ func (l *ForwardList[T]) Copy() copiable.Copiable {
 		copyList.PushBack(value)
 	})
 	return copyList
+}
+
+// Erase удаляет элементы в диапазоне [begin, end) из списка.
+func (l *ForwardList[T]) Erase(begin, end interfaces.Iterator) {
+	if begin.Equals(end) {
+		return
+	}
+
+	i := newIterator(l.head)
+	var prev *node[T]
+
+	// Найдем узел, соответствующий началу диапазона удаления (begin).
+	for !i.Equals(begin) {
+		prev = i.current
+		i.Next()
+	}
+
+	// Обновляем ссылки, пропуская элементы до tail.
+	for !i.Equals(end) && i.current != nil {
+		i.Next()
+		l.size--
+	}
+
+	if prev != nil {
+		// Соединяем предыдущий узел с узлом после tail.
+		prev.Next = i.current
+	} else {
+		// Если begin был первым элементом списка, обновляем head.
+		l.head = i.current
+	}
+
+	// Если tail равен конечному итератору, обновляем tail списка.
+	if i.current == nil {
+		l.tail = prev
+	}
 }

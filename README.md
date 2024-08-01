@@ -123,6 +123,30 @@ func (l *Vector[T]) Copy() copiable.Copiable
 
 Time complexity: `O(n)`, где n — количество элементов в векторе.
 
+#### Erase
+```go
+func (l *Vector[T]) Erase(begin, end interfaces.Iterator)
+```
+Удаляет элементы в диапазоне [begin, end) из вектора.
+
+Time complexity: `O(1)`.
+
+#### RemoveRange
+```go
+func (l *Vector[T]) RemoveRange(from, to uint)
+```
+Удаляет элементы в диапазоне [from, to).
+
+Time complexity: `O(1)`.
+
+#### Remove
+```go
+func (l *Vector[T]) Remove(index uint)
+```
+Удаляет элемент по индексу.
+
+Time complexity: `O(1)`.
+
 ### Итераторы
 #### At
 ```go
@@ -241,6 +265,14 @@ func (l *ForwardList[T]) Copy() copiable.Copiable
 Возвращает копию списка.
 
 Time complexity: `O(n)`, где n — количество элементов в списке.
+
+#### Erase
+```go
+func (l *ForwardList[T]) Erase(begin, end interfaces.Iterator)
+```
+Удаляет элементы в диапазоне [begin, end) из списка.
+
+Time complexity: `O(n)` - где n это Distance(begin, end).
 
 ### Итераторы
 #### Begin
@@ -371,6 +403,14 @@ func (l *List[T]) Copy() copiable.Copiable
 
 Time complexity: `O(n)`, где n — количество элементов в списке.
 
+#### Erase
+```go
+func (l *List[T]) Erase(begin, end interfaces.Iterator)
+```
+Удаляет элементы в диапазоне [begin, end) из списка.
+
+Time complexity: `O(n)` - где n это Distance(begin, end).
+
 ### Итераторы
 #### Begin
 ```go
@@ -476,6 +516,14 @@ func (s *Set[K]) Copy() copiable.Copiable
 Возвращает копию множества.
 
 Time complexity: `O(n)`, где n — количество элементов в множестве.
+
+#### Erase
+```go
+func (s *Set[K]) Erase(begin, end interfaces.Iterator)
+```
+Удаляет элементы в диапазоне [begin, end) из множества.
+
+Time complexity: `O(n)` - где n это Distance(begin, end).
 
 ### Итераторы
 #### Begin
