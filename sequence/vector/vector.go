@@ -86,3 +86,24 @@ func (l *Vector[T]) Copy() copiable.Copiable {
 	copy(sliceCopy, l.s)
 	return NewVectorFromSlice(sliceCopy)
 }
+
+// Erase удаляет элементы в диапазоне [begin, end) из вектора.
+func (l *Vector[T]) Erase(begin, end interfaces.Iterator) {
+	b, bOk := begin.(*iterator[T])
+	e, eOk := end.(*iterator[T])
+	if !bOk || !eOk {
+		panic("unknown iterator type")
+	}
+
+	l.s = append(l.s[:b.Index()], l.s[e.Index():]...)
+}
+
+// RemoveRange удаляет элементы в диапазоне [from, to).
+func (l *Vector[T]) RemoveRange(from, to uint) {
+	l.s = append(l.s[:from], l.s[to:]...)
+}
+
+// Remove удаляет элемент по индексу.
+func (l *Vector[T]) Remove(index uint) {
+	l.s = append(l.s[:index], l.s[index+1:]...)
+}
