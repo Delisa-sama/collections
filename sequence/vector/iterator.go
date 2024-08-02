@@ -68,9 +68,8 @@ func (it *iterator[T]) Shift(offset int) {
 	} else {
 		newIndex += uint(offset)
 	}
-	if it.indexInBounds(newIndex) {
-		it.current = newIndex
-	}
+
+	it.current = newIndex
 }
 
 // Equals проверяет, равен ли данный итератор другому итератору.
