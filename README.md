@@ -1288,7 +1288,7 @@ func Distance[T any](begin, end interfaces.Iterator) uint
 ```go
 func Advance[T any](it interfaces.Iterator, n int)
 ```
-Advance продвигает итератор it на n шагов вперед или назад.
+Продвигает итератор it на n шагов вперед или назад.
 
 Функция поддерживает три вида итераторов:
 - RandomAccessIterator: итератор с произвольным доступом. Если итератор реализует этот интерфейс,
@@ -1298,6 +1298,50 @@ Advance продвигает итератор it на n шагов вперед 
   и n отрицательное, итератор сдвигается назад на n шагов с помощью метода Prev.
 - UnidirectionalIterator: итератор с однонаправленным доступом. Если итератор не поддерживает
   произвольный или двусторонний доступ, он сдвигается на n шагов вперед с помощью метода Next.
+
+### [LowerBound](algorithms/bounds.go)
+```go
+func LowerBound[T cmp.Ordered](
+    begin interfaces.ValueIterator[T],
+    end interfaces.Iterator,
+    value T,
+) interfaces.ValueIterator[T]
+```
+Находит первый элемент, который не меньше чем значение value в отсортированном диапазоне [begin, end).
+
+### [LowerBoundC](algorithms/bounds.go)
+```go
+func LowerBoundC[T any](
+    begin interfaces.ValueIterator[T],
+    end interfaces.Iterator,
+    value T,
+    cmp comparator.Comparator[T],
+) interfaces.ValueIterator[T]
+```
+Находит первый элемент, который не меньше чем значение value в отсортированном диапазоне [begin, end), 
+используя пользовательский компаратор.
+
+### [UpperBound](algorithms/bounds.go)
+```go
+func UpperBound[T cmp.Ordered](
+    begin interfaces.ValueIterator[T],
+    end interfaces.Iterator,
+    value T,
+) interfaces.ValueIterator[T]
+```
+Находит первый элемент, который больше чем значение value в отсортированном диапазоне [begin, end).
+
+### [UpperBoundC](algorithms/bounds.go)
+```go
+func UpperBoundC[T any](
+    begin interfaces.ValueIterator[T],
+    end interfaces.Iterator,
+    value T,
+    cmp comparator.Comparator[T],
+) interfaces.ValueIterator[T]
+```
+Находит первый элемент, который больше чем значение value в отсортированном диапазоне [begin, end),
+используя пользовательский компаратор.
 
 ## Лицензия
 
