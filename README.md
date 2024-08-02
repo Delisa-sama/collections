@@ -1343,6 +1343,65 @@ func UpperBoundC[T any](
 Находит первый элемент, который больше чем значение value в отсортированном диапазоне [begin, end),
 используя пользовательский компаратор.
 
+### [Min](algorithms/minmax.go)
+```go
+func Min[T cmp.Ordered](
+    begin interfaces.ValueIterator[T],
+    end interfaces.Iterator,
+) interfaces.ValueIterator[T]
+```
+Находит минимальный элемент в диапазоне [begin, end) используя естественный порядок элементов (cmp.Ordered).
+
+### [MinC](algorithms/minmax.go)
+```go
+func MinC[T any](
+	begin interfaces.ValueIterator[T],
+	end interfaces.Iterator,
+	cmp comparator.Comparator[T],
+) interfaces.ValueIterator[T]
+```
+Находит минимальный элемент в диапазоне [begin, end) используя пользовательский компаратор.
+
+### [Max](algorithms/minmax.go)
+```go
+func Max[T cmp.Ordered](
+	begin interfaces.ValueIterator[T],
+	end interfaces.Iterator,
+) interfaces.ValueIterator[T]
+```
+Находит максимальный элемент в диапазоне [begin, end) используя естественный порядок элементов (cmp.Ordered).
+
+### [MaxC](algorithms/minmax.go)
+```go
+func MaxC[T any](
+	begin interfaces.ValueIterator[T],
+	end interfaces.Iterator,
+	cmp comparator.Comparator[T],
+) interfaces.ValueIterator[T]
+```
+Находит максимальный элемент в диапазоне [begin, end) используя пользовательский компаратор.
+
+### [MinMax](algorithms/minmax.go)
+```go
+func MinMax[T cmp.Ordered](
+	begin interfaces.ValueIterator[T],
+	end interfaces.Iterator,
+) (min, max interfaces.ValueIterator[T])
+```
+Находит одновременно минимальный и максимальный элементы в диапазоне [begin, end)
+используя естественный порядок элементов (cmp.Ordered).
+
+### [MinMaxC](algorithms/minmax.go)
+```go
+func MinMaxC[T any](
+    first interfaces.ValueIterator[T],
+    last interfaces.Iterator,
+    cmp comparator.Comparator[T],
+) (min, max interfaces.ValueIterator[T])
+```
+Находит одновременно минимальный и максимальный элементы в диапазоне [begin, end)
+используя пользовательский компаратор.
+
 ## Лицензия
 
 Этот проект лицензируется на условиях лицензии MIT. Подробности смотрите в файле LICENSE.
