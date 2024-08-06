@@ -1402,6 +1402,15 @@ func MinMaxC[T any](
 Находит одновременно минимальный и максимальный элементы в диапазоне [begin, end)
 используя пользовательский компаратор.
 
+### [NextBound](algorithms/next.go)
+```go
+func NextBound(
+    it interfaces.Iterator,
+    bound interfaces.Iterator,
+)
+```
+Продвигает итератор it до тех пор, пока он не достигнет итератора bound.
+
 ## Лицензия
 
 Этот проект лицензируется на условиях лицензии MIT. Подробности смотрите в файле LICENSE.
