@@ -1402,6 +1402,65 @@ func MinMaxC[T any](
 Находит одновременно минимальный и максимальный элементы в диапазоне [begin, end)
 используя пользовательский компаратор.
 
+### [NextBound](algorithms/next.go)
+```go
+func NextBound(
+    it interfaces.Iterator,
+    bound interfaces.Iterator,
+)
+```
+Продвигает итератор it до тех пор, пока он не достигнет итератора bound.
+
+### [FoldLeft](algorithms/fold.go)
+```go
+func FoldLeft[T any](
+    begin interfaces.ValueIterator[T],
+    end interfaces.Iterator,
+    init T,
+    f binaryFoldFunc[T],
+) T
+```
+Выполняет левую свёртку последовательности, начиная с инициализирующего значения init
+и применяя функцию f последовательно ко всем элементам от begin до end.
+
+Если итератор begin равен итератору end, функция вернёт значение init.
+
+### [FoldLeftFirst](algorithms/fold.go)
+```go
+func FoldLeftFirst[T any](
+    begin interfaces.ValueIterator[T],
+    end interfaces.Iterator,
+    f binaryFoldFunc[T],
+) *T
+```
+Выполняет левую свёртку последовательности, используя в качестве начального значения
+первый элемент последовательности. Если последовательность пуста, возвращается nil.
+
+### [FoldRight](algorithms/fold.go)
+```go
+func FoldRight[T any](
+    begin interfaces.BidirectionalIterator[T],
+    end interfaces.Iterator,
+    init T,
+    f binaryFoldFunc[T],
+) T
+```
+Выполняет правую свёртку последовательности, начиная с инициализирующего значения init
+и применяя функцию f последовательно ко всем элементам от end до begin в обратном порядке.
+
+Если итератор begin равен итератору end, функция вернёт значение init.
+
+### [FoldRightLast](algorithms/fold.go)
+```go
+func FoldRightLast[T any](
+    begin interfaces.BidirectionalIterator[T],
+    end interfaces.Iterator,
+    f binaryFoldFunc[T],
+) *T
+```
+Выполняет правую свёртку последовательности, используя в качестве начального значения
+последний элемент последовательности. Если последовательность пуста, возвращается nil.
+
 ## Лицензия
 
 Этот проект лицензируется на условиях лицензии MIT. Подробности смотрите в файле LICENSE.
