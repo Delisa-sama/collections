@@ -1509,6 +1509,55 @@ func GenerateN[T any](
 Заполняет n элементов последовательности, начиная с итератора begin,
 значениями, генерируемыми функцией g.
 
+### [Replace](algorithms/replace.go)
+```go
+func Replace[T comparable](
+    begin interfaces.PointerIterator[T],
+    end interfaces.Iterator,
+    oldValue T,
+    newValue T,
+)
+```
+Заменяет все вхождения значения oldValue на newValue в диапазоне от begin до end.
+
+### [ReplaceIf](algorithms/replace.go)
+```go
+func ReplaceIf[T any](
+    begin interfaces.PointerIterator[T],
+    end interfaces.Iterator,
+    predicate unaryPredicate[T],
+    newValue T,
+)
+```
+Заменяет все значения, которые удовлетворяют предикату, на newValue
+в диапазоне от begin до end.
+
+### [ReplaceCopy](algorithms/replace.go)
+```go
+func ReplaceCopy[T comparable](
+    begin interfaces.ValueIterator[T],
+    end interfaces.Iterator,
+    destBegin interfaces.PointerIterator[T],
+    oldValue T,
+    newValue T,
+)
+```
+Копирует элементы из диапазона [begin, end) в destBegin,
+заменяя все вхождения oldValue на newValue.
+
+### [ReplaceCopyIf](algorithms/replace.go)
+```go
+func ReplaceCopyIf[T comparable](
+    begin interfaces.ValueIterator[T],
+    end interfaces.Iterator,
+    destBegin interfaces.PointerIterator[T],
+    predicate unaryPredicate[T],
+    newValue T,
+)
+```
+Копирует элементы из диапазона [begin, end) в destBegin,
+заменяя все значения, которые удовлетворяют предикату, на newValue.
+
 ## Лицензия
 
 Этот проект лицензируется на условиях лицензии MIT. Подробности смотрите в файле LICENSE.
