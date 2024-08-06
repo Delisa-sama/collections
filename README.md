@@ -1558,6 +1558,22 @@ func ReplaceCopyIf[T comparable](
 Копирует элементы из диапазона [begin, end) в destBegin,
 заменяя все значения, которые удовлетворяют предикату, на newValue.
 
+### [Reverse](algorithms/reverse.go)
+```go
+func Reverse[T any](begin, end interfaces.BidirectionalIterator[T])
+```
+Разворачивает элементы в последовательности, определяемой итераторами
+begin и end, используя двунаправленные итераторы.
+
+### [ReverseCopy](algorithms/reverse.go)
+```go
+func ReverseCopy[T any](
+    begin, end interfaces.BidirectionalIterator[T],
+    destBegin interfaces.PointerIterator[T],
+) interfaces.PointerIterator[T]
+```
+Копирует элементы из диапазона [begin, end) в destBegin в обратном порядке.
+
 ## Лицензия
 
 Этот проект лицензируется на условиях лицензии MIT. Подробности смотрите в файле LICENSE.
