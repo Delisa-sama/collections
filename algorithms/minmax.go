@@ -40,7 +40,7 @@ func MinC[T any](
 
 	smallest := copiable.Copy[interfaces.ValueIterator[T]](begin)
 	begin.Next()
-	for !begin.Equals(end) {
+	for ; !begin.Equals(end); begin.Next() {
 		if cmp(begin.Value(), smallest.Value()) < 0 {
 			smallest = copiable.Copy[interfaces.ValueIterator[T]](begin)
 		}
@@ -81,7 +81,7 @@ func MaxC[T any](
 
 	largest := copiable.Copy[interfaces.ValueIterator[T]](begin)
 	begin.Next()
-	for !begin.Equals(end) {
+	for ; !begin.Equals(end); begin.Next() {
 		if cmp(largest.Value(), begin.Value()) < 0 {
 			largest = copiable.Copy[interfaces.ValueIterator[T]](begin)
 		}
@@ -150,7 +150,7 @@ func MinMaxC[T any](
 		if first.Equals(last) {
 			if cmp(i.Value(), min.Value()) < 0 {
 				min = copiable.Copy[interfaces.ValueIterator[T]](i)
-			} else if cmp(i.Value(), max.Value()) >= 0 {
+			} else if cmp(i.Value(), max.Value()) > 0 {
 				max = copiable.Copy[interfaces.ValueIterator[T]](i)
 			}
 			break
@@ -160,14 +160,14 @@ func MinMaxC[T any](
 			if cmp(first.Value(), min.Value()) < 0 {
 				min = copiable.Copy[interfaces.ValueIterator[T]](first)
 			}
-			if cmp(i.Value(), max.Value()) >= 0 {
+			if cmp(i.Value(), max.Value()) > 0 {
 				max = copiable.Copy[interfaces.ValueIterator[T]](i)
 			}
 		} else {
 			if cmp(i.Value(), min.Value()) < 0 {
 				min = copiable.Copy[interfaces.ValueIterator[T]](i)
 			}
-			if cmp(first.Value(), max.Value()) >= 0 {
+			if cmp(first.Value(), max.Value()) > 0 {
 				max = copiable.Copy[interfaces.ValueIterator[T]](first)
 			}
 		}
