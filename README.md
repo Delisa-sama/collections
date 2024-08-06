@@ -1487,6 +1487,27 @@ func TransformBinary[T1 any, T2 any, O any](
 Применяет бинарную функцию f к парам элементов из двух последовательностей,
 начиная с итераторов begin1 и begin2, и записывает результаты в последовательность, начинающуюся с destBegin.
 
+### [Generate](algorithms/generate.go)
+```go
+func Generate[T any](
+    begin interfaces.PointerIterator[T],
+    end interfaces.Iterator,
+    g generatorFunc[T],
+)
+```
+Заполняет последовательность значений, начиная с итератора begin и заканчивая итератором end,
+значениями, генерируемыми функцией g.
+
+### [GenerateN](algorithms/generate.go)
+```go
+func GenerateN[T any](
+    begin interfaces.PointerIterator[T],
+    n uint
+    g generatorFunc[T],
+)
+```
+Заполняет n элементов последовательности, начиная с итератора begin,
+значениями, генерируемыми функцией g.
 
 ## Лицензия
 
