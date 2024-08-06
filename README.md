@@ -1461,6 +1461,33 @@ func FoldRightLast[T any](
 Выполняет правую свёртку последовательности, используя в качестве начального значения
 последний элемент последовательности. Если последовательность пуста, возвращается nil.
 
+### [TransformUnary](algorithms/transform.go)
+```go
+func TransformUnary[T any, O any](
+    begin interfaces.ValueIterator[T],
+    end interfaces.Iterator,
+    destBegin interfaces.PointerIterator[O],
+    f unaryTransformFunc[T, O],
+) interfaces.PointerIterator[O]
+```
+Применяет унарную функцию f к каждому элементу последовательности,
+начиная с итератора begin и заканчивая итератором end, и записывает результаты в
+последовательность, начинающуюся с destBegin.
+
+### [TransformBinary](algorithms/transform.go)
+```go
+func TransformBinary[T1 any, T2 any, O any](
+    begin1 interfaces.ValueIterator[T1],
+    end1 interfaces.Iterator,
+    begin2 interfaces.ValueIterator[T2],
+    destBegin interfaces.PointerIterator[O],
+    f binaryTransformFunc[T1, T2, O],
+) interfaces.PointerIterator[O]
+```
+Применяет бинарную функцию f к парам элементов из двух последовательностей,
+начиная с итераторов begin1 и begin2, и записывает результаты в последовательность, начинающуюся с destBegin.
+
+
 ## Лицензия
 
 Этот проект лицензируется на условиях лицензии MIT. Подробности смотрите в файле LICENSE.
