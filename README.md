@@ -1299,6 +1299,12 @@ func Advance[T any](it interfaces.Iterator, n int)
 - UnidirectionalIterator: итератор с однонаправленным доступом. Если итератор не поддерживает
   произвольный или двусторонний доступ, он сдвигается на n шагов вперед с помощью метода Next.
 
+### [AdvanceCopy](algorithms/advance.go)
+```go
+func AdvanceCopy[T any, It interfaces.Iterator](it It, n int) It
+```
+Продвигает копию итератора it на n шагов вперед или назад и возвращает его.
+
 ### [LowerBound](algorithms/bounds.go)
 ```go
 func LowerBound[T cmp.Ordered](

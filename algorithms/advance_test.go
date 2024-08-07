@@ -30,3 +30,12 @@ func TestAdvance(t *testing.T) {
 	Advance[int](bidirectionalIt, -1)
 	assert.Equal(t, 20, bidirectionalIt.Value())
 }
+
+func TestAdvanceCopy(t *testing.T) {
+	vec := vector.NewVectorFromSlice([]int{10, 20, 30, 40, 50})
+
+	vecIt := vec.Begin()
+	vecIt3 := AdvanceCopy[int](vecIt, 3)
+	assert.Equal(t, uint(3), vecIt3.Index())
+	assert.Equal(t, uint(0), vecIt.Index())
+}
