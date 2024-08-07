@@ -1616,6 +1616,25 @@ func PushHeap[T any](
 ```
 Добавляет элемент в конец диапазона и перестраивает кучу, чтобы сохранить её свойства.
 
+### [Sort](algorithms/sort.go)
+```go
+func Sort[T cmp.Ordered](
+    begin interfaces.RandomAccessIterator[T],
+    end interfaces.RandomAccessIterator[T],
+)
+```
+Выполняет сортировку диапазона [begin, end) с использованием алгоритма pdqsort.
+
+### [SortC](algorithms/sort.go)
+```go
+func SortC[T any](
+    begin interfaces.RandomAccessIterator[T],
+    end interfaces.RandomAccessIterator[T],
+    cmp comparator.Comparator[T],
+)
+```
+Выполняет сортировку диапазона [begin, end) с использованием алгоритма pdqsort и переданного компаратора.
+
 ## Лицензия
 
 Этот проект лицензируется на условиях лицензии MIT. Подробности смотрите в файле LICENSE.
