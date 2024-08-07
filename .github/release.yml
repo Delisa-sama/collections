@@ -1,7 +1,4 @@
 changelog:
-  exclude:
-    labels:
-      - documentation
   categories:
     - title: Несовместимые изменения 🛠
       labels:
