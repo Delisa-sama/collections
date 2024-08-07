@@ -1580,6 +1580,42 @@ func ReverseCopy[T any](
 ```
 Копирует элементы из диапазона [begin, end) в destBegin в обратном порядке.
 
+### [MakeHeap](algorithms/heap.go)
+```go
+func MakeHeap[T any](
+    begin, end interfaces.RandomAccessIterator[T],
+    cmp comparator.Comparator[T],
+)
+```
+Преобразует диапазон [begin, end) в кучу, используя предоставленный компаратор cmp.
+
+### [SortHeap](algorithms/heap.go)
+```go
+func SortHeap[T any](
+    begin, end interfaces.RandomAccessIterator[T],
+    cmp comparator.Comparator[T],
+)
+```
+Выполняет сортировку кучи на месте, упорядочивая элементы в диапазоне [begin, end).
+
+### [PopHeap](algorithms/heap.go)
+```go
+func PopHeap[T any](
+    begin, end interfaces.RandomAccessIterator[T],
+    cmp comparator.Comparator[T],
+)
+```
+Удаляет максимальный элемент из кучи и перестраивает её.
+
+### [PushHeap](algorithms/heap.go)
+```go
+func PushHeap[T any](
+    begin, end interfaces.RandomAccessIterator[T],
+    cmp comparator.Comparator[T],
+)
+```
+Добавляет элемент в конец диапазона и перестраивает кучу, чтобы сохранить её свойства.
+
 ## Лицензия
 
 Этот проект лицензируется на условиях лицензии MIT. Подробности смотрите в файле LICENSE.
