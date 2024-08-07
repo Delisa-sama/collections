@@ -147,7 +147,7 @@ func (l *Vector[T]) Remove(index uint)
 
 Time complexity: `O(1)`.
 
-### Итераторы
+### Итераторы вектора
 #### At
 ```go
 func (l *Vector[T]) At(index uint) interfaces.RandomAccessIterator[T]
@@ -274,7 +274,7 @@ func (l *ForwardList[T]) Erase(begin, end interfaces.Iterator)
 
 Time complexity: `O(n)` - где n это Distance(begin, end).
 
-### Итераторы
+### Итераторы односвязного списка
 #### Begin
 ```go
 func (l *ForwardList[T]) Begin() interfaces.ForwardIterator[T]
@@ -411,7 +411,7 @@ func (l *List[T]) Erase(begin, end interfaces.Iterator)
 
 Time complexity: `O(n)` - где n это Distance(begin, end).
 
-### Итераторы
+### Итераторы двусвязного списка
 #### Begin
 ```go
 func (l *List[T]) Begin() interfaces.BidirectionalIterator[T]
@@ -525,7 +525,7 @@ func (s *Set[K]) Erase(begin, end interfaces.Iterator)
 
 Time complexity: `O(n)` - где n это Distance(begin, end).
 
-### Итераторы
+### Итераторы множества
 #### Begin
 ```go
 func (s *Set[K]) Begin() interfaces.BidirectionalIterator[K]
@@ -638,7 +638,7 @@ func (t *BST[T]) Copy() copiable.Copiable
 
 Time complexity: `O(n)`, где n — количество элементов в дереве.
 
-### Итераторы
+### Итераторы BST
 #### InOrder
 ```go
 func (t *BST[T]) InOrderBegin() interfaces.ForwardIterator[T]
@@ -747,7 +747,7 @@ func (tree *AVLTree[K, V]) Copy() copiable.Copiable
 
 Time complexity: `O(n)`, где n — количество элементов в дереве.
 
-### Итераторы
+### Итераторы AVLTree
 #### InOrder
 ```go
 func (tree *AVLTree[K, V]) InOrderBegin() interfaces.ValueIterator[pair.Pair[K, V]]
@@ -907,7 +907,7 @@ Time complexity: Time complexity метода `IsEmpty` базового кон�
 #### Методы
 Включает в себя все методы [BidirectionalIterator](#bidirectionaliterator).
 
-- `At(index uint) (*T, bool)` - проверяет, доступен ли элемент по заданному индексу.
+- `At(index uint) (*T, bool)` - проверяет, доступен ли элемент по заданному индексу и возвращает указатель на значение.
 - `Shift(offset int)` - смещает итератор на указанное количество позиций, возможны положительные и отрицательные значения смещения.
 
 ## Алгоритмы
