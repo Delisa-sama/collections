@@ -1,6 +1,7 @@
 package algorithms
 
 import (
+	"github.com/Delisa-sama/collections/copiable"
 	"github.com/Delisa-sama/collections/interfaces"
 )
 
@@ -40,4 +41,11 @@ func Advance[T any](it interfaces.Iterator, n int) {
 			bidirectionalIt.Prev()
 		}
 	}
+}
+
+// AdvanceCopy продвигает копию итератора it на n шагов вперед или назад и возвращает его.
+func AdvanceCopy[T any, It interfaces.Iterator](it It, n int) It {
+	c := copiable.Copy[It](it)
+	Advance[T](c, n)
+	return c
 }

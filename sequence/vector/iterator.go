@@ -50,12 +50,11 @@ func (it *iterator[T]) Ptr() *T {
 	return &(*it.s)[it.current]
 }
 
-// At возвращает указатель на элемент по заданному индексу и сдвигает итератор на позицию индекса.
+// At возвращает указатель на элемент по заданному индексу.
 func (it *iterator[T]) At(index uint) (*T, bool) {
 	if !it.indexInBounds(index) {
 		return nil, false
 	}
-	it.current = index
 	return &(*it.s)[index], true
 }
 

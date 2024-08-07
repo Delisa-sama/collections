@@ -1,6 +1,7 @@
 package algorithms
 
 import (
+	"github.com/Delisa-sama/collections/copiable"
 	"github.com/Delisa-sama/collections/interfaces"
 )
 
@@ -22,10 +23,10 @@ func Distance[T any](begin, end interfaces.Iterator) uint {
 	}
 
 	var diff uint
+	begin = copiable.Copy[interfaces.Iterator](begin)
 	for !begin.Equals(end) {
 		diff++
 		begin.Next()
-		end.Next()
 	}
 
 	return diff
