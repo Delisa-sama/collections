@@ -20,7 +20,9 @@ func TestDistanceWithRandomAccessIterator(t *testing.T) {
 	assert.Equal(t, expected, result, "Distance should return the number of elements in the range")
 
 	// Проверка диапазона с середины до конца
-	mid := vec.At(2)
+	mid := vec.Begin()
+	mid.Shift(2)
+
 	result = Distance[int](mid, end)
 	expected = uint(3)
 	assert.Equal(t, expected, result, "Distance should return the number of elements from mid to end")

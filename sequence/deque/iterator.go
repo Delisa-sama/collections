@@ -1,4 +1,4 @@
-package vector
+package deque
 
 import (
 	"github.com/Delisa-sama/collections/copiable"
@@ -6,16 +6,16 @@ import (
 	"github.com/Delisa-sama/collections/iterators"
 )
 
-// iterator представляет собой итератор для вектора.
+// iterator представляет собой итератор для деки.
 type iterator[T any] struct {
-	s       *[]T
+	d       *Deque[T]
 	current uint
 }
 
 // newIterator создает новый итератор.
-func newIterator[T any](s *[]T, index uint) *iterator[T] {
+func newIterator[T any](d *Deque[T], index uint) *iterator[T] {
 	return &iterator[T]{
-		s:       s,
+		d:       d,
 		current: index,
 	}
 }
@@ -42,12 +42,12 @@ func (it *iterator[T]) Prev() {
 
 // Value возвращает текущее значение итератора.
 func (it *iterator[T]) Value() T {
-	return (*it.s)[it.current]
+	return it.d.At(it.current)
 }
 
 // Ptr возвращает указатель на текущее значение итератора.
 func (it *iterator[T]) Ptr() *T {
-	return &(*it.s)[it.current]
+	return it.d.AtPtr(it.current)
 }
 
 // At возвращает указатель на элемент по заданному индексу.
@@ -55,7 +55,7 @@ func (it *iterator[T]) At(index uint) (*T, bool) {
 	if !it.indexInBounds(index) {
 		return nil, false
 	}
-	return &(*it.s)[index], true
+	return it.d.AtPtr(index), true
 }
 
 // Shift смещает итератор на заданное количество элементов.
@@ -73,13 +73,13 @@ func (it *iterator[T]) Shift(offset int) {
 
 // Equals проверяет, равен ли данный итератор другому итератору.
 // Итераторы равны если:
-// 1) они оба указывают на пустой слайс;
-// 2) оба итератора указывают на элемент после слайса;
+// 1) они оба указывают на пустую деку;
+// 2) оба итератора указывают на элемент после деки;
 // 3) указывают на один и тот же адрес.
 func (it *iterator[T]) Equals(another interfaces.Iterator) bool {
 	switch a := another.(type) {
 	case *iterator[T]:
-		if len(*it.s) == 0 && len(*a.s) == 0 {
+		if it.d.size == 0 && a.d.size == 0 {
 			return true
 		}
 		if a.isEnd() {
@@ -89,7 +89,7 @@ func (it *iterator[T]) Equals(another interfaces.Iterator) bool {
 			return false
 		}
 
-		return &(*a.s)[a.current] == &(*it.s)[it.current]
+		return a.d.AtPtr(a.current) == it.d.AtPtr(it.current)
 	case *iterators.EndIterator:
 		return it.isEnd()
 	}
@@ -97,16 +97,16 @@ func (it *iterator[T]) Equals(another interfaces.Iterator) bool {
 }
 
 func (it *iterator[T]) indexInBounds(index uint) bool {
-	return len(*it.s) > 0 && uint(len(*it.s)) > index
+	return it.d.size > 0 && it.d.size > index
 }
 
 func (it *iterator[T]) isEnd() bool {
-	return len(*it.s) == 0 || uint(len(*it.s)) == it.current
+	return it.d.size == 0 || it.d.size == it.current
 }
 
 // Copy копирует итератор.
 func (it *iterator[T]) Copy() copiable.Copiable {
-	return newIterator(it.s, it.current)
+	return newIterator(it.d, it.current)
 }
 
 // Index возвращает текущий индекс итератора.
