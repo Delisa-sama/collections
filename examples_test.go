@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"testing"
 
+	"github.com/Delisa-sama/collections/adapters/queue"
 	"github.com/Delisa-sama/collections/adapters/stack"
 	"github.com/Delisa-sama/collections/algorithms"
 	"github.com/Delisa-sama/collections/associative/avltree"
@@ -185,5 +186,12 @@ func Test_Examples(t *testing.T) {
 		d1.PushBack(10)
 		fmt.Println()
 		_, _ = algorithms.PrintF[int](d1.Begin(), d1.End(), "%d ")
+
+		fmt.Println()
+		q := queue.NewQueue(list.NewList[int], 1, 2, 3)
+		for ; !q.IsEmpty(); q.PopFront() {
+			fmt.Println(q.Front())
+		}
+		fmt.Println()
 	})
 }
