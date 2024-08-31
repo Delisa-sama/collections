@@ -101,6 +101,30 @@ func (l *Vector[T]) PopBack()
 
 Time complexity: `O(1)`
 
+#### PushFront
+```go
+func (l *Vector[T]) PushFront(value T)
+```
+Добавляет новый элемент в начало вектора.
+
+Time complexity: `O(1)+`
+
+#### Front
+```go
+func (l *Vector[T]) Front() T
+```
+Возвращает первый элемент в векторе.
+
+Time complexity: `O(1)`
+
+#### PopFront
+```go
+func (l *Vector[T]) PopFront()
+```
+Удаляет первый элемент из вектора.
+
+Time complexity: `O(1)`
+
 #### Copy
 ```go
 func (l *Vector[T]) Copy() copiable.Copiable
@@ -214,6 +238,33 @@ func (l *ForwardList[T]) IsEmpty() bool
 ```
 
 Проверяет, что список пустой.
+
+Time complexity: `O(1)`
+
+#### PushBack
+```go
+func (l *ForwardList[T]) PushBack(value T)
+```
+
+Добавляет новый элемент в конец списка.
+
+Time complexity: `O(1)`
+
+#### Back
+```go
+func (l *ForwardList[T]) Back() T
+```
+
+Возвращает последний элемент в списке.
+
+Time complexity: `O(1)`
+
+#### PopBack
+```go
+func (l *ForwardList[T]) PopBack()
+```
+
+Удаляет последний элемент из списка.
 
 Time complexity: `O(1)`
 
@@ -891,89 +942,3 @@ func (tree *AVLTree[K, V]) PostOrderBegin() interfaces.ValueIterator[pair.Pair[K
 func (tree *AVLTree[K, V]) PostOrderEnd() interfaces.Iterator
 ```
 Итераторы для обхода дерева в post-order порядке.
-
-# Адаптеры
-Адаптеры контейнеров — это интерфейсы, созданные путем ограничения функциональности уже существующего контейнера и предоставления другого набора функций.
-Когда вы объявляете адаптеры контейнера, у вас есть возможность указать, какой последовательный контейнер будет базовым.
-
-## Stack
-Стек — это адаптер, обеспечивающий доступ «последним пришел — первым вышел» (LIFO) к элементам базового контейнера.
-### Пример использования
-```go
-package main
-
-import (
-	"fmt"
-
-	"github.com/Delisa-sama/collections/adapters"
-)
-
-func main() {
-	stack := stack.NewStack(vector.NewVector[int])
-	stack.Push(1)
-	stack.Push(2)
-	stack.Push(3)
-	fmt.Println("Размер стека:", stack.Size())
-	fmt.Println("Верхний элемент:", stack.Top())
-	stack.Pop()
-	fmt.Println("Новый верхний элемент:", stack.Top())
-	fmt.Println("Размер после удаления:", stack.Size())
-}
-```
-
-### Требования к интерфейсу контейнера
-- `Size() uint` - возвращает количество элементов в контейнере.
-- `IsEmpty() bool` - проверяет, что контейнер пустой.
-- `Back() T` - возвращает последний элемент в контейнере.
-- `PushBack(T)` - добавляет элемент в конец контейнера.
-- `PopBack()` - удаляет последний элемент из контейнера.
-
-### Конструкторы
-#### NewStack
-```go
-func NewStack[T any, C Container[T]](cc func(...T) C, items ...T) *Stack[T, C]
-```
-Создает новый Stack и заполняет его переданными элементами.
-
-Time complexity: `O(n)`, где n — количество переданных элементов.
-
-### Методы
-#### Push
-```go
-func (s *Stack[T, Container]) Push(v T)
-```
-Добавляет новый элемент на вершину стека.
-
-Time complexity: Time complexity метода `PushBack` базового контейнера.
-
-#### Pop
-```go
-func (s *Stack[T, Container]) Pop()
-```
-Удаляет верхний элемент из стека.
-
-Time complexity: Time complexity метода `PopBack` базового контейнера.
-
-#### Top
-```go
-func (s *Stack[T, Container]) Top() T
-```
-Возвращает верхний элемент стека, не удаляя его.
-
-Time complexity: Time complexity метода `Back` базового контейнера.
-
-#### Size
-```go
-func (s *Stack[T, Container]) Size() uint
-```
-Возвращает количество элементов в стеке.
-
-Time complexity: Time complexity метода `Size` базового контейнера.
-
-#### IsEmpty
-```go
-func (s *Stack[T, Container]) IsEmpty() bool
-```
-Проверяет, что стек пустой.
-
-Time complexity: Time complexity метода `IsEmpty` базового контейнера.

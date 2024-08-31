@@ -88,7 +88,55 @@ func (l *List[T]) PopBack() {
 	if l.IsEmpty() {
 		return
 	}
+
+	if l.size == 1 {
+		l.head = nil
+		l.tail = nil
+		l.size = 0
+		return
+	}
+
 	l.tail = l.tail.Prev
+	l.size--
+}
+
+// PushFront добавляет новый элемент в начало списка.
+func (l *List[T]) PushFront(value T) {
+	newNode := &node[T]{
+		Value: &value,
+		Next:  nil,
+		Prev:  nil,
+	}
+	if l.tail == nil {
+		l.tail = newNode
+	}
+	if l.head != nil {
+		newNode.Next = l.head
+		l.head.Prev = newNode
+	}
+	l.head = newNode
+	l.size++
+}
+
+// Front возвращает первый элемент списка.
+func (l *List[T]) Front() T {
+	return *l.head.Value
+}
+
+// PopFront удаляет первый элемент из списка.
+func (l *List[T]) PopFront() {
+	if l.IsEmpty() {
+		return
+	}
+
+	if l.size == 1 {
+		l.head = nil
+		l.tail = nil
+		l.size = 0
+		return
+	}
+
+	l.head = l.head.Next
 	l.size--
 }
 

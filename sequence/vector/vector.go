@@ -80,6 +80,24 @@ func (l *Vector[T]) PopBack() {
 	l.s = l.s[:len(l.s)-1]
 }
 
+// Front возвращает первый элемент в векторе.
+func (l *Vector[T]) Front() T {
+	return l.s[0]
+}
+
+// PopFront удаляет первый элемент из вектора.
+func (l *Vector[T]) PopFront() {
+	if l.IsEmpty() {
+		return
+	}
+	l.s = l.s[1:]
+}
+
+// PushFront добавляет новый элемент в начало вектора.
+func (l *Vector[T]) PushFront(value T) {
+	l.s = append([]T{value}, l.s...)
+}
+
 // Copy копирует вектор.
 func (l *Vector[T]) Copy() copiable.Copiable {
 	sliceCopy := make([]T, len(l.s))
