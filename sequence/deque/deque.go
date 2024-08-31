@@ -30,15 +30,15 @@ func (c *chunk[T]) pushBack(value T) bool {
 	if c.end == chunkBufferSize {
 		return false
 	}
-	c.end++
 	c.buf[c.end] = value
+	c.end++
 	return true
 }
 
 // popBack удаляет элемент с конца chunk.
 // Возвращает false, если буфер пуст.
 func (c *chunk[T]) popBack() bool {
-	if c.end == 0 {
+	if c.end == c.begin {
 		return false
 	}
 	c.end--
@@ -167,7 +167,11 @@ func (d *Deque[T]) PushFront(value T) {
 
 // Front возвращает первый элемент деки без его удаления.
 func (d *Deque[T]) Front() T {
-	return d.chunks[0].buf[d.chunks[0].begin]
+	firstChunkIdx := 0
+	if d.chunks[0].end-d.chunks[0].begin == 0 {
+		firstChunkIdx = 1
+	}
+	return d.chunks[firstChunkIdx].buf[d.chunks[firstChunkIdx].begin]
 }
 
 // PopFront удаляет первый элемент из деки.
@@ -193,9 +197,13 @@ func (d *Deque[T]) At(index uint) T {
 // AtPtr возвращает указатель на элемент на указанной позиции в деке.
 func (d *Deque[T]) AtPtr(index uint) *T {
 	firstChunkSize := d.chunks[0].end - d.chunks[0].begin
+	if firstChunkSize == 0 {
+		firstChunkSize = 1
+	}
 	if index < firstChunkSize {
 		return &d.chunks[0].buf[d.chunks[0].begin+index]
 	}
+
 	index -= firstChunkSize
 
 	c := d.chunks[index/chunkBufferSize+1]
