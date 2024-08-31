@@ -77,6 +77,9 @@ linters-settings:
     # Default: [".Errorf(", "errors.New(", "errors.Unwrap(", "errors.Join(", ".Wrap(", ".Wrapf(", ".WithMessage(", ".WithMessagef(", ".WithStack("]
     ignorePackageGlobs:
       - github.com/stretchr/testify/*
+  gosec:
+    excludes:
+      - G115 # G115: integer overflow conversion uint -> int
 issues:
   include:
     - EXC0012  # EXC0012 revive: Annoying issue about not having a comment. The rare codebase has such comments
