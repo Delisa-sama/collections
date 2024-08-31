@@ -14,7 +14,7 @@ func TestRotate(t *testing.T) {
 	tests := []struct {
 		name        string
 		items       []int
-		middleIndex uint
+		middleIndex int
 		expected    []int
 	}{
 		{
@@ -53,7 +53,9 @@ func TestRotate(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			vec := vector.NewVector(tt.items...)
 			begin := vec.Begin()
-			middle := vec.At(tt.middleIndex)
+
+			middle := vec.Begin()
+			middle.Shift(tt.middleIndex)
 			end := vec.End()
 
 			_ = algorithms.Rotate[int](begin, middle, end)
@@ -72,7 +74,7 @@ func TestRotateCopy(t *testing.T) {
 	tests := []struct {
 		name        string
 		items       []int
-		middleIndex uint
+		middleIndex int
 		expected    []int
 	}{
 		{
@@ -111,7 +113,8 @@ func TestRotateCopy(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			vec := vector.NewVector(tt.items...)
 			begin := vec.Begin()
-			middle := vec.At(tt.middleIndex)
+			middle := vec.Begin()
+			middle.Shift(tt.middleIndex)
 			end := vec.End()
 			destVec := vector.NewVectorFromSlice(make([]int, len(tt.items)))
 

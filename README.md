@@ -147,13 +147,13 @@ func (l *Vector[T]) Remove(index uint)
 
 Time complexity: `O(1)`.
 
-### Итераторы вектора
 #### At
 ```go
-func (l *Vector[T]) At(index uint) interfaces.RandomAccessIterator[T]
+func (l *Vector[T]) At(index uint) T
 ```
-Возвращает итератор на элемент вектора по переданному индексу.
+Возвращает элемент вектора по переданному индексу.
 
+### Итераторы вектора
 #### Begin
 ```go
 func (l *Vector[T]) Begin() interfaces.RandomAccessIterator[T]

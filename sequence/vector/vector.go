@@ -57,9 +57,9 @@ func (l *Vector[T]) REnd() interfaces.BidirectionalIterator[T] {
 	return iterators.NewReverseIterator[T](l.Begin())
 }
 
-// At возвращает итератор на элемент вектора по переданному индексу.
-func (l *Vector[T]) At(index uint) interfaces.RandomAccessIterator[T] {
-	return newIterator(&l.s, index)
+// At возвращает элемент вектора по переданному индексу.
+func (l *Vector[T]) At(index uint) T {
+	return l.s[index]
 }
 
 // PushBack добавляет новый элемент в конец вектора.
