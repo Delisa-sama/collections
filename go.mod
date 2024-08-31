@@ -1,6 +1,6 @@
 module github.com/Delisa-sama/collections
 
-go 1.22
+go 1.23
 
 require (
 	github.com/elliotchance/orderedmap/v2 v2.4.0
