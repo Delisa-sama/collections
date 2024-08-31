@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"testing"
 
+	"github.com/Delisa-sama/collections/adapters/priorityqueue"
 	"github.com/Delisa-sama/collections/adapters/queue"
 	"github.com/Delisa-sama/collections/adapters/stack"
 	"github.com/Delisa-sama/collections/algorithms"
@@ -186,12 +187,19 @@ func Test_Examples(t *testing.T) {
 		d1.PushBack(10)
 		fmt.Println()
 		_, _ = algorithms.PrintF[int](d1.Begin(), d1.End(), "%d ")
+		fmt.Println(d1.At(9))
 
 		fmt.Println()
 		q := queue.NewQueue(list.NewList[int], 1, 2, 3)
 		for ; !q.IsEmpty(); q.PopFront() {
 			fmt.Println(q.Front())
 		}
+
 		fmt.Println()
+		pq := priorityqueue.NewPriorityQueue(deque.NewDeque[int], comparator.DefaultLess[int](), 1, 8, 5, 6, 3, 4, 0, 9, 7)
+		pq.Push(2)
+		for ; !pq.IsEmpty(); pq.Pop() {
+			fmt.Println(pq.Top())
+		}
 	})
 }
