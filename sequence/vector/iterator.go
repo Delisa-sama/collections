@@ -91,7 +91,7 @@ func (it *iterator[T]) Equals(another interfaces.Iterator) bool {
 
 		return &(*a.s)[a.current] == &(*it.s)[it.current]
 	case *iterators.EndIterator:
-		return len(*it.s) == 0 || it.current == uint(len(*it.s))
+		return it.isEnd()
 	}
 	panic("unknown iterator type")
 }
