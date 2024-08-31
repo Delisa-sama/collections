@@ -91,6 +91,40 @@ func (l *ForwardList[T]) PopBack() {
 	l.size--
 }
 
+// PushFront добавляет новый элемент в начало списка.
+func (l *ForwardList[T]) PushFront(value T) {
+	newNode := &node[T]{
+		Value: &value,
+		Next:  nil,
+	}
+	if l.tail == nil {
+		l.tail = newNode
+	}
+	l.head = newNode
+	l.size++
+}
+
+// Front возвращает первый элемент списка.
+func (l *ForwardList[T]) Front() T {
+	return *l.head.Value
+}
+
+// PopFront удаляет первый элемент из списка.
+func (l *ForwardList[T]) PopFront() {
+	if l.IsEmpty() {
+		return
+	}
+	if l.Size() == 1 {
+		l.head = nil
+		l.tail = nil
+		l.size = 0
+		return
+	}
+
+	l.head = l.head.Next
+	l.size--
+}
+
 // Copy копирует список.
 func (l *ForwardList[T]) Copy() copiable.Copiable {
 	copyList := NewForwardList[T]()

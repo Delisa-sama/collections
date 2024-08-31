@@ -217,6 +217,33 @@ func (l *ForwardList[T]) IsEmpty() bool
 
 Time complexity: `O(1)`
 
+#### PushBack
+```go
+func (l *ForwardList[T]) PushBack(value T)
+```
+
+Добавляет новый элемент в конец списка.
+
+Time complexity: `O(1)`
+
+#### Back
+```go
+func (l *ForwardList[T]) Back() T
+```
+
+Возвращает последний элемент в списке.
+
+Time complexity: `O(1)`
+
+#### PopBack
+```go
+func (l *ForwardList[T]) PopBack()
+```
+
+Удаляет последний элемент из списка.
+
+Time complexity: `O(1)`
+
 #### PushFront
 ```go
 func (l *ForwardList[T]) PushFront(value T)
