@@ -101,6 +101,30 @@ func (l *Vector[T]) PopBack()
 
 Time complexity: `O(1)`
 
+#### PushFront
+```go
+func (l *Vector[T]) PushFront(value T)
+```
+Добавляет новый элемент в начало вектора.
+
+Time complexity: `O(1)+`
+
+#### Front
+```go
+func (l *Vector[T]) Front() T
+```
+Возвращает первый элемент в векторе.
+
+Time complexity: `O(1)`
+
+#### PopFront
+```go
+func (l *Vector[T]) PopFront()
+```
+Удаляет первый элемент из вектора.
+
+Time complexity: `O(1)`
+
 #### Copy
 ```go
 func (l *Vector[T]) Copy() copiable.Copiable
