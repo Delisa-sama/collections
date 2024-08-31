@@ -12,6 +12,7 @@ import (
 	"github.com/Delisa-sama/collections/comparator"
 	"github.com/Delisa-sama/collections/copiable"
 	"github.com/Delisa-sama/collections/pair"
+	"github.com/Delisa-sama/collections/sequence/deque"
 	"github.com/Delisa-sama/collections/sequence/forwardlist"
 	"github.com/Delisa-sama/collections/sequence/list"
 	"github.com/Delisa-sama/collections/sequence/vector"
@@ -173,5 +174,16 @@ func Test_Examples(t *testing.T) {
 		_, _ = algorithms.PrintF[string](l4.Begin(), l4.End(), "%s ")
 		fmt.Println()
 		_, _ = algorithms.PrintF[string](l5.Begin(), l5.End(), "%s ")
+
+		d1 := deque.NewDeque(1, 2, 3, 4, 5)
+		fmt.Println()
+		_, _ = algorithms.PrintF[int](d1.Begin(), d1.End(), "%d ")
+		d1.PushFront(6)
+		d1.PushFront(7)
+		d1.PushFront(8)
+		d1.PushFront(9)
+		d1.PushBack(10)
+		fmt.Println()
+		_, _ = algorithms.PrintF[int](d1.Begin(), d1.End(), "%d ")
 	})
 }

@@ -26,6 +26,7 @@ go get github.com/Delisa-sama/collections
 - [**Vector**](#vector)
 - [**ForwardList**](#forwardlist)
 - [**List**](#list)
+- [**Deque**](#deque)
 
 ### Ассоциативные
 - [**Set**](#set)
@@ -436,6 +437,143 @@ func (l *List[T]) REnd() interfaces.Iterator
 ```
 Возвращает итератор на конец списка.
 
+## Deque
+`Deque` это контейнер, который позволяет быстро вставлять и удалять как в начале, так и в конце. 
+Кроме того, вставка и удаление на любом конце двухсторонней очереди никогда не делает недействительными 
+указатели или ссылки на остальные элементы.
+
+### Пример использования
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/Delisa-sama/collections/sequence/deque"
+)
+
+func main() {
+	deq := deque.NewDeque(1, 2, 3)
+	fmt.Println("Размер деки:", deq.Size())
+	fmt.Println("Последний элемент:", deq.Back())
+	deq.PushBack(4)
+	fmt.Println("Новый размер деки:", deq.Size())
+	deq.PopBack()
+	fmt.Println("Размер после удаления:", deq.Size())
+}
+```
+
+### Конструкторы
+#### NewDeque
+```go
+func NewDeque[T any](items ...T) *Deque[T]
+```
+Создает новую Deque и заполняет ее переданными элементами.
+
+Time complexity: `O(n)`, где n — количество переданных элементов.
+
+### Методы
+#### Size
+```go
+func (d *Deque[T]) Size() uint
+```
+Возвращает количество элементов в деке.
+
+Time complexity: `O(1)`
+
+#### IsEmpty
+```go
+func (d *Deque[T]) IsEmpty() bool
+```
+Проверяет, что дека пустая.
+
+Time complexity: `O(1)`
+
+#### PushBack
+```go
+func (d *Deque[T]) PushBack(value T)
+```
+Добавляет новый элемент в конец деки.
+
+Time complexity: `O(1)+`
+
+#### Back
+```go
+func (d *Deque[T]) Back() T
+```
+Возвращает последний элемент в деке.
+
+Time complexity: `O(1)`
+
+#### PopBack
+```go
+func (d *Deque[T]) PopBack()
+```
+Удаляет последний элемент из деки.
+
+Time complexity: `O(1)`
+
+#### PushFront
+```go
+func (d *Deque[T]) PushFront(value T)
+```
+Добавляет новый элемент в начало деки.
+
+Time complexity: `O(1)+`
+
+#### Front
+```go
+func (d *Deque[T]) Front() T
+```
+Возвращает первый элемент в деке.
+
+Time complexity: `O(1)`
+
+#### PopFront
+```go
+func (d *Deque[T]) PopFront()
+```
+Удаляет первый элемент из деки.
+
+Time complexity: `O(1)`
+
+#### Copy
+```go
+func (d *Deque[T]) Copy() copiable.Copiable
+```
+Возвращает копию деки.
+
+Time complexity: `O(n)`, где n — количество элементов в деке.
+
+#### At
+```go
+func (d *Deque[T]) At(index uint) T
+```
+Возвращает элемент деки по переданному индексу.
+
+Time complexity: `O(1)`
+
+#### AtPtr
+```go
+func (d *Deque[T]) AtPtr(index uint) *T
+```
+Возвращает указатель на элемент деки по переданному индексу.
+
+Time complexity: `O(1)`
+
+### Итераторы деки
+#### Begin
+```go
+func (d *Deque[T]) Begin() interfaces.RandomAccessIterator[T]
+```
+Возвращает итератор на первый элемент деки.
+
+#### End
+```go
+func (d *Deque[T]) End() interfaces.RandomAccessIterator[T]
+```
+Возвращает итератор на последний элемент деки.
 
 ## Set
 Set представляет собой коллекцию уникальных элементов, предоставляющую функции для работы с коллекцией.
