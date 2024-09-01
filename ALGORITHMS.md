@@ -194,6 +194,20 @@ func ForEachPtr[T any](begin interfaces.PointerIterator[T], end interfaces.Itera
 ```
 Применяет функцию к указателю на каждый элемент в диапазоне [begin, end).
 
+### [ForEachIdx](algorithms/for_each.go)
+```go
+func ForEachIdx[T any](begin interfaces.ValueIterator[T], end interfaces.Iterator, f forEachIdxFunc[T])
+```
+Применяет функцию к каждому элементу в диапазоне [begin, end),
+передавая в функцию элемент и его индекс.
+
+### [ForEachIdxPtr](algorithms/for_each.go)
+```go
+func ForEachIdxPtr[T any](begin interfaces.ValueIterator[T], end interfaces.Iterator, f forEachIdxFunc[T])
+```
+Применяет функцию к указателю каждый элемент в диапазоне [begin, end),
+передавая в функцию указатель на элемент и его индекс.
+
 ### [Print](algorithms/print.go)
 ```go
 func Print[T any](
