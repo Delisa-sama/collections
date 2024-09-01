@@ -1,4 +1,98 @@
-## Алгоритмы
+# Алгоритмы
+
+## Сортировка
+- [Sort](#sort)
+- [SortC](#sortc)
+
+## Пакетные операции
+- [Advance](#advance)
+- [AdvanceCopy](#advancecopy)
+- [ForEach](#foreach)
+- [ForEachPtr](#foreachptr)
+- [ForEachIdx](#foreachidx)
+- [ForEachIdxPtr](#foreachidxptr)
+- [Distance](#distance)
+- [Equals](#equals)
+- [EqualsC](#equalsc)
+- [EqualsRanges](#equalsranges)
+- [EqualsRangesC](#equalsrangesc)
+- [NextBound](#nextbound)
+- [Print](#print)
+- [Println](#println)
+- [PrintFunc](#printfunc)
+- [PrintF](#printf)
+- [PrintFFunc](#printffunc)
+
+## Поиск
+- [Find](#find)
+- [FindC](#findc)
+- [FindIf](#findif)
+- [FindIfNot](#findifnot)
+- [FindFirstOf](#findfirstof)
+- [FindFirstOfC](#findfirstofc)
+- [FindFirstOfIf](#findfirstofif)
+- [AllOf](#allof)
+- [AnyOf](#anyof)
+- [NoneOf](#noneof)
+- [Count](#count)
+- [CountC](#countc)
+- [CountIf](#countif)
+
+# Бинарный поиск
+- [LowerBound](#lowerbound)
+- [LowerBoundC](#lowerboundc)
+- [UpperBound](#upperbound)
+- [UpperBoundC](#upperboundc)
+
+## Свертки
+- [Accumulate](#accumulate)
+- [FoldLeft](#foldleft)
+- [FoldLeftFirst](#foldleftfirst)
+- [FoldRight](#foldright)
+- [FoldRightLast](#foldrightlast)
+
+# Минимум/Максимум
+- [Min](#min)
+- [MinC](#minc)
+- [Max](#max)
+- [MaxC](#maxc)
+- [MinMax](#minmax)
+- [MinMaxC](#minmaxc)
+
+# Генераторы
+- [Generate](#generate)
+- [GenerateN](#generaten)
+- [Fill](#fill)
+
+# Трансформации
+- [TransformUnary](#transformunary)
+- [TransformBinary](#transformbinary)
+- [Replace](#replace)
+- [ReplaceIf](#replaceif)
+- [ReplaceCopy](#replacecopy)
+- [ReplaceCopyIf](#replacecopyif)
+- [Swap](#swap)
+- [SwapIter](#swapiter)
+- [SwapRanges](#swapranges)
+- [Remove](#remove)
+- [RemoveC](#removec)
+- [RemoveIf](#removeif)
+- [Reverse](#reverse)
+- [ReverseCopy](#reversecopy)
+- [Rotate](#rotate)
+- [RotateCopy](#rotatecopy)
+- [Unique](#unique)
+- [UniqueC](#uniquec)
+- [UniqueIf](#uniqueif)
+- [Copy](#copy)
+- [CopyIf](#copyif)
+
+# Операции с кучей
+- [MakeHeap](#makeheap)
+- [SortHeap](#sortheap)
+- [PopHeap](#popheap)
+- [PushHeap](#pushheap)
+
 ### [AllOf](algorithms/all_of.go)
 ```go
 func AllOf[T any](begin interfaces.ForwardIterator[T], end interfaces.Iterator, predicate unaryPredicate[T]) bool
@@ -193,6 +287,20 @@ func ForEach[T any](begin interfaces.ValueIterator[T], end interfaces.Iterator, 
 func ForEachPtr[T any](begin interfaces.PointerIterator[T], end interfaces.Iterator, f forEachPtrFunc[T])
 ```
 Применяет функцию к указателю на каждый элемент в диапазоне [begin, end).
+
+### [ForEachIdx](algorithms/for_each.go)
+```go
+func ForEachIdx[T any](begin interfaces.ValueIterator[T], end interfaces.Iterator, f forEachIdxFunc[T])
+```
+Применяет функцию к каждому элементу в диапазоне [begin, end),
+передавая в функцию элемент и его индекс.
+
+### [ForEachIdxPtr](algorithms/for_each.go)
+```go
+func ForEachIdxPtr[T any](begin interfaces.ValueIterator[T], end interfaces.Iterator, f forEachIdxFunc[T])
+```
+Применяет функцию к указателю каждый элемент в диапазоне [begin, end),
+передавая в функцию указатель на элемент и его индекс.
 
 ### [Print](algorithms/print.go)
 ```go

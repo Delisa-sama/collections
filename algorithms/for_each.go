@@ -51,3 +51,21 @@ func ForEachIdx[T any](begin interfaces.ValueIterator[T], end interfaces.Iterato
 		idx++
 	}
 }
+
+// forEachFunc представляет функцию, принимающую uint индекс и указатель на элемент типа T.
+type forEachIdxPtrFunc[T any] func(uint, *T)
+
+// ForEachIdxPtr применяет функцию к указателю каждый элемент в диапазоне [begin, end),
+// передавая в функцию указатель на элемент и его индекс.
+//
+// Параметры:
+// - begin: итератор, указывающий на начало диапазона.
+// - end: итератор, указывающий на конец диапазона (не включается в применение функции).
+// - f: функция, которая применяется к каждому элементу.
+func ForEachIdxPtr[T any](begin interfaces.PointerIterator[T], end interfaces.Iterator, f forEachIdxPtrFunc[T]) {
+	var idx uint
+	for it := begin; !it.Equals(end); it.Next() {
+		f(idx, it.Ptr())
+		idx++
+	}
+}
