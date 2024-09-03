@@ -20,7 +20,7 @@ func LowerBound[T cmp.Ordered](
 	end interfaces.Iterator,
 	value T,
 ) interfaces.ValueIterator[T] {
-	return LowerBoundC(begin, end, value, comparator.DefaultComparator[T]())
+	return LowerBoundC(begin, end, value, comparator.DefaultLess[T]())
 }
 
 const binarySearchDiv = 2
@@ -36,7 +36,7 @@ func LowerBoundC[T any](
 	begin interfaces.ValueIterator[T],
 	end interfaces.Iterator,
 	value T,
-	cmp comparator.Comparator[T],
+	less comparator.Less[T],
 ) interfaces.ValueIterator[T] {
 	var it interfaces.ValueIterator[T]
 	var step uint
@@ -50,7 +50,7 @@ func LowerBoundC[T any](
 		step = count / binarySearchDiv
 		Advance[T](it, int(step))
 
-		if cmp(it.Value(), value) < 0 {
+		if less(it.Value(), value) {
 			it.Next()
 			begin = copiable.Copy[interfaces.ValueIterator[T]](it)
 			count -= step + 1
@@ -74,7 +74,7 @@ func UpperBound[T cmp.Ordered](
 	end interfaces.Iterator,
 	value T,
 ) interfaces.ValueIterator[T] {
-	return UpperBoundC(begin, end, value, comparator.DefaultComparator[T]())
+	return UpperBoundC(begin, end, value, comparator.DefaultLess[T]())
 }
 
 // UpperBoundC находит первый элемент, который больше чем значение value
@@ -88,7 +88,7 @@ func UpperBoundC[T any](
 	begin interfaces.ValueIterator[T],
 	end interfaces.Iterator,
 	value T,
-	cmp comparator.Comparator[T],
+	less comparator.Less[T],
 ) interfaces.ValueIterator[T] {
 	var it interfaces.ValueIterator[T]
 	var step uint
@@ -102,7 +102,7 @@ func UpperBoundC[T any](
 		step = count / binarySearchDiv
 		Advance[T](it, int(step))
 
-		if cmp(value, it.Value()) >= 0 {
+		if !less(value, it.Value()) {
 			it.Next()
 			begin = it
 			count -= step + 1
