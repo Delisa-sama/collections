@@ -43,6 +43,8 @@
 - [LowerBoundC](#lowerboundc)
 - [UpperBound](#upperbound)
 - [UpperBoundC](#upperboundc)
+- [BinarySearch](#binarysearch)
+- [BinarySearchC](#binarysearchc)
 
 ## Свертки
 - [Accumulate](#accumulate)
@@ -544,6 +546,27 @@ func UpperBoundC[T any](
 ```
 Находит первый элемент, который больше чем значение value в отсортированном диапазоне [begin, end),
 используя пользовательский компаратор.
+
+### [BinarySearch](algorithms/binary_search.go)
+```go
+func BinarySearch[T cmp.Ordered](
+  begin interfaces.ForwardIterator[T],
+  end interfaces.Iterator,
+  value T,
+) bool
+```
+Выполняет двоичный поиск элемента в отсортированной последовательности.
+
+### [BinarySearchС](algorithms/binary_search.go)
+```go
+func BinarySearchC[T any](
+  begin interfaces.ForwardIterator[T],
+  end interfaces.Iterator,
+  value T,
+  less comparator.Less[T],
+) bool
+```
+Выполняет двоичный поиск элемента в отсортированной последовательности с использованием настраиваемого компаратора.
 
 ### [Min](algorithms/minmax.go)
 ```go
