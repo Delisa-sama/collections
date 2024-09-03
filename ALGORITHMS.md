@@ -517,7 +517,7 @@ func LowerBoundC[T any](
     begin interfaces.ValueIterator[T],
     end interfaces.Iterator,
     value T,
-    cmp comparator.Comparator[T],
+    less comparator.Less[T],
 ) interfaces.ValueIterator[T]
 ```
 Находит первый элемент, который не меньше чем значение value в отсортированном диапазоне [begin, end),
@@ -539,7 +539,7 @@ func UpperBoundC[T any](
     begin interfaces.ValueIterator[T],
     end interfaces.Iterator,
     value T,
-    cmp comparator.Comparator[T],
+    less comparator.Less[T],
 ) interfaces.ValueIterator[T]
 ```
 Находит первый элемент, который больше чем значение value в отсортированном диапазоне [begin, end),
